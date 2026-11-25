@@ -900,22 +900,6 @@
   }
 
   /* link ka celoj kolekciji aktivnog taba */
-  .yc-feed__all {
-    flex: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.625rem;
-    color: var(--yc-navy);
-    font: 400 1.125rem/1.2 Oswald, sans-serif;
-    text-decoration: none;
-    white-space: nowrap;
-    opacity: .72;
-    transition: opacity .25s ease;
-  }
-  .yc-feed__all svg { width: 1.125rem; height: 1.125rem; transition: transform .25s ease; }
-  .yc-feed__all:hover { opacity: 1; }
-  .yc-feed__all:hover svg { transform: translateX(0.25rem); }
-  .yc-feed__all:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 4px; }
 
   /* --- paneli --- */
   /* svi paneli u istoj ćeliji: visina = najviši panel, pa promena taba ne trza;
@@ -1010,7 +994,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .yc-card__media, .yc-card__body, .yc-card__media img, .yc-tab, .yc-feed__all svg { transition: none; }
+    .yc-card__media, .yc-card__body, .yc-card__media img, .yc-tab { transition: none; }
     .yc-tab[aria-selected="true"] { animation: none; }   /* bez automatske smene */
     .yc-panel.is-entering { animation: none; }
   }
@@ -1027,7 +1011,6 @@
   @media (max-width: 720px) {
     .yc-feed__head { flex-direction: column; align-items: flex-start; gap: 1rem; }
     .yc-tabs { max-width: 100%; }
-    .yc-feed__all { font-size: 1rem; }
     .yc-grid {
       grid-template-columns: none;
       grid-auto-flow: column;
@@ -1442,12 +1425,11 @@
 
     <div class="yc-feed__head">
     <div class="yc-tabs" role="tablist" aria-label="Kategorije sadržaja">
-      <button class="yc-tab" type="button" role="tab" id="yc-tab-projekti" data-all="projekti/" data-all-text="Projekti" aria-controls="yc-panel-projekti" aria-selected="true">Projekti</button>
-      <button class="yc-tab" type="button" role="tab" id="yc-tab-dogadjaji" data-all="dogadjaji/" data-all-text="Događaji" aria-controls="yc-panel-dogadjaji" aria-selected="false" tabindex="-1">Događaji</button>
-      <button class="yc-tab" type="button" role="tab" id="yc-tab-blog" data-all="blog/" data-all-text="Blog" aria-controls="yc-panel-blog" aria-selected="false" tabindex="-1">Blog</button>
-      <button class="yc-tab" type="button" role="tab" id="yc-tab-preporuke" data-all="preporuka-caucus-a/" data-all-text="Preporuka Caucus-a" aria-controls="yc-panel-preporuke" aria-selected="false" tabindex="-1">Preporuke</button>
+      <button class="yc-tab" type="button" role="tab" id="yc-tab-projekti" aria-controls="yc-panel-projekti" aria-selected="true">Projekti</button>
+      <button class="yc-tab" type="button" role="tab" id="yc-tab-dogadjaji" aria-controls="yc-panel-dogadjaji" aria-selected="false" tabindex="-1">Događaji</button>
+      <button class="yc-tab" type="button" role="tab" id="yc-tab-blog" aria-controls="yc-panel-blog" aria-selected="false" tabindex="-1">Blog</button>
+      <button class="yc-tab" type="button" role="tab" id="yc-tab-preporuke" aria-controls="yc-panel-preporuke" aria-selected="false" tabindex="-1">Preporuke</button>
     </div>
-      <a class="yc-feed__all" href="projekti/"><span class="yc-feed__all-text">Projekti</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
 
     <div class="yc-feed__panels">
@@ -1504,12 +1486,6 @@
       <div class="yc-panel" role="tabpanel" id="yc-panel-blog" aria-labelledby="yc-tab-blog" tabindex="0" hidden>
         <ul class="yc-grid">
           <li class="yc-card">
-            <a class="yc-card__link" href="blog/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama/">
-              <div class="yc-card__media"><img src="blog/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama/images/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama.webp" width="796" height="598" alt="" loading="lazy"></div>
-              <div class="yc-card__body">                <h3 class="yc-card__title">Dr Allen Church u poseti ambasadi Republike Srbije u Sjedinjenim Američkim Državama</h3>              </div>
-            </a>
-          </li>
-          <li class="yc-card">
             <a class="yc-card__link" href="blog/specijalno-izdanje-diplomacy-commerce-povodom-250-godina-nezavisnosti-sjedinjenih-americkih-drzava/">
               <div class="yc-card__media"><img src="blog/specijalno-izdanje-diplomacy-commerce-povodom-250-godina-nezavisnosti-sjedinjenih-americkih-drzava/images/specijalno-izdanje-diplomacy-commerce-povodom-250-godina-nezavisnosti-sjedinjenih-americkih-drzava.webp" width="995" height="1348" alt="" loading="lazy"></div>
               <div class="yc-card__body">                <h3 class="yc-card__title">Specijalno izdanje Diplomacy&amp;Commerce povodom 250 godina nezavisnosti Sjedinjenih Američkih Država</h3>              </div>
@@ -1521,6 +1497,12 @@
               <div class="yc-card__body">                <h3 class="yc-card__title">Šta pokretanje Strateškog Dijaloga znači za mlade u Srbiji</h3>              </div>
             </a>
           </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="blog/250-godina-sjedinjenih-americkih-drzava/">
+              <div class="yc-card__media"><img src="blog/250-godina-sjedinjenih-americkih-drzava/images/4d8bffc1.png" width="1024" height="1280" alt="" loading="lazy"></div>
+              <div class="yc-card__body">                <h3 class="yc-card__title">250 godina Sjedinjenih Američkih Država</h3>              </div>
+            </a>
+          </li>
         </ul>
       </div>
 
@@ -1529,19 +1511,19 @@
         <ul class="yc-grid">
           <li class="yc-card">
             <a class="yc-card__link" href="preporuka-caucus-a/mit-o-preduzetnistvu/">
-              <div class="yc-card__media"><img src="preporuka-caucus-a/mit-o-preduzetnistvu/images/mit-o-preduzetnistvu-kvadrat.webp" width="1000" height="1000" alt="" loading="lazy"></div>
+              <div class="yc-card__media"><img src="preporuka-caucus-a/mit-o-preduzetnistvu/images/mit-o-preduzetnistvu.webp" width="750" height="1000" alt="" loading="lazy"></div>
               <div class="yc-card__body">                <h3 class="yc-card__title">Mit o preduzetništvu</h3>              </div>
             </a>
           </li>
           <li class="yc-card">
             <a class="yc-card__link" href="preporuka-caucus-a/o-slobodi-dzon-stjuart-mil/">
-              <div class="yc-card__media"><img src="preporuka-caucus-a/o-slobodi-dzon-stjuart-mil/images/o-slobodi-dzon-stjuart-mil-kvadrat.webp" width="1000" height="1000" alt="" loading="lazy"></div>
+              <div class="yc-card__media"><img src="preporuka-caucus-a/o-slobodi-dzon-stjuart-mil/images/o-slobodi-dzon-stjuart-mil.webp" width="750" height="1000" alt="" loading="lazy"></div>
               <div class="yc-card__body">                <h3 class="yc-card__title">O slobodi | Džon Stjuart Mil</h3>              </div>
             </a>
           </li>
           <li class="yc-card">
             <a class="yc-card__link" href="preporuka-caucus-a/no-rules-rules-reed-hastings-i-erin-meyer/">
-              <div class="yc-card__media"><img src="preporuka-caucus-a/no-rules-rules-reed-hastings-i-erin-meyer/images/no-rules-rules-reed-hastings-i-erin-meyer-kvadrat.webp" width="1000" height="1000" alt="" loading="lazy"></div>
+              <div class="yc-card__media"><img src="preporuka-caucus-a/no-rules-rules-reed-hastings-i-erin-meyer/images/no-rules-rules-reed-hastings-i-erin-meyer.webp" width="750" height="1000" alt="" loading="lazy"></div>
               <div class="yc-card__body">                <h3 class="yc-card__title">No Rules Rules | Reed Hastings i Erin Meyer</h3>              </div>
             </a>
           </li>
@@ -1711,8 +1693,6 @@
     var tabs = [].slice.call(document.querySelectorAll('.yc-tab'));
     var bar = document.querySelector('.yc-tabs');
     var feed = document.querySelector('.yc-feed');
-    var all = document.querySelector('.yc-feed__all');
-    var allText = all.querySelector('.yc-feed__all-text');
 
     /* kad se aktivni tab napuni bordo bojom (5 s), prelazi se na sledeći */
     bar.addEventListener('animationend', function (e) {
@@ -1744,8 +1724,6 @@
           panel.querySelector('.yc-grid').scrollLeft = 0;
         }
       });
-      all.href = tab.dataset.all;
-      allText.textContent = tab.dataset.allText;
       /* izabrani tab u vidno polje trake (telefon), bez pomeranja stranice */
       bar.scrollLeft = Math.max(0, Math.min(bar.scrollLeft, tab.offsetLeft), tab.offsetLeft + tab.offsetWidth - bar.clientWidth);
       if (moveFocus) tab.focus();

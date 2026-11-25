@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Youth Caucus">
 <meta property="og:title" content="Dr Allen Church u poseti ambasadi Republike Srbije u Sjedinjenim Američkim Državama | Youth Caucus">
-<meta property="og:url" content="https://www.youthcaucus.rs/blog/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama/">
+<meta property="og:url" content="https://www.youthcaucus.rs/dogadjaji/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama/">
 <meta property="og:image" content="https://www.youthcaucus.rs/assets/images/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -384,7 +384,7 @@
   }
 
   /* =========================================================
-     Članak: hero (naslov levo, slika članka sama zauzima desnu stranu)
+     Događaj: hero (naslov levo, slika članka sama zauzima desnu stranu)
      ========================================================= */
   .yc-bp-hero {
     position: relative;
@@ -460,16 +460,16 @@
   }
 
   /* =========================================================
-     Članak: tekst u jednoj koloni levo, slike mogu da pređu na desnu stranu
+     Događaj: tekst u jednoj koloni levo, slike mogu da pređu na desnu stranu
      ========================================================= */
   .yc-art {
     padding: var(--yc-gap-in) 1.25rem;
-    background: var(--yc-white);   /* tekst članka je posebna bela traka */
+    background: var(--yc-white);   /* tekst je posebna bela traka */
   }
   .yc-art__inner { max-width: 70rem; margin: 0 auto; }
   .yc-art__body { max-width: 42.5rem; }   /* tekst i fotografije u istoj koloni */
 
-  /* tekst članka: ista veličina kao u preporukama, svi paragrafi jednaki */
+  /* tekst: ista veličina kao u člancima bloga, svi paragrafi jednaki */
   .yc-art__body > p {
     margin: 0 0 1.2em;
     font-size: clamp(1.125rem, 1rem + .35vw, 1.25rem);
@@ -486,7 +486,7 @@
     color: var(--yc-navy);
     text-wrap: balance;
   }
-  .yc-art__body > :first-child { margin-top: 0; }   /* razmak do slike u heroju je uvek isti, i kad članak počinje fotografijom */
+  .yc-art__body > :first-child { margin-top: 0; }   /* razmak do slike u heroju je uvek isti */
   .yc-art__body > :last-child { margin-bottom: 0; }
 
   /* fotografije u članku: širi od teksta, isti okvir kao ostale fotografije */
@@ -530,7 +530,7 @@
   .yc-art__link:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 4px; }
 
   /* =========================================================
-     Članak: pročitajte još (tri članka u nizu)
+     Događaj: pročitajte još (tri članka u nizu)
      ========================================================= */
   .yc-more {
     padding: var(--yc-gap-out) 1.25rem 0;
@@ -572,12 +572,50 @@
     .yc-art__body > p { font-size: 1.125rem; }
     .yc-art__body > h2 { font-size: 1.625rem; }
   }
+  /* --- galerija: okvir kao na Ethics Forum stranici; linija napretka na dnu slike, klik otvara lightbox --- */
+  .yc-gallery__frame {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    margin: 0 1.125rem 1.125rem 0;
+    touch-action: pan-y;
+  }
+  .yc-gallery__frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translate(1.125rem, 1.125rem);
+    background: var(--yc-navy);
+    transition: transform .45s cubic-bezier(.22,.61,.36,1);
+  }
+  .yc-gallery__frame:hover::before { transform: translate(1.5rem, 1.5rem); }
+  .yc-gallery__slides {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    background: var(--yc-mist);
+  }
+  .yc-gallery__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+  .yc-gallery__slide.is-active { opacity: 1; }
+  .yc-gallery__slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.06);
+    transition: transform 7s linear;
+  }
+  .yc-gallery__slide.is-active img { transform: scale(1); }
 
-  /* =========================================================
-     Lightbox: fotografije članka (slika u heroju i fotografije u tekstu) u punoj veličini
-     ========================================================= */
-  /* providno dugme preko cele fotografije: klik ili Enter otvara lightbox */
-  .yc-photo__open {
+  /* providno dugme preko cele slike: klik ili Enter otvara lightbox */
+  .yc-gallery__open {
     appearance: none;
     position: absolute;
     inset: 0;
@@ -588,9 +626,9 @@
     background: none;
     cursor: zoom-in;
   }
-  .yc-photo__open:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 4px; }
+  .yc-gallery__open:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 4px; }
   /* ikonica za uvećanje u uglu, pojavi se na hover/fokus */
-  .yc-photo__zoom {
+  .yc-gallery__zoom {
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -605,9 +643,37 @@
     transform: translateY(-4px);
     transition: opacity .25s ease, transform .25s ease;
   }
-  .yc-photo__zoom svg { width: 1.25rem; height: 1.25rem; }
-  .yc-photo__open:hover .yc-photo__zoom,
-  .yc-photo__open:focus-visible .yc-photo__zoom { opacity: 1; transform: none; }
+  .yc-gallery__zoom svg { width: 1.25rem; height: 1.25rem; }
+  .yc-gallery__open:hover .yc-gallery__zoom,
+  .yc-gallery__open:focus-visible .yc-gallery__zoom { opacity: 1; transform: none; }
+
+  /* linija na dnu slike se za 5 s puni bordo bojom, pa ide sledeća fotografija */
+  .yc-gallery__bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    height: 4px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .4);
+    pointer-events: none;
+  }
+  .yc-gallery__bar span {
+    display: block;
+    height: 100%;
+    background: var(--yc-burgundy);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  .yc-gallery.is-playing .yc-gallery__bar span { animation: yc-progress 5s linear forwards; }
+  @keyframes yc-progress { to { transform: scaleX(1); } }
+  .yc-gallery:focus-within .yc-gallery__bar span,
+  .yc-gallery.is-paused .yc-gallery__bar span,
+  .yc-gallery:not(.is-inview) .yc-gallery__bar span { animation-play-state: paused; }
+  @media (hover: hover) {
+    .yc-gallery:hover .yc-gallery__bar span { animation-play-state: paused; }
+  }
 
   /* --- lightbox: ista svetla pozadina kao meni i hero --- */
   .yc-lightbox {
@@ -678,14 +744,11 @@
   .yc-lightbox__total { opacity: .72; }
   .yc-lightbox__prev { left: 1.75rem; top: 50%; margin-top: -26px; }
   .yc-lightbox__next { right: 1.75rem; top: 50%; margin-top: -26px; }
-  /* članak sa jednom fotografijom: bez brojača i strelica */
+  /* predavanje sa jednom fotografijom: bez brojača i strelica */
   .yc-lightbox.is-single .yc-lightbox__count,
   .yc-lightbox.is-single .yc-lightbox__prev,
   .yc-lightbox.is-single .yc-lightbox__next { display: none; }
 
-  @media (prefers-reduced-motion: reduce) {
-    .yc-photo__zoom, .yc-lightbox, .yc-lightbox__img, .yc-lightbox__btn { transition: none; }
-  }
   @media (max-width: 720px) {
     .yc-lightbox { padding: 4.75rem 1rem 6.25rem; }
     .yc-lightbox.is-single { padding-bottom: 4.75rem; }
@@ -695,6 +758,25 @@
     .yc-lightbox__prev { left: calc(50% - 3.75rem); }
     .yc-lightbox__next { right: calc(50% - 3.75rem); }
   }
+
+  /* =========================================================
+     Događaj: jedna kolona, galerija ispod teksta (ništa desno od teksta)
+     ========================================================= */
+  .yc-ev__media { max-width: 42.5rem; min-width: 0; margin-top: clamp(3rem, 6vw, 4.5rem); }
+
+  /* fotografija u heroju: prirodan format, klik otvara lightbox */
+  .yc-bp-hero__photo .yc-gallery__slide,
+  .yc-art__photo .yc-gallery__slide { position: relative; opacity: 1; transition: none; }
+  .yc-art__photo .yc-gallery__slide img { height: auto; transform: none; }
+  .yc-bp-hero__photo .yc-gallery__slide img { height: auto; transform: none; transition: transform .6s cubic-bezier(.22,.61,.36,1); }
+  .yc-bp-hero__media:hover .yc-bp-hero__photo .yc-gallery__slide img { transform: scale(1.03); }
+
+  /* video sa YouTube-a: širina teksta, format 16:9, isti okvir kao fotografije */
+  .yc-art__video { margin: clamp(3rem, 6vw, 4.5rem) 0 0; }
+  .yc-art__video .yc-art__photo { aspect-ratio: 16 / 9; }
+  .yc-art__video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .yc-art__video .yc-art__frame::after { z-index: 1; pointer-events: none; }
+
 
   /* ===== Animacija pri skrolovanju ===== */
   .yc-reveal {
@@ -911,8 +993,8 @@
         <li><a class="yc-nav__link" href="../../o-nama/">O nama</a></li>
         <li><a class="yc-nav__link" href="../../senior-savet/">Senior Savet</a></li>
         <li><a class="yc-nav__link" href="../../ethics-forum/">Ethics Forum</a></li>
-        <li><a class="yc-nav__link" href="../../dogadjaji/">Događaji</a></li>
-        <li><a class="yc-nav__link" href="../" aria-current="true">Blog</a></li>
+        <li><a class="yc-nav__link" href="../" aria-current="true">Događaji</a></li>
+        <li><a class="yc-nav__link" href="../../blog/">Blog</a></li>
         <li><a class="yc-nav__link" href="../../preporuka-caucus-a/">Preporuka Caucus-a</a></li>
         <li class="yc-nav__search-item">
           <button class="yc-nav__search" type="button" aria-label="Pretraga" aria-haspopup="dialog" aria-expanded="false" aria-controls="yc-search">
@@ -944,8 +1026,8 @@
       <li><a class="yc-menu__link" href="../../o-nama/">O nama</a></li>
       <li><a class="yc-menu__link" href="../../senior-savet/">Senior Savet</a></li>
       <li><a class="yc-menu__link" href="../../ethics-forum/">Ethics Forum</a></li>
-      <li><a class="yc-menu__link" href="../../dogadjaji/">Događaji</a></li>
-      <li><a class="yc-menu__link" href="../" aria-current="true">Blog</a></li>
+      <li><a class="yc-menu__link" href="../" aria-current="true">Događaji</a></li>
+      <li><a class="yc-menu__link" href="../../blog/">Blog</a></li>
       <li><a class="yc-menu__link" href="../../preporuka-caucus-a/">Preporuka Caucus-a</a></li>
     </ul>
   </nav>
@@ -954,23 +1036,25 @@
 <main>
 
 <!-- =========================================================
-     Hero: naslov članka i slika
+     Hero: naslov događaja i slika
      ========================================================= -->
 <section class="yc-bp-hero" aria-labelledby="yc-bp-title">
   <div class="yc-bp-hero__inner">
 
     <div class="yc-bp-hero__content">
-      <p class="yc-bp-hero__date">13.09.2026</p>
       <h1 class="yc-bp-hero__title yc-bp-hero__title--sm" style="--yc-word: 4.75" id="yc-bp-title">Dr Allen Church u poseti ambasadi Republike Srbije u Sjedinjenim Američkim Državama</h1>
     </div>
 
-    <div class="yc-bp-hero__media">
+    <div class="yc-bp-hero__media yc-gallery">
       <div class="yc-bp-hero__frame">
         <div class="yc-bp-hero__photo">
-          <img src="images/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama.webp"
-               width="796" height="591" alt="" fetchpriority="high">
-          <button class="yc-photo__open" type="button" aria-label="Otvori fotografiju">
-            <span class="yc-photo__zoom" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h5v5M8 17H3v-5M17 3l-6 6M3 17l6-6"/></svg></span>
+          <div class="yc-gallery__slide is-active">
+            <img src="images/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama.webp"
+                 width="796" height="591" alt="" fetchpriority="high"
+                 data-full="images/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama.webp">
+          </div>
+          <button class="yc-gallery__open" type="button" aria-label="Otvori fotografiju">
+            <span class="yc-gallery__zoom" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h5v5M8 17H3v-5M17 3l-6 6M3 17l6-6"/></svg></span>
           </button>
         </div>
       </div>
@@ -980,7 +1064,7 @@
 </section>
 
 <!-- =========================================================
-     Tekst članka
+     Tekst događaja
      ========================================================= -->
 <section class="yc-art">
   <div class="yc-art__inner">
@@ -990,12 +1074,15 @@
       <p>O delu:</p>
       <p>Zbog čega neke velike ideje ostaju samo pusti snovi, dok druge revolucionarno menjaju stvarnost? Zašto neki ljudi nikada ne ostvare svoj potencijal, dok drugi od malog semena svojih zamisli uspevaju da naprave kreativna čuda koja pomeraju planine? U čemu je suštinska razlika između sanjara i vizionara, i kako preći iz jednog tabora u drugi? Ova knjiga nudi odgovore na ova i mnoga druga pitanja koja se tiču ostvarivanja naših želja i ciljeva. Ona je svojevrsna mapa na putu realizacije kreativnog potencijala koji postoji u svakome od nas. Ukoliko budemo sledili konkretne korake i putokaze na ovoj mapi, svi su izgledi da ćemo svoje snove pretočiti u plodonosne vizije, sa konkretnim i dostižnim rezultatima. Štaviše, ovo putovanje je zamišljeno kao uzbudljiva avantura koja menja nas same, donoseći radost i ushićenje koji su mogući samo onda kada ispunjavamo svoju životnu svrhu.</p>
       <p>Rodoljub Oreščanin je osnivač i direktor nevladine organizacije „Biznisnova“, centra za proaktivno poslovanje koji promoviše preduzetništvo u Srbiji. Kao motivacioni govornik, entuzijastičnog duha i bogatog ličnog iskustva, sa snažnom željom da drugima predstavi most između zamišljenog i opipljivog, između ideje i realizacije, Rodoljub drži predavanja i radionice na ovu temu u zemlji i inostranstvu. Rodoljub Oreščanin je diplomirao geografiju na Univerzitetu u Novom Sadu, na odseku za turizmologiju. Pored toga je i magistar teologije.</p>
-      <figure class="yc-art__figure">
+      <figure class="yc-art__figure yc-gallery">
         <div class="yc-art__frame">
           <div class="yc-art__photo">
-            <img src="images/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama-1.webp" width="1044" height="1369" alt="" loading="lazy">
-            <button class="yc-photo__open" type="button" aria-label="Otvori fotografiju">
-              <span class="yc-photo__zoom" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h5v5M8 17H3v-5M17 3l-6 6M3 17l6-6"/></svg></span>
+            <div class="yc-gallery__slide is-active">
+              <img src="images/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama-1.webp" width="1044" height="1369" alt="" loading="lazy"
+                   data-full="images/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama-1.webp">
+            </div>
+            <button class="yc-gallery__open" type="button" aria-label="Otvori fotografiju">
+              <span class="yc-gallery__zoom" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h5v5M8 17H3v-5M17 3l-6 6M3 17l6-6"/></svg></span>
             </button>
           </div>
         </div>
@@ -1013,50 +1100,47 @@
     <ul class="yc-grid">
 
     <li class="yc-reveal">
-      <a class="yc-post" href="../specijalno-izdanje-diplomacy-commerce-povodom-250-godina-nezavisnosti-sjedinjenih-americkih-drzava/">
+      <a class="yc-post" href="../gostovanje-na-newsmax-balkans-jutarnjem-programu/">
         <div class="yc-post__media">
           <div class="yc-post__frame">
             <div class="yc-post__photo">
-              <img src="../specijalno-izdanje-diplomacy-commerce-povodom-250-godina-nezavisnosti-sjedinjenih-americkih-drzava/images/specijalno-izdanje-diplomacy-commerce-povodom-250-godina-nezavisnosti-sjedinjenih-americkih-drzava.webp"
-                   width="995" height="1348" alt="" loading="lazy">
+              <img src="../gostovanje-na-newsmax-balkans-jutarnjem-programu/images/1795188171770598.webp"
+                   width="2264" height="1290" alt="" loading="lazy">
             </div>
           </div>
         </div>
         <div class="yc-post__body">
-          
-          <h3 class="yc-post__title">Specijalno izdanje Diplomacy&amp;Commerce povodom 250 godina nezavisnosti Sjedinjenih Američkih Država</h3>
+          <h3 class="yc-post__title">Gostovanje na Newsmax Balkans jutarnjem programu</h3>
         </div>
       </a>
     </li>
     <li class="yc-reveal">
-      <a class="yc-post" href="../sta-pokretanje-strateskog-dijaloga-znaci-za-mlade-u-srbiji/">
+      <a class="yc-post" href="../poseta-sedistu-kompanije-vega-it/">
         <div class="yc-post__media">
           <div class="yc-post__frame">
             <div class="yc-post__photo">
-              <img src="../sta-pokretanje-strateskog-dijaloga-znaci-za-mlade-u-srbiji/images/sta-pokretanje-strateskog-dijaloga-znaci-za-mlade-u-srbiji.webp"
-                   width="1080" height="1440" alt="" loading="lazy">
+              <img src="../poseta-sedistu-kompanije-vega-it/images/1795044530920506.webp"
+                   width="3024" height="4032" alt="" loading="lazy">
             </div>
           </div>
         </div>
         <div class="yc-post__body">
-          
-          <h3 class="yc-post__title">Šta pokretanje Strateškog Dijaloga znači za mlade u Srbiji</h3>
+          <h3 class="yc-post__title">Poseta sedištu kompanije Vega IT</h3>
         </div>
       </a>
     </li>
     <li class="yc-reveal">
-      <a class="yc-post" href="../250-godina-sjedinjenih-americkih-drzava/">
+      <a class="yc-post" href="../sastanak-sa-upravom-fakulteta-politickih-nauka-univerziteta-u-beogradu/">
         <div class="yc-post__media">
           <div class="yc-post__frame">
             <div class="yc-post__photo">
-              <img src="../250-godina-sjedinjenih-americkih-drzava/images/4d8bffc1.png"
-                   width="1024" height="1280" alt="" loading="lazy">
+              <img src="../sastanak-sa-upravom-fakulteta-politickih-nauka-univerziteta-u-beogradu/images/6afdcc7a8b9488886022e499_badd0942.jpeg"
+                   width="2048" height="1536" alt="" loading="lazy">
             </div>
           </div>
         </div>
         <div class="yc-post__body">
-          
-          <h3 class="yc-post__title">250 godina Sjedinjenih Američkih Država</h3>
+          <h3 class="yc-post__title">Sastanak sa upravom Fakulteta političkih nauka Univerziteta u Beogradu</h3>
         </div>
       </a>
     </li>
@@ -1067,7 +1151,7 @@
 
 </main>
 
-<!-- lightbox za fotografije članka -->
+<!-- lightbox za fotografije događaja -->
 <div class="yc-lightbox" id="yc-lightbox" role="dialog" aria-modal="true" aria-label="Fotografija" aria-hidden="true">
   <p class="yc-lightbox__count" aria-live="polite"></p>
   <img class="yc-lightbox__img" alt="">
@@ -1133,7 +1217,7 @@
           <ul class="yc-footer__list">
             <li><a class="yc-footer__link" href="../../projekti/">Projekti</a></li>
             <li><a class="yc-footer__link" href="../../dogadjaji/">Događaji</a></li>
-            <li><a class="yc-footer__link" href="../" aria-current="true">Blog</a></li>
+            <li><a class="yc-footer__link" href="../../blog/">Blog</a></li>
             <li><a class="yc-footer__link" href="../../preporuka-caucus-a/">Preporuka Caucus-a</a></li>
           </ul>
         </div>
@@ -1205,24 +1289,24 @@
 </script>
 
 <script>
-  /* Lightbox: fotografije članka (slika u heroju i fotografije u tekstu) otvaraju se u punoj veličini;
-     strelice, tastatura i prevlačenje prstom menjaju fotografiju. */
+  /* Galerije po predavanjima: linija na dnu slike se puni 5 s pa ide sledeća fotografija;
+     staje na hover/fokus, dok galerija nije na ekranu i dok je lightbox otvoren.
+     Jedan zajednički lightbox prikazuje fotografije predavanja na koje je kliknuto. */
   (function () {
     var lb = document.getElementById('yc-lightbox');
-    var openers = [].slice.call(document.querySelectorAll('.yc-photo__open'));
-    if (!lb || !openers.length) return;
+    if (!lb) return;
     var lbImg = lb.querySelector('.yc-lightbox__img');
     var lbClose = lb.querySelector('.yc-lightbox__close');
     var lbPrev = lb.querySelector('.yc-lightbox__prev');
     var lbNext = lb.querySelector('.yc-lightbox__next');
     var lbCount = lb.querySelector('.yc-lightbox__count');
-    var photos = openers.map(function (b) { return b.parentNode.querySelector('img'); });
-    var index = 0;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var current = null;
     var lastFocus = null;
 
     function pad(n) { return String(n).padStart(2, '0'); }
 
-    /* prevlačenje prstom menja fotografiju */
+    /* prevlačenje prstom menja fotografiju (i u galeriji i u lightboxu) */
     function swipe(el, onSwipe) {
       var x0 = null;
       el.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
@@ -1234,49 +1318,97 @@
       });
     }
 
-    function render() {
-      lbCount.innerHTML = pad(index + 1) + '<span class="yc-lightbox__total">/' + pad(photos.length) + '</span>';
-      var src = photos[index].src;
-      if (lbImg.src === src) return;
+    function makeGallery(g) {
+      var slides = [].slice.call(g.querySelectorAll('.yc-gallery__slide'));
+      var bar = g.querySelector('.yc-gallery__bar span');
+      var multi = slides.length > 1 && !!bar;
+      var api = { el: g, slides: slides, index: 0 };
+
+      api.restart = function () {
+        if (reduce || !multi) return;
+        g.classList.remove('is-playing');
+        void bar.offsetWidth;                 // restart animacije
+        g.classList.add('is-playing');
+      };
+      api.show = function (n) {
+        if (slides.length < 2) return;
+        slides[api.index].classList.remove('is-active');
+        slides[api.index].setAttribute('aria-hidden', 'true');
+        api.index = (n + slides.length) % slides.length;
+        slides[api.index].classList.add('is-active');
+        slides[api.index].removeAttribute('aria-hidden');
+        api.restart();
+      };
+
+      if (multi) {
+        bar.addEventListener('animationend', function () { api.show(api.index + 1); });
+        g.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowRight') { e.preventDefault(); api.show(api.index + 1); }
+          if (e.key === 'ArrowLeft')  { e.preventDefault(); api.show(api.index - 1); }
+        });
+        swipe(g.querySelector('.yc-gallery__frame'), function (d) { api.show(api.index + d); });
+
+        if ('IntersectionObserver' in window) {
+          new IntersectionObserver(function (entries) {
+            g.classList.toggle('is-inview', entries[0].isIntersecting);
+          }, { threshold: 0.35 }).observe(g);
+        } else {
+          g.classList.add('is-inview');
+        }
+        api.restart();
+      }
+
+      g.querySelector('.yc-gallery__open').addEventListener('click', function () { lbOpen(api); });
+      return api;
+    }
+
+    /* ---- lightbox ---- */
+    function lbRender() {
+      lbCount.innerHTML = pad(current.index + 1) +
+        '<span class="yc-lightbox__total">/' + pad(current.slides.length) + '</span>';
+      var src = current.slides[current.index].querySelector('img').getAttribute('data-full');
+      if (lbImg.getAttribute('src') === src) return;
       lbImg.classList.add('is-loading');
-      lbImg.onload = lbImg.onerror = function () { lbImg.classList.remove('is-loading'); };
+      lbImg.onload = function () { lbImg.classList.remove('is-loading'); };
       lbImg.src = src;
     }
-    function go(d) {
-      if (photos.length < 2) return;
-      index = (index + d + photos.length) % photos.length;
-      render();
+    function lbGo(d) {
+      if (!current || current.slides.length < 2) return;
+      current.show(current.index + d);
+      lbRender();
     }
-    function open(n) {
-      index = n;
+    function lbOpen(g) {
+      current = g;
       lastFocus = document.activeElement;
-      lb.classList.toggle('is-single', photos.length < 2);
-      render();
+      g.el.classList.add('is-paused');
+      lb.classList.toggle('is-single', g.slides.length < 2);
+      lbRender();
       lb.classList.add('is-open');
       lb.setAttribute('aria-hidden', 'false');
       document.documentElement.style.overflow = 'hidden';
       lbClose.focus();
     }
-    function close() {
+    function lbCloseFn() {
       if (!lb.classList.contains('is-open')) return;
       lb.classList.remove('is-open');
       lb.setAttribute('aria-hidden', 'true');
       document.documentElement.style.overflow = '';
+      current.el.classList.remove('is-paused');
+      current.restart();
       if (lastFocus) lastFocus.focus();
     }
 
-    openers.forEach(function (b, n) { b.addEventListener('click', function () { open(n); }); });
-    lbClose.addEventListener('click', close);
-    lbPrev.addEventListener('click', function () { go(-1); });
-    lbNext.addEventListener('click', function () { go(1); });
-    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });   // klik na pozadinu zatvara
-    swipe(lb, go);
+    lbClose.addEventListener('click', lbCloseFn);
+    lbPrev.addEventListener('click', function () { lbGo(-1); });
+    lbNext.addEventListener('click', function () { lbGo(1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) lbCloseFn(); });   // klik na pozadinu zatvara
+    swipe(lb, lbGo);
 
     document.addEventListener('keydown', function (e) {
       if (!lb.classList.contains('is-open')) return;
-      if (e.key === 'Escape') close();
-      if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
-      if (e.key === 'ArrowLeft')  { e.preventDefault(); go(-1); }
+      if (e.key === 'Escape') lbCloseFn();
+      if (e.key === 'ArrowRight') { e.preventDefault(); lbGo(1); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); lbGo(-1); }
       if (e.key === 'Tab') {                 // fokus ostaje unutar lightboxa
         var btns = lb.classList.contains('is-single') ? [lbClose] : [lbClose, lbPrev, lbNext];
         var i = btns.indexOf(document.activeElement);
@@ -1285,8 +1417,11 @@
         btns[next].focus();
       }
     });
+
+    [].forEach.call(document.querySelectorAll('.yc-gallery'), makeGallery);
   })();
 </script>
+
 
 <script src="../../assets/search/search.js?v=4" defer></script>
 </body>
