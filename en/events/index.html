@@ -6,11 +6,11 @@
 <title>Events | Youth Caucus</title>
 <link rel="icon" type="image/png" href="../../assets/images/favicon-youth-caucus.png">
 <link rel="apple-touch-icon" href="../../assets/images/webclip-youth-caucus.png">
-<meta name="description" content="Youth Caucus connects young people from Serbia through education, ethics, entrepreneurship, and international collaboration, strengthening youth engagement">
+<meta name="description" content="Youth Caucus participates in national, regional, and global conferences that bring together young leaders, experts, and partners to exchange ideas and knowledge">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Youth Caucus">
 <meta property="og:title" content="Events | Youth Caucus">
-<meta property="og:description" content="Youth Caucus connects young people from Serbia through education, ethics, entrepreneurship, and international collaboration, strengthening youth engagement">
+<meta property="og:description" content="Youth Caucus participates in national, regional, and global conferences that bring together young leaders, experts, and partners to exchange ideas and knowledge">
 <meta property="og:url" content="https://www.youthcaucus.rs/en/events/">
 <meta property="og:image" content="https://www.youthcaucus.rs/assets/images/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -19,21 +19,30 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" hreflang="sr" href="../../dogadjaji/">
 <link rel="preload" href="../../assets/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/oswald-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(../../assets/fonts/oswald-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
 @font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(../../assets/fonts/oswald-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(../../assets/fonts/oswald-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 </style>
 <style>
+  /* ===== Tokeni preuzeti sa youthcaucus.rs ===== */
   :root {
-    --yc-navy: #052149;
-    --yc-burgundy: #7a1f3d;
+    --yc-navy: #052149;          /* primarna boja sajta (tabovi, naslovi) */
+    --yc-navy-80: rgba(5, 33, 73, .8);
+    --yc-navy-10: rgba(5, 33, 73, .08);
+    --yc-burgundy: #7a1f3d;      /* akcent iz gradijenta u futeru */
     --yc-ink: #333333;
     --yc-white: #ffffff;
     --yc-mist: #e6ebf3;
+    /* isti prazan prostor kao na Senior Savetu, O nama i Ethics Forumu; sekcije se i dalje stapaju */
+    --yc-gap-out: clamp(4rem, 6vw, 5.5rem);
+    --yc-gap-in: clamp(4.5rem, 7vw, 6.5rem);
   }
+
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--yc-white); font-family: Oswald, sans-serif; color: var(--yc-ink); }
+  main { background: var(--yc-mist); }   /* ispod sekcija, za slučaj delimičnog piksela na spoju */
 
   /* =========================================================
      Navigation
@@ -247,6 +256,396 @@
     .yc-nav, .yc-menu { padding-left: 1rem; padding-right: 1rem; }
     .yc-menu__link { font-size: 1.875rem; }
   }
+
+
+
+  /* =========================================================
+     Kartica članka: slika u prirodnom formatu (teget blok iza fotografije + bordo linija na vrhu),
+     ispod tekst. Naslovi na fotografijama se ne sasecaju, a tekst u redu počinje na istoj visini.
+     ========================================================= */
+  .yc-post {
+    display: flex;
+    flex-direction: column;
+    color: inherit;
+    text-decoration: none;
+  }
+  .yc-post:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 0.75rem; }
+  .yc-post__media { align-self: flex-start; width: 100%; }
+
+  .yc-post__frame {
+    position: relative;
+    margin: 0 0.875rem 0.875rem 0;
+  }
+  .yc-post__frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translate(0.875rem, 0.875rem);
+    background: var(--yc-navy);
+    transition: transform .45s cubic-bezier(.22,.61,.36,1);
+  }
+  .yc-post__photo {
+    position: relative;
+    overflow: hidden;
+    background: var(--yc-mist);
+  }
+  .yc-post__frame::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 4px;
+    background: var(--yc-burgundy);
+  }
+  .yc-post__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform .6s cubic-bezier(.22,.61,.36,1);
+  }
+
+  .yc-post__body { display: flex; flex-direction: column; align-items: flex-start; margin-top: 2rem; }
+  .yc-post__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 1.25rem;
+    margin: 0 0 0.875rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--yc-burgundy);
+  }
+  .yc-post__title {
+    margin: 0;
+    font-size: clamp(1.375rem, 1.9vw, 1.625rem);
+    font-weight: 500;
+    line-height: 1.36;            /* kvačica na Š, Č, Ž ide do 1.06em; ne sme da dodirne slova u redu iznad */
+    letter-spacing: -.005em;
+    color: var(--yc-navy);
+    text-wrap: balance;
+  }
+  .yc-post__text {
+    margin: 1rem 0 0;
+    font-size: clamp(1.125rem, 1rem + .35vw, 1.25rem);   /* isti opisni font kao na ostalim stranicama */
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--yc-navy-80);
+  }
+
+  .yc-post:hover .yc-post__frame::before,
+  .yc-post:focus-visible .yc-post__frame::before { transform: translate(1.25rem, 1.25rem); }
+  .yc-post:hover .yc-post__photo img,
+  .yc-post:focus-visible .yc-post__photo img { transform: scale(1.04); }
+
+  /* mreža kartica: tri, dve ili jedna kolona; slike u redu leže na istoj liniji, tekst počinje na istoj visini */
+  .yc-grid {
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    max-width: 70rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: clamp(2rem, 4vw, 3.5rem);
+    row-gap: clamp(5.5rem, 9vw, 8rem);
+  }
+  @supports (grid-template-rows: subgrid) {
+    .yc-grid { row-gap: 0; }
+    .yc-grid > li {
+      display: grid;
+      grid-row: span 2;
+      grid-template-rows: subgrid;
+      padding-bottom: clamp(5.5rem, 9vw, 8rem);
+    }
+    .yc-grid > li > .yc-post {
+      display: grid;
+      grid-row: 1 / span 2;
+      grid-template-rows: subgrid;
+    }
+    .yc-post__media { align-self: end; }
+    .yc-post__body { margin-top: 0; padding-top: 2rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-post__frame::before, .yc-post__photo img { transition: none; }
+  }
+
+  @media (max-width: 960px) {
+    .yc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 640px) {
+    .yc-grid { grid-template-columns: minmax(0, 1fr); }
+    .yc-post__media { width: min(35rem, 100%); }
+    .yc-post__frame { margin: 0 0.75rem 0.75rem 0; }
+    .yc-post__frame::before { transform: translate(0.75rem, 0.75rem); }
+    .yc-post:hover .yc-post__frame::before,
+    .yc-post:focus-visible .yc-post__frame::before { transform: translate(1.125rem, 1.125rem); }
+  }
+  @media (max-width: 480px) {
+    .yc-post__title { font-size: 1.375rem; }
+  }
+
+  /* =========================================================
+     Događaji: tekstualni hero (krupan naslov, ispod uvodni tekst, sve levo)
+     ========================================================= */
+  .yc-dl-hero {
+    position: relative;
+    overflow: hidden;
+    padding: calc(var(--yc-nav-h) + clamp(3rem, 7vw, 7rem)) 1.25rem var(--yc-gap-out);
+    background:
+      linear-gradient(180deg, rgba(230, 235, 243, 0) 45%, var(--yc-mist) 100%),   /* dno se stapa sa listom članaka */
+      radial-gradient(55% 70% at 92% 30%, rgba(122, 31, 61, .10) 0%, rgba(122, 31, 61, 0) 70%),
+      linear-gradient(160deg, var(--yc-mist) 0%, var(--yc-white) 62%);
+    background-repeat: no-repeat;
+    color: var(--yc-navy);
+  }
+  .yc-dl-hero__inner {
+    max-width: 70rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 45rem);
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+  }
+  .yc-dl-hero__title {
+    margin: 0;
+    font-size: clamp(4rem, 8.4vw, 7rem);
+    font-weight: 600;
+    line-height: .9;
+    letter-spacing: -.01em;
+    color: var(--yc-navy);
+    animation: yc-dl-rise 1.1s cubic-bezier(.2, .7, .2, 1) both;
+  }
+  /* opisni tekst: isti font kao na Senior Savetu, O nama, Ethics Forumu i Projektima */
+  .yc-dl-hero__statement {
+    margin: 0;
+    font-size: clamp(1.125rem, 1rem + .35vw, 1.25rem);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--yc-navy-80);
+    animation: yc-dl-rise 1.1s cubic-bezier(.2, .7, .2, 1) .12s both;
+  }
+  @keyframes yc-dl-rise {
+    from { opacity: 0; transform: translateY(1.75rem); }
+    to   { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .yc-dl-hero__title, .yc-dl-hero__statement { animation: none; }
+  }
+  @media (max-width: 480px) {
+    .yc-dl-hero { padding-left: 1rem; padding-right: 1rem; }
+    .yc-dl-hero__title { font-size: 4rem; }
+    .yc-dl-hero__statement { font-size: 1.125rem; }
+  }
+
+  /* =========================================================
+     Događaji: lista članaka
+     ========================================================= */
+  .yc-events {
+    position: relative;
+    padding: var(--yc-gap-in) 1.25rem clamp(2.5rem, 5vw, 4.5rem);
+    background:
+      radial-gradient(45% 30% at 0% 100%, rgba(122, 31, 61, .06) 0%, rgba(122, 31, 61, 0) 70%),
+      linear-gradient(180deg, var(--yc-mist) 0, var(--yc-white) 60rem);
+  }
+  @media (max-width: 480px) {
+    .yc-events { padding-left: 1rem; padding-right: 1rem; }
+  }
+
+  /* ===== Animacija pri skrolovanju ===== */
+  .yc-reveal {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    filter: blur(0.375rem);
+    transition: opacity .9s ease, transform .9s ease, filter .9s ease;
+  }
+  .yc-reveal.is-visible { opacity: 1; transform: none; filter: none; }
+  .yc-reveal--delay { transition-delay: .2s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-reveal { opacity: 1; transform: none; filter: none; transition: none; }
+  }
+
+
+  .yc-visually-hidden {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+
+  /* =========================================================
+     Footer
+     ========================================================= */
+  .yc-footer {
+    --yc-footer-fs: 1.375rem;          /* jedna veličina teksta za ceo footer */
+    position: relative;
+    overflow: hidden;
+    padding: clamp(4.8rem, 8.8vw, 8rem) 1.5rem 0;
+    color: var(--yc-white);
+    background:
+      radial-gradient(90% 120% at 100% 0%, rgba(122, 31, 61, .95) 0%, rgba(122, 31, 61, .5) 32%, rgba(122, 31, 61, 0) 70%),
+      radial-gradient(60% 80% at 100% 100%, rgba(150, 110, 150, .45) 0%, rgba(150, 110, 150, 0) 70%),
+      linear-gradient(100deg, #041a3b 0%, var(--yc-navy) 40%, #1d2b56 100%);
+  }
+
+  .yc-footer__inner {
+    position: relative;
+    max-width: 70rem;
+    margin: 0 auto;
+    container-type: inline-size;   /* natpis se meri prema širini sadržaja */
+  }
+
+  .yc-footer__top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "brand nav";
+    align-items: start;
+    column-gap: clamp(4rem, 8vw, 8rem);
+    row-gap: 3.6rem;
+    padding-bottom: clamp(4.4rem, 8vw, 6.8rem);
+  }
+
+  /* --- brend --- */
+  .yc-footer__brand { grid-area: brand; }
+  /* --- navigacija --- */
+  .yc-footer__nav {
+    grid-area: nav;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    column-gap: clamp(4rem, 8vw, 8rem);
+  }
+  .yc-footer__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.125rem;
+    line-height: 1.4;
+  }
+  .yc-footer__link {
+    color: var(--yc-white);
+    font-size: var(--yc-footer-fs);
+    font-weight: 400;
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-footer__link:hover,
+  .yc-footer__link:focus-visible,
+  .yc-footer__link[aria-current="page"] { opacity: 1; }
+
+  /* --- kontakt --- */
+  /* kontakt kao krupna tipografija: email i Instagram su glavni sadržaj */
+  /* ista veličina i ritam redova kao linkovi desno, pa se redovi poravnaju */
+  .yc-footer__contact-title {
+    margin: 0 0 1.125rem;
+    font-size: var(--yc-footer-fs);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: .02em;
+    color: var(--yc-white);
+  }
+  .yc-contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.125rem;
+    font-size: var(--yc-footer-fs);
+    line-height: 1.4;
+  }
+
+  /* bazno prigušeno, na hover 100% */
+  .yc-contact__item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .45em;
+    color: var(--yc-white);
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-contact__item:hover,
+  .yc-contact__item:focus-visible { opacity: 1; }
+  .yc-contact__icon {
+    flex: none;
+    display: inline-flex;
+  }
+  /* obe ikonice u istom kvadratu visine velikog slova (.82em u Oswaldu),
+     na istoj osnovnoj liniji kao tekst, pa tekst u oba reda počinje na istom mestu */
+  .yc-contact__icon svg { display: block; width: .82em; height: .82em; overflow: visible; }
+
+  .yc-contact__value {
+    font-weight: 400;
+    overflow-wrap: anywhere;
+  }
+
+  .yc-footer a:focus-visible { outline: 2px solid var(--yc-white); outline-offset: 4px; }
+
+  /* --- donja traka --- */
+  .yc-footer__bottom {
+    padding: 2rem 0;
+  }
+  .yc-footer__copy {
+    margin: 0;
+    text-align: center;
+    font-size: 0.9375rem;
+    font-weight: 300;
+    letter-spacing: .02em;
+    color: rgba(255, 255, 255, .6);
+  }
+
+  /* --- veliki natpis u dnu, kao "1918" gore --- */
+  .yc-footer__wordmark {
+    display: block;
+    margin: clamp(1.6rem, 4vw, 3.6rem) 0 -0.2em;
+    font-size: clamp(2.5rem, 12vw, 10.5rem);   /* rezerva za starije pretraživače */
+    font-size: calc(100cqw / 6.085);        /* slova tačno od leve do desne margine */
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--yc-white);
+    opacity: .06;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-footer__link, .yc-contact__item { transition: none; }
+  }
+
+  @media (max-width: 900px) {
+    .yc-footer__top {
+      grid-template-columns: auto auto;
+      grid-template-areas: "brand nav";
+      justify-content: space-between;
+      column-gap: 4rem;
+      row-gap: 3.6rem;
+    }
+    .yc-footer__nav { column-gap: 4rem; }
+  }
+
+  @media (max-width: 560px) {
+    .yc-footer { padding: 4.4rem 1rem 0; }
+    .yc-footer__top {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "brand"
+        "nav";
+      row-gap: 3.2rem;
+      padding-bottom: 4rem;
+    }
+    .yc-footer__nav { grid-template-columns: repeat(2, 1fr); column-gap: 1.5rem; }
+    .yc-footer__bottom { padding: 1.6rem 0; }
+    .yc-footer { --yc-footer-fs: 1.25rem; }
+  }
 </style>
 <link rel="stylesheet" href="../../assets/search/search.css?v=7">
 </head>
@@ -307,9 +706,381 @@
   </nav>
 </div>
 
-<main></main>
+<main>
+
+<!-- =========================================================
+     Hero: Events (text only)
+     ========================================================= -->
+<section class="yc-dl-hero" aria-labelledby="yc-dl-title">
+  <div class="yc-dl-hero__inner">
+    <h1 class="yc-dl-hero__title" id="yc-dl-title">Events</h1>
+    <p class="yc-dl-hero__statement">Youth Caucus participates in national, regional, and global conferences that bring together young leaders, experts, and partners to exchange ideas and knowledge</p>
+  </div>
+</section>
+
+<!-- =========================================================
+     Event list
+     ========================================================= -->
+<section class="yc-events" aria-labelledby="yc-dl-title">
+  <ul class="yc-grid">
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="guest-appearance-on-newsmax-balkans-morning-show/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/gostovanje-na-newsmax-balkans-jutarnjem-programu/images/1795188171770598.webp"
+                   width="2264" height="1290" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">Guest appearance on Newsmax Balkans morning show</h2>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="visit-to-vega-it-company-headquarters/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/poseta-sedistu-kompanije-vega-it/images/1795044530920506.webp"
+                   width="3024" height="4032" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">Visit to Vega IT company headquarters</h2>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="meeting-with-the-managment-of-the-faculty-of-political-sciences-university-of-belgrade/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/sastanak-sa-upravom-fakulteta-politickih-nauka-univerziteta-u-beogradu/images/6afdcc7a8b9488886022e499_badd0942.jpeg"
+                   width="2048" height="1536" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">Meeting with the Managment of the Faculty of Political Sciences, University of Belgrade</h2>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="dr-allen-church-visits-the-embassy-of-the-republic-of-serbia-in-the-united-states-of-america/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama/images/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama.webp"
+                   width="796" height="591" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">Dr. Allen Church visits the Embassy of the Republic of Serbia in the United States of America</h2>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="ceremonial-reception-marking-the-250th-anniversary-of-the-independence-of-the-united-states-of-america/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/svecani-prijem-povodom-250-godina-nezavisnosti-sjedinjenih-americkih-drzava/images/0-02-05-6865ca2f993e14812b2643c31f455153165606376524190391204b894add7775_c1326591ab43d66c.jpg"
+                   width="1200" height="1600" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">Ceremonial Reception Marking the 250th Anniversary of the Independence of the United States of America</h2>
+          <p class="yc-post__text">Ceremonial Reception Marking the 250th Anniversary of the Independence of the United States of America in Belgrade</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="serbia-goes-green-2026-conference/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/konferencija-serbia-goes-green-2026/images/6a45325ea24c48ec8ab75c30_7abb744a.webp"
+                   width="1290" height="1031" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">Serbia Goes Green 2026 Conference</h2>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="csr-in-serbia-2026-conference/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/konferencija-csr-u-srbiji-2026/images/6a2c2b3a72e22d94a110268e_7e8dc2a8.jpeg"
+                   width="1290" height="1308" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">CSR in Serbia 2026 Conference</h2>
+          <p class="yc-post__text">A conference on corporate social responsibility, ESG standards and stakeholder engagement</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="conference-world-in-2026/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/konferencija-svet-u-2026/images/konferencija-svet-u-2026.webp"
+                   width="4032" height="3024" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">Conference World in 2026</h2>
+          <p class="yc-post__text">An inspiring conference on global trends and leadership roles shaping the world in 2026</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="conference-digital-2025/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/konferencija-digital-2025/images/konferencija-digital-2025-1.webp"
+                   width="1600" height="1067" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">Conference Digital 2025</h2>
+          <p class="yc-post__text">A discussion on digital innovation, emerging technologies, and opportunities in the digital economy</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="conference-serbia-goes-green/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/konferencija-serbia-goes-green/images/konferencija-serbia-goes-green.webp"
+                   width="1290" height="1142" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">Conference Serbia Goes Green</h2>
+          <p class="yc-post__text">A conference focused on green policies, sustainability, and environmental responsibility in modern society</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="conference-start-the-future/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/konferencija-startuj-buducnost/images/konferencija-startuj-buducnost.webp"
+                   width="1200" height="1600" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">Conference Start the Future</h2>
+          <p class="yc-post__text">Empowering entrepreneurs and education leaders to develop ideas and build successful, future-oriented projects</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="guest-appearance-of-the-president-of-the-youth-caucus-organization-on-the-nova-ekonomija-podcast/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/gostovanje-predsednika-youth-caucus-organizacije-na-podcastu-nove-ekonomije/images/gostovanje-predsednika-youth-caucus-organizacije-na-podcastu-nove-ekonomije.webp"
+                   width="1200" height="1600" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">Guest appearance of the President of the Youth Caucus organization on the Nova Ekonomija podcast</h2>
+          <p class="yc-post__text">The entrepreneurial journey of a young leader Novak Đurić, shared with an international business audience</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="conference-sustainable-strategies-bloomberg-adria/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/konferencija-sustainable-strategies-bloomberg-adria/images/konferencija-sustainable-strategies-bloomberg-adria.webp"
+                   width="1200" height="1600" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">Conference Sustainable Strategies - Bloomberg Adria</h2>
+          <p class="yc-post__text">A high-level discussion on sustainability strategies with regional and global business leaders</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="conference-future-ai/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/konferencija-future-ai/images/konferencija-future-ai.webp"
+                   width="1200" height="1600" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">Conference Future&amp;AI</h2>
+          <p class="yc-post__text">Exploring real-world applications of artificial intelligence and its impact on the future of work and opportunity</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="conference-csr-in-serbia-2025-may-20/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/konferencija-csr-u-srbiji-2025-20-05/images/konferencija-csr-u-srbiji-2025-20-05.webp"
+                   width="2048" height="1363" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">Conference “CSR in Serbia 2025” – May 20</h2>
+          <p class="yc-post__text">A conference on corporate social responsibility, ESG standards and stakeholder engagement</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="may-gatherings-2025/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../dogadjaji/majski-susreti-2025/images/majski-susreti-2025.webp"
+                   width="1987" height="1080" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <h2 class="yc-post__title">May Gatherings 2025</h2>
+          <p class="yc-post__text">Discussions on economic and social rights with a focus on public policy, civic engagement and activism</p>
+        </div>
+      </a>
+    </li>
+
+  </ul>
+</section>
+
+</main>
+
+<!-- =========================================================
+     Footer
+     ========================================================= -->
+<footer class="yc-footer">
+  <div class="yc-footer__inner">
+
+    <div class="yc-footer__top">
+      <div class="yc-footer__brand">
+        <div class="yc-footer__contact">
+          <p class="yc-footer__contact-title">Contact</p>
+          <ul class="yc-contact">
+            <li>
+              <a class="yc-contact__item" href="mailto:office@youthcaucus.rs">
+                <span class="yc-contact__icon" aria-hidden="true">
+                  <svg viewBox="2.2 2.2 19.6 19.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="5" width="18" height="14" rx="2"/>
+                    <path d="m3.8 6.4 8.2 6.3 8.2-6.3"/>
+                  </svg>
+                </span>
+                <span class="yc-contact__value">office@youthcaucus.rs</span>
+              </a>
+            </li>
+            <li>
+              <a class="yc-contact__item" href="https://www.instagram.com/youth_caucus" target="_blank" rel="noopener" aria-label="Instagram @youth_caucus">
+                <span class="yc-contact__icon" aria-hidden="true">
+                  <svg viewBox="2.2 2.2 19.6 19.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="5.2"/>
+                    <circle cx="12" cy="12" r="4.2"/>
+                    <circle cx="17.3" cy="6.7" r="1.05" fill="currentColor" stroke="none"/>
+                  </svg>
+                </span>
+                <span class="yc-contact__value">@youth_caucus</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <nav class="yc-footer__nav" aria-label="Footer navigation">
+        <div>
+          <ul class="yc-footer__list">
+            <li><a class="yc-footer__link" href="../">Home</a></li>
+            <li><a class="yc-footer__link" href="../projects/">Projects</a></li>
+            <li><a class="yc-footer__link" href="../about-us/">About Us</a></li>
+            <li><a class="yc-footer__link" href="../senior-advisory-board/">Senior Advisory Board</a></li>
+          </ul>
+        </div>
+        <div>
+          <ul class="yc-footer__list">
+            <li><a class="yc-footer__link" href="../ethics-forum/">Ethics Forum</a></li>
+            <li><a class="yc-footer__link" href="../events/">Events</a></li>
+            <li><a class="yc-footer__link" href="../blog/">Blog</a></li>
+            <li><a class="yc-footer__link" href="../caucus-recommendation/">Caucus Recommendation</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="yc-footer__bottom">
+      <p class="yc-footer__copy">© 2026 Youth Caucus. All rights reserved.</p>
+    </div>
+
+    <div class="yc-footer__wordmark" aria-hidden="true">Youth Caucus</div>
+  </div>
+</footer>
+
 
 <script>
+  (function () {
+    var items = document.querySelectorAll('.yc-reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+
   /* Navigation: white background after scrolling + menu for tablet and phone */
   (function () {
     var nav = document.querySelector('.yc-nav');
@@ -346,5 +1117,6 @@
     window.matchMedia('(min-width: 992px)').addEventListener('change', function (e) { if (e.matches) closeMenu(); });
   })();
 </script>
+
 </body>
 </html>

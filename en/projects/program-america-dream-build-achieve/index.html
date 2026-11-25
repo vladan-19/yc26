@@ -1,0 +1,1822 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Program America - Dream. Build. Achieve. | Youth Caucus</title>
+<link rel="icon" type="image/png" href="../../../assets/images/favicon-youth-caucus.png">
+<link rel="apple-touch-icon" href="../../../assets/images/webclip-youth-caucus.png">
+<meta name="description" content="The first educational initiative of its kind aimed at connecting high school and university students through entrepreneurial encouragement, learning about Serbian-American relations throughout history, and the United States of America.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Youth Caucus">
+<meta property="og:title" content="Program America - Dream. Build. Achieve. | Youth Caucus">
+<meta property="og:description" content="The first educational initiative of its kind aimed at connecting high school and university students through entrepreneurial encouragement, learning about Serbian-American relations throughout history, and the United States of America.">
+<meta property="og:url" content="https://www.youthcaucus.rs/en/projects/program-america-dream-build-achieve/">
+<meta property="og:image" content="https://www.youthcaucus.rs/assets/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Youth Caucus">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" hreflang="sr" href="../../../projekti/program-america-dream-build-achieve/">
+<link rel="preload" href="../../../assets/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../../assets/fonts/oswald-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(../../../assets/fonts/oswald-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(../../../assets/fonts/oswald-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(../../../assets/fonts/oswald-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<style>
+  /* ===== Tokeni preuzeti sa youthcaucus.rs ===== */
+  :root {
+    --yc-navy: #052149;          /* primarna boja sajta (tabovi, naslovi) */
+    --yc-navy-80: rgba(5, 33, 73, .8);
+    --yc-navy-10: rgba(5, 33, 73, .08);
+    --yc-burgundy: #7a1f3d;      /* akcent iz gradijenta u futeru */
+    --yc-ink: #333333;
+    --yc-white: #ffffff;
+    --yc-mist: #e6ebf3;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--yc-white); font-family: Oswald, sans-serif; color: var(--yc-ink); }
+  main { background: var(--yc-mist); }   /* ispod sekcija, za slučaj delimičnog piksela na spoju */
+
+  /* =========================================================
+     Navigacija
+     ========================================================= */
+  :root { --yc-nav-h: 8rem; }
+  html { scroll-padding-top: var(--yc-nav-h); scrollbar-gutter: stable; }   /* bez pomeranja kad meni zaključa skrol */
+
+  .yc-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding: 0 1.25rem;
+    /* z-index se vraća tek kad meni potpuno nestane, da X animacija ostane vidljiva */
+    transition: background-color .3s ease, box-shadow .3s ease, -webkit-backdrop-filter .3s ease, backdrop-filter .3s ease, z-index 0s linear .3s;
+  }
+  /* providna preko heroja, bela kad se skroluje */
+  .yc-nav.is-scrolled {
+    background: rgba(255, 255, 255, .92);
+    -webkit-backdrop-filter: blur(0.75rem);
+    backdrop-filter: blur(0.75rem);
+    box-shadow: 0 0.75rem 2rem -26px rgba(5, 33, 73, .55);
+  }
+
+  .yc-nav__inner {
+    max-width: 70rem;
+    height: var(--yc-nav-h);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    transition: height .3s ease;
+  }
+  .yc-nav.is-scrolled .yc-nav__inner { height: 5.5rem; }
+
+  .yc-nav__logo { display: block; flex: none; }
+  .yc-nav__logo img {
+    display: block;
+    height: 6.5rem;
+    width: auto;
+    transition: height .3s ease;
+  }
+  .yc-nav.is-scrolled .yc-nav__logo img { height: 4.25rem; }   /* prvobitna veličina, posle skrolovanja */
+
+  /* linkovi: isti princip kao u futeru, bazno prigušeni, na hover 100% */
+  .yc-nav__links {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.25rem, 2.4vw, 2.25rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .yc-nav__link {
+    color: var(--yc-navy);
+    font-size: 1.125rem;
+    font-weight: 400;
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-nav__link:hover,
+  .yc-nav__link:focus-visible,
+  .yc-nav__link[aria-current] { opacity: 1; }
+
+  /* jezik: zastavica kao na sajtu; na hover se pretopi u zastavicu jezika na koji vodi */
+  .yc-lang {
+    position: relative;
+    display: block;
+    flex: none;
+    width: 1.875rem;
+    height: 1.25rem;
+  }
+  .yc-lang__flag {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity .25s ease;
+  }
+  .yc-lang__flag--sr { opacity: 0; }
+  .yc-lang:hover .yc-lang__flag--en,
+  .yc-lang:focus-visible .yc-lang__flag--en { opacity: 0; }
+  .yc-lang:hover .yc-lang__flag--sr,
+  .yc-lang:focus-visible .yc-lang__flag--sr { opacity: 1; }
+
+  .yc-nav a:focus-visible,
+  .yc-nav button:focus-visible,
+  .yc-menu a:focus-visible,
+  .yc-menu button:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 4px; }
+
+  /* dugme za meni (samo tablet i telefon) */
+  .yc-nav__toggle {
+    appearance: none;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-right: -0.625rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--yc-navy);
+    cursor: pointer;
+  }
+  .yc-burger {
+    position: relative;
+    display: block;
+    width: 1.5rem;
+    height: 1.125rem;
+  }
+  .yc-burger span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform .3s ease, opacity .3s ease;
+  }
+  .yc-burger span:nth-child(1) { top: 0; }
+  .yc-burger span:nth-child(2) { top: calc(50% - 1px); }
+  .yc-burger span:nth-child(3) { bottom: 0; }
+  /* u X, u istom trenutku i istom trajanju kao otvaranje/zatvaranje menija */
+  .yc-nav__toggle[aria-expanded="true"] .yc-burger span:nth-child(1) { transform: translateY(0.5rem) rotate(45deg); }
+  .yc-nav__toggle[aria-expanded="true"] .yc-burger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .yc-nav__toggle[aria-expanded="true"] .yc-burger span:nth-child(3) { transform: translateY(-0.5rem) rotate(-45deg); }
+
+  /* dok je meni otvoren, zaglavlje (logo, jezik, X) ostaje iznad njega */
+  .yc-nav.is-menu-open {
+    z-index: 70;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    transition: background-color .3s ease, box-shadow .3s ease, -webkit-backdrop-filter .3s ease, backdrop-filter .3s ease, z-index 0s;
+  }
+
+  /* --- meni preko celog ekrana --- */
+  .yc-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1.25rem 2.5rem;
+    background: linear-gradient(160deg, var(--yc-mist) 0%, var(--yc-white) 60%);
+    color: var(--yc-navy);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility 0s linear .3s;
+    overflow-y: auto;
+  }
+  .yc-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .3s ease;
+  }
+  .yc-menu__top {
+    height: var(--yc-nav-h);
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .yc-menu__links {
+    margin: 3rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0;
+  }
+  /* ceo red je klikabilan, ne samo tekst; razmak između stavki je deo linka */
+  .yc-menu__link {
+    display: block;
+    padding: 0.4375rem 0;
+    color: var(--yc-navy);
+    font-size: 2.125rem;
+    font-weight: 500;
+    line-height: 1.25;
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-menu__link:hover, .yc-menu__link:focus-visible,
+  .yc-menu__link[aria-current] { opacity: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-nav, .yc-nav__inner, .yc-nav__logo img, .yc-nav__link, .yc-lang__flag,
+    .yc-menu, .yc-menu__link, .yc-burger span { transition: none; }
+  }
+
+  @media (max-width: 991px) {
+    :root { --yc-nav-h: 6rem; }
+    .yc-nav__logo img { height: 4.75rem; }
+    .yc-nav.is-scrolled .yc-nav__inner { height: 4.5rem; }
+    .yc-nav.is-scrolled .yc-nav__logo img { height: 3.5rem; }
+    .yc-nav__inner { gap: 1.25rem; }
+    .yc-nav__inner > nav { margin-left: auto; }
+    .yc-nav__links > li:not(.yc-nav__lang-item):not(.yc-nav__search-item) { display: none; }
+    .yc-nav .yc-lang { width: 1.6875rem; height: 1.125rem; }   /* ista visina kao hamburger */
+    .yc-nav__toggle { display: inline-flex; }
+  }
+  @media (max-width: 480px) {
+    .yc-nav, .yc-menu { padding-left: 1rem; padding-right: 1rem; }
+    .yc-menu__link { font-size: 1.875rem; }
+  }
+
+
+  /* =========================================================
+     Projekat: hero (samo naslov levo i slika projekta desno)
+     ========================================================= */
+  .yc-pe-hero {
+    position: relative;
+    overflow: hidden;
+    padding: calc(var(--yc-nav-h) + clamp(3rem, 7vw, 7rem)) 1.25rem clamp(6.5rem, 12vw, 10.5rem);
+    background:
+      linear-gradient(180deg, rgba(230, 235, 243, 0) 45%, var(--yc-mist) 100%),   /* dno se stapa sa sledećom sekcijom */
+      radial-gradient(55% 70% at 92% 30%, rgba(122, 31, 61, .10) 0%, rgba(122, 31, 61, 0) 70%),
+      linear-gradient(160deg, var(--yc-mist) 0%, var(--yc-white) 62%);
+    background-repeat: no-repeat;
+    color: var(--yc-navy);
+  }
+
+  .yc-pe-hero__inner {
+    max-width: 70rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: clamp(3rem, 7vw, 7rem);
+    align-items: center;          /* naslov stoji na sredini visine slike */
+  }
+  /* donja margina = pomeraj tamne senke ispod slike, pa je naslov na sredini same slike, ne slike sa senkom */
+  .yc-pe-hero__content { container-type: inline-size; margin-bottom: 1.125rem; }
+
+  /* naslov u dva nivoa: krupno ime programa, ispod bordo slogan */
+  .yc-pe-hero__title {
+    margin: 0;
+    font-weight: 600;
+    color: var(--yc-navy);
+    animation: yc-pe-rise 1.1s cubic-bezier(.2, .7, .2, 1) both;
+  }
+  .yc-pe-hero__name {
+    display: block;
+    line-height: 1.26;            /* kvačica na Š (1.06em) + rep slova p, g (0.20em) = 1.245em; ispod toga se dodiruju */
+    letter-spacing: -.01em;
+    text-wrap: balance;
+  }
+  /* veličina naslova prema dužini: kratak naslov krupno, dug naslov manje */
+  .yc-pe-hero__name--lg { --yc-size: clamp(3rem, 6.4vw, 5.75rem); }
+  .yc-pe-hero__name--md { --yc-size: clamp(2.375rem, 4.6vw, 4rem); }
+  .yc-pe-hero__name--sm { --yc-size: clamp(1.875rem, 3.5vw, 3rem); }
+  /* reč se nikad ne seče: veličina se smanji tako da najduža reč stane u širinu kolone */
+  .yc-pe-hero__name { font-size: min(var(--yc-size), 100cqi / var(--yc-word, 1)); }
+  .yc-pe-hero__sub {
+    display: block;
+    margin-top: clamp(1.125rem, 2vw, 1.75rem);
+    font-size: clamp(1.5rem, 2.6vw, 2.375rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: .01em;
+    color: var(--yc-burgundy);
+    text-wrap: balance;
+  }
+
+  /* --- slika projekta: teget blok pomeren iza fotografije + bordo linija na vrhu, kao na stranici Projekti --- */
+  .yc-pe-hero__media {
+    animation: yc-pe-rise 1.1s cubic-bezier(.2, .7, .2, 1) .16s both;
+  }
+  .yc-pe-hero__frame {
+    position: relative;
+    margin: 0 1.125rem 1.125rem 0;
+  }
+  .yc-pe-hero__frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translate(1.125rem, 1.125rem);
+    background: var(--yc-navy);
+  }
+  .yc-pe-hero__photo {
+    position: relative;
+    overflow: hidden;
+    background: var(--yc-mist);
+  }
+  .yc-pe-hero__frame::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 4px;
+    background: var(--yc-burgundy);
+  }
+  .yc-pe-hero__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform .6s cubic-bezier(.22,.61,.36,1);
+  }
+  .yc-pe-hero__media:hover .yc-pe-hero__photo img { transform: scale(1.03); }
+
+  @keyframes yc-pe-rise {
+    from { opacity: 0; transform: translateY(1.75rem); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* =========================================================
+     Projekat: uvod, sve u jednoj koloni levo
+     ========================================================= */
+  .yc-pe-lect {
+    padding: clamp(1.5rem, 3vw, 2.5rem) 1.25rem clamp(6.5rem, 12vw, 10.5rem);
+    background: linear-gradient(180deg, var(--yc-mist) 0%, var(--yc-white) 100%);
+  }
+  .yc-pe-lect__inner {
+    max-width: 70rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 42.5rem);   /* jedna kolona, poravnata levo */
+  }
+  .yc-pe-lect__text {
+    margin: 0;
+    font-size: clamp(1.125rem, 1rem + .35vw, 1.25rem);   /* isti stil pasusa kao u člancima Preporuke Caucus-a */
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--yc-navy-80);
+
+  }
+  .yc-pe-lect__more {
+    margin: 1.2em 0 0;
+    font-size: clamp(1.125rem, 1rem + .35vw, 1.25rem);   /* isti stil pasusa kao u člancima Preporuke Caucus-a */
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--yc-navy-80);
+
+  }
+
+  /* =========================================================
+     Prvi ciklus: naslov levo, Instagram snimak desno, ispod događaji programa
+     ========================================================= */
+  .yc-events {
+    position: relative;
+    padding: clamp(2rem, 4vw, 3.5rem) 1.25rem clamp(7.5rem, 13vw, 12rem);
+    background:
+      radial-gradient(40% 18% at 100% 8%, rgba(122, 31, 61, .06) 0%, rgba(122, 31, 61, 0) 70%),
+      radial-gradient(40% 16% at 0% 52%, rgba(122, 31, 61, .06) 0%, rgba(122, 31, 61, 0) 70%),
+      radial-gradient(40% 16% at 100% 90%, rgba(122, 31, 61, .06) 0%, rgba(122, 31, 61, 0) 70%),
+      var(--yc-white);
+  }
+
+  .yc-cycle {
+    max-width: 70rem;
+    margin: 0 auto clamp(7.5rem, 13vw, 12rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 23.75rem);
+    gap: clamp(3rem, 7vw, 7rem);
+    align-items: center;
+  }
+  .yc-cycle__title {
+    margin: 0;
+    max-width: 40rem;
+    font-size: clamp(2.25rem, 4.4vw, 3.75rem);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -.01em;
+    color: var(--yc-navy);
+    text-wrap: balance;
+  }
+  /* Instagram snimak u istom okviru kao slika u heroju */
+  .yc-cycle__frame {
+    position: relative;
+    margin: 0 1.125rem 1.125rem 0;
+  }
+  .yc-cycle__frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translate(1.125rem, 1.125rem);
+    background: var(--yc-navy);
+  }
+  .yc-cycle__frame::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 4px;
+    background: var(--yc-burgundy);
+    pointer-events: none;
+  }
+  .yc-cycle__reel {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: .65;
+    border: 0;
+    background: var(--yc-white);
+  }
+
+  .yc-events__list {
+    max-width: 70rem;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: clamp(7rem, 12vw, 11rem);
+  }
+
+  /* u kodu tekst ide pre galerije; u neparnim redovima galerija se prebacuje levo */
+  .yc-event {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .yc-event__media { order: -1; min-width: 0; }
+  .yc-event:nth-child(even) { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+  .yc-event:nth-child(even) .yc-event__media { order: 0; }
+  /* događaj sa uspravnim fotografijama: uža kolona i uspravan okvir */
+  .yc-event--tall:nth-child(even) { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+  .yc-event--tall .yc-gallery__frame { aspect-ratio: 4 / 5; }
+  .yc-event--tall .yc-gallery__slide img { object-position: 50% 30%; }
+
+  .yc-event__title { margin: 0; color: var(--yc-navy); }
+  /* naslov predavanja je tema; reč „Predavanje” stoji iznad nje kao mala bordo oznaka */
+  .yc-event__label {
+    display: block;
+    margin-bottom: clamp(0.875rem, 1.4vw, 1.125rem);
+    font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--yc-burgundy);
+  }
+  .yc-event__topic {
+    display: block;
+    font-size: clamp(1.875rem, 3.2vw, 2.75rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -.005em;
+    color: var(--yc-navy);
+    text-wrap: balance;
+  }
+
+  /* --- galerija: okvir kao na Ethics Forum stranici; linija napretka na dnu slike, klik otvara lightbox --- */
+  .yc-gallery__frame {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    margin: 0 1.125rem 1.125rem 0;
+    touch-action: pan-y;
+  }
+  .yc-gallery__frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translate(1.125rem, 1.125rem);
+    background: var(--yc-navy);
+    transition: transform .45s cubic-bezier(.22,.61,.36,1);
+  }
+  .yc-gallery__frame:hover::before { transform: translate(1.5rem, 1.5rem); }
+  .yc-gallery__slides {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    background: var(--yc-mist);
+  }
+  .yc-gallery__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+  .yc-gallery__slide.is-active { opacity: 1; }
+  .yc-gallery__slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.06);
+    transition: transform 7s linear;
+  }
+  /* uspravna fotografija u položenom okviru: kadar ide ka gornjem delu, gde su lica */
+  .yc-gallery__slide img.is-portrait { object-position: 50% 22%; }
+  .yc-gallery__slide.is-active img { transform: scale(1); }
+
+  /* providno dugme preko cele slike: klik ili Enter otvara lightbox */
+  .yc-gallery__open {
+    appearance: none;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+  }
+  .yc-gallery__open:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 4px; }
+  /* ikonica za uvećanje u uglu, pojavi se na hover/fokus */
+  .yc-gallery__zoom {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    background: rgba(255, 255, 255, .92);
+    color: var(--yc-navy);
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  .yc-gallery__zoom svg { width: 1.25rem; height: 1.25rem; }
+  .yc-gallery__open:hover .yc-gallery__zoom,
+  .yc-gallery__open:focus-visible .yc-gallery__zoom { opacity: 1; transform: none; }
+
+  /* linija na dnu slike se za 5 s puni bordo bojom, pa ide sledeća fotografija */
+  .yc-gallery__bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    height: 4px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .4);
+    pointer-events: none;
+  }
+  .yc-gallery__bar span {
+    display: block;
+    height: 100%;
+    background: var(--yc-burgundy);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  .yc-gallery.is-playing .yc-gallery__bar span { animation: yc-progress 5s linear forwards; }
+  @keyframes yc-progress { to { transform: scaleX(1); } }
+  .yc-gallery:focus-within .yc-gallery__bar span,
+  .yc-gallery.is-paused .yc-gallery__bar span,
+  .yc-gallery:not(.is-inview) .yc-gallery__bar span { animation-play-state: paused; }
+  @media (hover: hover) {
+    .yc-gallery:hover .yc-gallery__bar span { animation-play-state: paused; }
+  }
+
+  /* --- lightbox: ista svetla pozadina kao meni i hero --- */
+  .yc-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 6.5rem;
+    background: linear-gradient(160deg, var(--yc-mist) 0%, var(--yc-white) 60%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility 0s linear .3s;
+    touch-action: pan-y;
+  }
+  .yc-lightbox.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .3s ease;
+  }
+  .yc-lightbox__img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    box-shadow: 0 1.875rem 4.375rem -34px rgba(5, 33, 73, .55);
+    transition: opacity .3s ease;
+  }
+  .yc-lightbox__img.is-loading { opacity: 0; }
+
+  .yc-lightbox__btn {
+    appearance: none;
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--yc-navy);
+    cursor: pointer;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-lightbox__btn svg { width: 1.75rem; height: 1.75rem; }
+  .yc-lightbox__btn:hover { opacity: 1; }
+  .yc-lightbox__btn:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 3px; }
+  .yc-lightbox__close { top: 1.25rem; right: 1.25rem; }
+  /* redni broj fotografije, u levom uglu naspram X */
+  .yc-lightbox__count {
+    position: absolute;
+    top: 1.25rem;
+    left: 2rem;
+    margin: 0;
+    height: 3.25rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.125rem;
+    font-weight: 400;
+    letter-spacing: .06em;
+    font-variant-numeric: tabular-nums;
+    color: var(--yc-navy);
+  }
+  .yc-lightbox__total { opacity: .72; }
+  .yc-lightbox__prev { left: 1.75rem; top: 50%; margin-top: -26px; }
+  .yc-lightbox__next { right: 1.75rem; top: 50%; margin-top: -26px; }
+  /* događaj sa jednom fotografijom: bez brojača i strelica */
+  .yc-lightbox.is-single .yc-lightbox__count,
+  .yc-lightbox.is-single .yc-lightbox__prev,
+  .yc-lightbox.is-single .yc-lightbox__next { display: none; }
+
+  @media (max-width: 720px) {
+    .yc-lightbox { padding: 4.75rem 1rem 6.25rem; }
+    .yc-lightbox.is-single { padding-bottom: 4.75rem; }
+    .yc-lightbox__close { top: 0.875rem; right: 0.875rem; }
+    .yc-lightbox__count { top: 0.875rem; left: 1.625rem; }
+    .yc-lightbox__prev, .yc-lightbox__next { top: auto; bottom: 1.75rem; margin-top: 0; }
+    .yc-lightbox__prev { left: calc(50% - 3.75rem); }
+    .yc-lightbox__next { right: calc(50% - 3.75rem); }
+  }
+
+  /* =========================================================
+     Tekst predsednika: jedna kolona levo
+     ========================================================= */
+  .yc-essay {
+    padding: clamp(7rem, 12vw, 11rem) 1.25rem clamp(7.5rem, 13vw, 12rem);
+    background:
+      radial-gradient(45% 30% at 100% 0%, rgba(122, 31, 61, .07) 0%, rgba(122, 31, 61, 0) 70%),
+      linear-gradient(180deg, var(--yc-white) 0%, var(--yc-mist) 16%, var(--yc-mist) 84%, var(--yc-white) 100%);
+  }
+  .yc-essay__inner {
+    max-width: 70rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 42.5rem);   /* jedna kolona, poravnata levo */
+  }
+  .yc-essay__title {
+    margin: 0;
+    font-size: clamp(2.25rem, 4.4vw, 3.75rem);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -.01em;
+    color: var(--yc-navy);
+    text-wrap: balance;
+  }
+  .yc-essay__body { margin-top: clamp(3rem, 5vw, 4.5rem); }
+  .yc-essay__body p {
+    margin: 0 0 1.2em;
+    font-size: clamp(1.125rem, 1rem + .35vw, 1.25rem);   /* isti stil pasusa kao u člancima Preporuke Caucus-a */
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--yc-navy-80);
+
+  }
+  .yc-essay__body p:last-child { margin-bottom: 0; }
+
+  .yc-essay__sign { margin-top: clamp(3rem, 5vw, 4.5rem); }
+  .yc-essay__name {
+    margin: 0;
+    font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--yc-navy);
+  }
+  .yc-essay__role {
+    margin: 0.5rem 0 0;
+    font-size: clamp(0.9375rem, 1.3vw, 1.0625rem);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--yc-burgundy);
+  }
+
+  /* =========================================================
+     Projekat: pročitajte još (tri projekta u nizu)
+     ========================================================= */
+  .yc-more {
+    padding: clamp(6rem, 11vw, 10rem) 1.25rem clamp(7rem, 12vw, 11rem);
+    background:
+      radial-gradient(45% 50% at 100% 100%, rgba(122, 31, 61, .07) 0%, rgba(122, 31, 61, 0) 70%),
+      linear-gradient(180deg, var(--yc-white) 0%, var(--yc-mist) 100%);
+  }
+  .yc-more__inner { max-width: 70rem; margin: 0 auto; }
+  .yc-more__title {
+    margin: 0 0 clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: .14em;
+    color: var(--yc-navy-80);
+  }
+  .yc-more__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+  /* slike u prirodnom formatu, poravnate po donjoj ivici; naslovi počinju u istoj liniji */
+  .yc-more__list > li {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+  .yc-more__link {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    color: inherit;
+    text-decoration: none;
+  }
+  .yc-more__frame { align-self: end; }
+  .yc-more__link:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 0.625rem; }
+  /* teget blok pomeren iza fotografije + bordo linija na vrhu, kao na stranici Projekti */
+  .yc-more__frame {
+    position: relative;
+    margin: 0 0.875rem 0.875rem 0;
+  }
+  .yc-more__frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translate(0.875rem, 0.875rem);
+    background: var(--yc-navy);
+    transition: transform .45s cubic-bezier(.22,.61,.36,1);
+  }
+  .yc-more__photo {
+    position: relative;
+    overflow: hidden;
+    background: var(--yc-mist);
+  }
+  .yc-more__frame::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 4px;
+    background: var(--yc-burgundy);
+  }
+  .yc-more__photo img {
+    display: block;
+    width: 100%;
+    height: auto;                 /* prirodan format slike, bez kropovanja */
+    transition: transform .6s cubic-bezier(.22,.61,.36,1);
+  }
+  .yc-more__name {
+    margin: 1.75rem 0 0;
+    font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+    font-weight: 500;
+    line-height: 1.36;            /* kvačice na Š i Ć ne smeju da dodirnu red iznad */
+    color: var(--yc-navy);
+    text-wrap: balance;
+  }
+  .yc-more__link:hover .yc-more__frame::before,
+  .yc-more__link:focus-visible .yc-more__frame::before { transform: translate(1.25rem, 1.25rem); }
+  .yc-more__link:hover .yc-more__photo img,
+  .yc-more__link:focus-visible .yc-more__photo img { transform: scale(1.04); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-pe-hero__title, .yc-pe-hero__media { animation: none; }
+    .yc-pe-hero__photo img,
+    .yc-gallery__frame::before, .yc-gallery__slide, .yc-gallery__slide img, .yc-gallery__zoom,
+    .yc-lightbox, .yc-lightbox__img, .yc-lightbox__btn,
+    .yc-more__frame::before, .yc-more__photo img { transition: none; }
+    .yc-gallery__slide img { transform: none; }
+    .yc-gallery__bar { visibility: hidden; }   /* bez automatske smene; lightbox i prevlačenje i dalje rade */
+  }
+
+  /* --- tablet i telefon: sve u jednoj koloni --- */
+  @media (max-width: 860px) {
+    .yc-pe-hero__inner { grid-template-columns: 1fr; gap: 4rem; }
+    .yc-pe-hero__content { margin-bottom: 0; }
+    .yc-pe-hero__name { margin-top: -.15em; }   /* veći prored spušta prvi red; vrh slova u istoj visini kao naslov na Blogu */
+    .yc-pe-hero__media { width: min(26.25rem, 100%); }
+    .yc-pe-hero__frame { margin: 0 0.75rem 0.75rem 0; }
+    .yc-pe-hero__frame::before { transform: translate(0.75rem, 0.75rem); }
+
+    .yc-pe-lect__inner,
+    .yc-essay__inner { grid-template-columns: minmax(0, 40rem); }
+
+    .yc-cycle { grid-template-columns: minmax(0, 1fr); gap: 3rem; }
+    .yc-cycle__media { width: min(23.75rem, 100%); }
+    .yc-cycle__frame { margin: 0 0.75rem 0.75rem 0; }
+    .yc-cycle__frame::before { transform: translate(0.75rem, 0.75rem); }
+
+    .yc-event,
+    .yc-event:nth-child(even),
+    .yc-event--tall:nth-child(even) { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+    .yc-event__media,
+    .yc-event:nth-child(even) .yc-event__media { order: 0; }
+    .yc-event--tall .yc-event__media { width: min(26.25rem, 100%); }
+    .yc-gallery__frame { margin: 0 0.75rem 0.75rem 0; }
+    .yc-gallery__frame::before { transform: translate(0.75rem, 0.75rem); }
+    .yc-gallery__frame:hover::before { transform: translate(0.75rem, 0.75rem); }
+  }
+
+  @media (max-width: 720px) {
+    /* pročitajte još: mala slika levo, naslov desno */
+    .yc-more__list { grid-template-columns: 1fr; gap: 2.25rem; }
+    .yc-more__list > li { display: block; grid-row: auto; }
+    .yc-more__link {
+      display: grid;
+      grid-template-columns: 7.5rem minmax(0, 1fr);
+      gap: 1.75rem;
+      align-items: center;
+      grid-row: auto;
+      grid-template-rows: none;
+    }
+    .yc-more__frame { margin: 0 0.625rem 0.625rem 0; align-self: auto; }
+    .yc-more__frame::before { transform: translate(0.625rem, 0.625rem); }
+    .yc-more__link:hover .yc-more__frame::before,
+    .yc-more__link:focus-visible .yc-more__frame::before { transform: translate(0.875rem, 0.875rem); }
+    .yc-more__name { margin: 0; }
+  }
+
+  @media (max-width: 480px) {
+    .yc-pe-hero, .yc-pe-lect, .yc-events, .yc-essay, .yc-more { padding-left: 1rem; padding-right: 1rem; }
+    .yc-pe-hero__name--lg { --yc-size: 2.75rem; }
+    .yc-pe-hero__name--md { --yc-size: 2.125rem; }
+    .yc-pe-hero__name--sm { --yc-size: 1.75rem; }
+    .yc-pe-hero__sub { font-size: 1.5625rem; }
+    .yc-cycle__title, .yc-essay__title { font-size: 2.125rem; }
+    .yc-events__list { gap: 6rem; }
+    .yc-event__label { font-size: 1rem; }
+    .yc-event__topic { font-size: 1.75rem; }
+    .yc-more__link { grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1.5rem; }
+    .yc-more__name { font-size: 1.25rem; }
+  }
+
+  /* ===== Animacija pri skrolovanju ===== */
+  .yc-reveal {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    filter: blur(0.375rem);
+    transition: opacity .9s ease, transform .9s ease, filter .9s ease;
+  }
+  .yc-reveal.is-visible { opacity: 1; transform: none; filter: none; }
+  .yc-reveal--delay { transition-delay: .2s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-reveal { opacity: 1; transform: none; filter: none; transition: none; }
+  }
+
+
+  .yc-visually-hidden {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+
+  /* =========================================================
+     Footer
+     ========================================================= */
+  .yc-footer {
+    --yc-footer-fs: 1.375rem;          /* jedna veličina teksta za ceo footer */
+    position: relative;
+    overflow: hidden;
+    padding: clamp(4.8rem, 8.8vw, 8rem) 1.5rem 0;
+    color: var(--yc-white);
+    background:
+      radial-gradient(90% 120% at 100% 0%, rgba(122, 31, 61, .95) 0%, rgba(122, 31, 61, .5) 32%, rgba(122, 31, 61, 0) 70%),
+      radial-gradient(60% 80% at 100% 100%, rgba(150, 110, 150, .45) 0%, rgba(150, 110, 150, 0) 70%),
+      linear-gradient(100deg, #041a3b 0%, var(--yc-navy) 40%, #1d2b56 100%);
+  }
+
+  .yc-footer__inner {
+    position: relative;
+    max-width: 70rem;
+    margin: 0 auto;
+    container-type: inline-size;   /* natpis se meri prema širini sadržaja */
+  }
+
+  .yc-footer__top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "brand nav";
+    align-items: start;
+    column-gap: clamp(4rem, 8vw, 8rem);
+    row-gap: 3.6rem;
+    padding-bottom: clamp(4.4rem, 8vw, 6.8rem);
+  }
+
+  /* --- brend --- */
+  .yc-footer__brand { grid-area: brand; }
+  /* --- navigacija --- */
+  .yc-footer__nav {
+    grid-area: nav;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    column-gap: clamp(4rem, 8vw, 8rem);
+  }
+  .yc-footer__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.125rem;
+    line-height: 1.4;
+  }
+  .yc-footer__link {
+    color: var(--yc-white);
+    font-size: var(--yc-footer-fs);
+    font-weight: 400;
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-footer__link:hover,
+  .yc-footer__link:focus-visible,
+  .yc-footer__link[aria-current] { opacity: 1; }
+
+  /* --- kontakt --- */
+  .yc-footer__contact-title {
+    margin: 0 0 1.125rem;
+    font-size: var(--yc-footer-fs);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: .02em;
+    color: var(--yc-white);
+  }
+  .yc-contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.125rem;
+    font-size: var(--yc-footer-fs);
+    line-height: 1.4;
+  }
+
+  /* bazno prigušeno, na hover 100% */
+  .yc-contact__item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .45em;
+    color: var(--yc-white);
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-contact__item:hover,
+  .yc-contact__item:focus-visible { opacity: 1; }
+  .yc-contact__icon {
+    flex: none;
+    display: inline-flex;
+  }
+  .yc-contact__icon svg { display: block; width: .82em; height: .82em; overflow: visible; }
+
+  .yc-contact__value {
+    font-weight: 400;
+    overflow-wrap: anywhere;
+  }
+
+  .yc-footer a:focus-visible { outline: 2px solid var(--yc-white); outline-offset: 4px; }
+
+  /* --- donja traka --- */
+  .yc-footer__bottom {
+    padding: 2rem 0;
+  }
+  .yc-footer__copy {
+    margin: 0;
+    text-align: center;
+    font-size: 0.9375rem;
+    font-weight: 300;
+    letter-spacing: .02em;
+    color: rgba(255, 255, 255, .6);
+  }
+
+  /* --- veliki natpis u dnu --- */
+  .yc-footer__wordmark {
+    display: block;
+    margin: clamp(1.6rem, 4vw, 3.6rem) 0 -0.2em;
+    font-size: clamp(2.5rem, 12vw, 10.5rem);   /* rezerva za starije pretraživače */
+    font-size: calc(100cqw / 6.085);        /* slova tačno od leve do desne margine */
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--yc-white);
+    opacity: .06;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-footer__link, .yc-contact__item { transition: none; }
+  }
+
+  @media (max-width: 900px) {
+    .yc-footer__top {
+      grid-template-columns: auto auto;
+      grid-template-areas: "brand nav";
+      justify-content: space-between;
+      column-gap: 4rem;
+      row-gap: 3.6rem;
+    }
+    .yc-footer__nav { column-gap: 4rem; }
+  }
+
+  @media (max-width: 560px) {
+    .yc-footer { padding: 4.4rem 1rem 0; }
+    .yc-footer__top {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "brand"
+        "nav";
+      row-gap: 3.2rem;
+      padding-bottom: 4rem;
+    }
+    .yc-footer__nav { grid-template-columns: repeat(2, 1fr); column-gap: 1.5rem; }
+    .yc-footer__bottom { padding: 1.6rem 0; }
+    .yc-footer { --yc-footer-fs: 1.25rem; }
+  }
+</style>
+<link rel="stylesheet" href="../../../assets/search/search.css?v=7">
+</head>
+<body>
+
+<!-- =========================================================
+     Navigation
+     ========================================================= -->
+<header class="yc-nav">
+  <div class="yc-nav__inner">
+    <a class="yc-nav__logo" href="../../" aria-label="Youth Caucus, home">
+      <img src="../../../assets/images/youth-caucus-logo.png" width="260" height="313" alt="">
+    </a>
+
+    <nav aria-label="Main navigation">
+      <ul class="yc-nav__links">
+        <li><a class="yc-nav__link" href="../" aria-current="true">Projects</a></li>
+        <li><a class="yc-nav__link" href="../../about-us/">About Us</a></li>
+        <li><a class="yc-nav__link" href="../../senior-advisory-board/">Senior Advisory Board</a></li>
+        <li><a class="yc-nav__link" href="../../ethics-forum/">Ethics Forum</a></li>
+        <li><a class="yc-nav__link" href="../../events/">Events</a></li>
+        <li><a class="yc-nav__link" href="../../blog/">Blog</a></li>
+        <li><a class="yc-nav__link" href="../../caucus-recommendation/">Caucus Recommendation</a></li>
+        <li class="yc-nav__search-item">
+          <button class="yc-nav__search" type="button" aria-label="Search" aria-haspopup="dialog" aria-expanded="false" aria-controls="yc-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.75"/><path d="M15.6 15.6 21 21"/></svg>
+          </button>
+        </li>
+        <li class="yc-nav__lang-item">
+          <a class="yc-lang" href="../../../projekti/program-america-dream-build-achieve/" hreflang="sr" lang="sr-Latn" aria-label="Srpski">
+            <img class="yc-lang__flag yc-lang__flag--en" src="../../../assets/images/en.png" width="30" height="20" alt="">
+            <img class="yc-lang__flag yc-lang__flag--sr" src="../../../assets/images/sr.png" width="30" height="20" alt="">
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <button class="yc-nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="yc-menu">
+      <span class="yc-burger" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+</header>
+
+<!-- menu for tablet and phone -->
+<div class="yc-menu" id="yc-menu" aria-label="Menu">
+  <div class="yc-menu__top" aria-hidden="true"></div>
+
+  <nav aria-label="Menu">
+    <ul class="yc-menu__links">
+      <li><a class="yc-menu__link" href="../" aria-current="true">Projects</a></li>
+      <li><a class="yc-menu__link" href="../../about-us/">About Us</a></li>
+      <li><a class="yc-menu__link" href="../../senior-advisory-board/">Senior Advisory Board</a></li>
+      <li><a class="yc-menu__link" href="../../ethics-forum/">Ethics Forum</a></li>
+      <li><a class="yc-menu__link" href="../../events/">Events</a></li>
+      <li><a class="yc-menu__link" href="../../blog/">Blog</a></li>
+      <li><a class="yc-menu__link" href="../../caucus-recommendation/">Caucus Recommendation</a></li>
+    </ul>
+  </nav>
+</div>
+
+<main>
+
+<!-- =========================================================
+     Hero: naslov projekta i slika
+     ========================================================= -->
+<section class="yc-pe-hero" aria-labelledby="yc-pe-title">
+  <div class="yc-pe-hero__inner">
+
+    <div class="yc-pe-hero__content">
+      <h1 class="yc-pe-hero__title" id="yc-pe-title">
+        <span class="yc-pe-hero__name yc-pe-hero__name--lg" style="--yc-word: 3.49">Program America -</span>
+        <span class="yc-pe-hero__sub">Dream. Build. Achieve.</span>
+      </h1>
+    </div>
+
+    <div class="yc-pe-hero__media">
+      <div class="yc-pe-hero__frame">
+        <div class="yc-pe-hero__photo">
+          <img src="../../../projekti/program-america-dream-build-achieve/images/program-america-dream-build-achieve.webp"
+               width="1287" height="1592" alt="" fetchpriority="high">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     Cilj programa
+     ========================================================= -->
+<section class="yc-pe-lect">
+  <div class="yc-pe-lect__inner">
+    <div class="yc-reveal">
+      <p class="yc-pe-lect__text">
+        Program America - Dream. Build. Achieve. aims to open new doors and build new perspectives that will empower young people in their further academic and professional development.
+      </p>
+      <p class="yc-pe-lect__more">
+        With the goal of connecting high school and university students through entrepreneurial encouragement, learning about Serbian-American relations throughout history, and gaining knowledge about the United States of America, this program represents a unique and pioneering educational initiative of its kind.
+      </p>
+      <p class="yc-pe-lect__more">
+        Through carefully designed lectures and dynamic, interactive learning formats, participants move beyond superficial perceptions. They are encouraged to think critically and actively engage in exploring the cultural, political, and economic dimensions of American influence.
+      </p>
+      <p class="yc-pe-lect__more">
+        This program is not merely an opportunity for learning. It is an incentive for personal and professional growth. It promotes inclusive and quality education, contributes to reducing inequalities, and empowers young people with relevant knowledge and skills. Special emphasis is placed on the historical foundations and contemporary development of Serbian-American relations, while also addressing key global topics such as decent work and economic growth, innovation and entrepreneurship, responsible consumption, and sustainable development.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     Prvi ciklus programa i događaji
+     ========================================================= -->
+<section class="yc-events" aria-labelledby="yc-cycle-title">
+
+  <div class="yc-cycle">
+    <h2 class="yc-cycle__title yc-reveal" id="yc-cycle-title">First Cycle of the Program America&nbsp;- Dream. Build. Achieve.</h2>
+    <div class="yc-cycle__media yc-reveal yc-reveal--delay">
+      <div class="yc-cycle__frame">
+        <iframe class="yc-cycle__reel" src="https://www.instagram.com/reel/DYmhC5CtUd0/embed" title="Instagram"
+                loading="lazy" scrolling="no" allow="encrypted-media; fullscreen; clipboard-write"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <ol class="yc-events__list">
+
+    <li class="yc-event">
+      <div class="yc-event__body yc-reveal yc-reveal--delay">
+        <h3 class="yc-event__title">
+          <span class="yc-event__topic">Program Opening:</span>
+        </h3>
+      </div>
+      <div class="yc-event__media yc-gallery yc-reveal">
+        <div class="yc-gallery__frame">
+          <ul class="yc-gallery__slides">
+            <li class="yc-gallery__slide is-active">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/otvaranje-programa-1.webp"
+                   width="2048" height="1365" alt="" loading="lazy"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/otvaranje-programa-1.webp">
+            </li>
+            <li class="yc-gallery__slide" aria-hidden="true">
+              <img class="is-portrait" src="../../../projekti/program-america-dream-build-achieve/images/otvaranje-programa-2.webp"
+                   width="1290" height="1510" alt="" loading="lazy" decoding="async"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/otvaranje-programa-2.webp">
+            </li>
+            <li class="yc-gallery__slide" aria-hidden="true">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/otvaranje-programa-3.webp"
+                   width="2048" height="1365" alt="" loading="lazy" decoding="async"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/otvaranje-programa-3.webp">
+            </li>
+          </ul>
+          <button class="yc-gallery__open" type="button" aria-label="Open photo">
+            <span class="yc-gallery__zoom" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h5v5M8 17H3v-5M17 3l-6 6M3 17l6-6"/></svg></span>
+          </button>
+          <div class="yc-gallery__bar" aria-hidden="true"><span></span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="yc-event">
+      <div class="yc-event__body yc-reveal yc-reveal--delay">
+        <h3 class="yc-event__title">
+          <span class="yc-event__label">Lecture</span>
+          <span class="yc-event__topic">“250 Years of the United States of America”</span>
+        </h3>
+      </div>
+      <div class="yc-event__media yc-gallery yc-reveal">
+        <div class="yc-gallery__frame">
+          <ul class="yc-gallery__slides">
+            <li class="yc-gallery__slide is-active">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/predavanje-250-godina-sjedinjenih-americkih-drzava-1.webp"
+                   width="2048" height="1365" alt="" loading="lazy"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/predavanje-250-godina-sjedinjenih-americkih-drzava-1.webp">
+            </li>
+            <li class="yc-gallery__slide" aria-hidden="true">
+              <img class="is-portrait" src="../../../projekti/program-america-dream-build-achieve/images/predavanje-250-godina-sjedinjenih-americkih-drzava-2.webp"
+                   width="1080" height="1857" alt="" loading="lazy" decoding="async"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/predavanje-250-godina-sjedinjenih-americkih-drzava-2.webp">
+            </li>
+            <li class="yc-gallery__slide" aria-hidden="true">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/predavanje-250-godina-sjedinjenih-americkih-drzava-3.webp"
+                   width="2048" height="1365" alt="" loading="lazy" decoding="async"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/predavanje-250-godina-sjedinjenih-americkih-drzava-3.webp">
+            </li>
+          </ul>
+          <button class="yc-gallery__open" type="button" aria-label="Open photo">
+            <span class="yc-gallery__zoom" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h5v5M8 17H3v-5M17 3l-6 6M3 17l6-6"/></svg></span>
+          </button>
+          <div class="yc-gallery__bar" aria-hidden="true"><span></span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="yc-event">
+      <div class="yc-event__body yc-reveal yc-reveal--delay">
+        <h3 class="yc-event__title">
+          <span class="yc-event__label">Lecture</span>
+          <span class="yc-event__topic">“American Soft Power – How Close Are We Really?”</span>
+        </h3>
+      </div>
+      <div class="yc-event__media yc-gallery yc-reveal">
+        <div class="yc-gallery__frame">
+          <ul class="yc-gallery__slides">
+            <li class="yc-gallery__slide is-active">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/predavanje-americka-meka-moc-koliko-smo-zapravo-bliski-1.webp"
+                   width="2048" height="1365" alt="" loading="lazy"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/predavanje-americka-meka-moc-koliko-smo-zapravo-bliski-1.webp">
+            </li>
+            <li class="yc-gallery__slide" aria-hidden="true">
+              <img class="is-portrait" src="../../../projekti/program-america-dream-build-achieve/images/predavanje-americka-meka-moc-koliko-smo-zapravo-bliski-2.webp"
+                   width="1080" height="1766" alt="" loading="lazy" decoding="async"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/predavanje-americka-meka-moc-koliko-smo-zapravo-bliski-2.webp">
+            </li>
+            <li class="yc-gallery__slide" aria-hidden="true">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/predavanje-americka-meka-moc-koliko-smo-zapravo-bliski-3.webp"
+                   width="2048" height="1365" alt="" loading="lazy" decoding="async"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/predavanje-americka-meka-moc-koliko-smo-zapravo-bliski-3.webp">
+            </li>
+          </ul>
+          <button class="yc-gallery__open" type="button" aria-label="Open photo">
+            <span class="yc-gallery__zoom" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h5v5M8 17H3v-5M17 3l-6 6M3 17l6-6"/></svg></span>
+          </button>
+          <div class="yc-gallery__bar" aria-hidden="true"><span></span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="yc-event">
+      <div class="yc-event__body yc-reveal yc-reveal--delay">
+        <h3 class="yc-event__title">
+          <span class="yc-event__label">Lecture</span><span class="yc-visually-hidden">:</span>
+          <span class="yc-event__topic">“Serbian-American Relations Throughout the Centuries”</span>
+        </h3>
+      </div>
+      <div class="yc-event__media yc-gallery yc-reveal">
+        <div class="yc-gallery__frame">
+          <ul class="yc-gallery__slides">
+            <li class="yc-gallery__slide is-active">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/predavanje-srpsko-americki-odnosi-kroz-vekove-1.webp"
+                   width="2048" height="1365" alt="" loading="lazy"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/predavanje-srpsko-americki-odnosi-kroz-vekove-1.webp">
+            </li>
+            <li class="yc-gallery__slide" aria-hidden="true">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/predavanje-srpsko-americki-odnosi-kroz-vekove-2.webp"
+                   width="2048" height="1365" alt="" loading="lazy" decoding="async"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/predavanje-srpsko-americki-odnosi-kroz-vekove-2.webp">
+            </li>
+            <li class="yc-gallery__slide" aria-hidden="true">
+              <img class="is-portrait" src="../../../projekti/program-america-dream-build-achieve/images/predavanje-srpsko-americki-odnosi-kroz-vekove-3.webp"
+                   width="1196" height="2048" alt="" loading="lazy" decoding="async"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/predavanje-srpsko-americki-odnosi-kroz-vekove-3.webp">
+            </li>
+          </ul>
+          <button class="yc-gallery__open" type="button" aria-label="Open photo">
+            <span class="yc-gallery__zoom" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h5v5M8 17H3v-5M17 3l-6 6M3 17l6-6"/></svg></span>
+          </button>
+          <div class="yc-gallery__bar" aria-hidden="true"><span></span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="yc-event">
+      <div class="yc-event__body yc-reveal yc-reveal--delay">
+        <h3 class="yc-event__title">
+          <span class="yc-event__label">Lecture</span>
+          <span class="yc-event__topic">“The American Dream – Is It Possible in Serbia?”</span>
+        </h3>
+      </div>
+      <div class="yc-event__media yc-gallery yc-reveal">
+        <div class="yc-gallery__frame">
+          <ul class="yc-gallery__slides">
+            <li class="yc-gallery__slide is-active">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/predavanje-americki-san-da-li-je-moguc-u-srbiji-1.webp"
+                   width="2048" height="1365" alt="" loading="lazy"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/predavanje-americki-san-da-li-je-moguc-u-srbiji-1.webp">
+            </li>
+            <li class="yc-gallery__slide" aria-hidden="true">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/predavanje-americki-san-da-li-je-moguc-u-srbiji-2.webp"
+                   width="2048" height="1365" alt="" loading="lazy" decoding="async"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/predavanje-americki-san-da-li-je-moguc-u-srbiji-2.webp">
+            </li>
+            <li class="yc-gallery__slide" aria-hidden="true">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/predavanje-americki-san-da-li-je-moguc-u-srbiji-3.webp"
+                   width="2048" height="1365" alt="" loading="lazy" decoding="async"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/predavanje-americki-san-da-li-je-moguc-u-srbiji-3.webp">
+            </li>
+          </ul>
+          <button class="yc-gallery__open" type="button" aria-label="Open photo">
+            <span class="yc-gallery__zoom" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h5v5M8 17H3v-5M17 3l-6 6M3 17l6-6"/></svg></span>
+          </button>
+          <div class="yc-gallery__bar" aria-hidden="true"><span></span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="yc-event yc-event--tall">
+      <div class="yc-event__body yc-reveal yc-reveal--delay">
+        <h3 class="yc-event__title">
+          <span class="yc-event__topic">Discussion and Networking Session with an Entrepreneur</span>
+        </h3>
+      </div>
+      <div class="yc-event__media yc-gallery yc-reveal">
+        <div class="yc-gallery__frame">
+          <ul class="yc-gallery__slides">
+            <li class="yc-gallery__slide is-active">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/razgovor-i-umrezavanje-sa-preduzetnicom-1.webp"
+                   width="1365" height="2048" alt="" loading="lazy"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/razgovor-i-umrezavanje-sa-preduzetnicom-1.webp">
+            </li>
+            <li class="yc-gallery__slide" aria-hidden="true">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/razgovor-i-umrezavanje-sa-preduzetnicom-2.webp"
+                   width="1365" height="2048" alt="" loading="lazy" decoding="async"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/razgovor-i-umrezavanje-sa-preduzetnicom-2.webp">
+            </li>
+            <li class="yc-gallery__slide" aria-hidden="true">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/razgovor-i-umrezavanje-sa-preduzetnicom-3.webp"
+                   width="1365" height="2048" alt="" loading="lazy" decoding="async"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/razgovor-i-umrezavanje-sa-preduzetnicom-3.webp">
+            </li>
+          </ul>
+          <button class="yc-gallery__open" type="button" aria-label="Open photo">
+            <span class="yc-gallery__zoom" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h5v5M8 17H3v-5M17 3l-6 6M3 17l6-6"/></svg></span>
+          </button>
+          <div class="yc-gallery__bar" aria-hidden="true"><span></span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="yc-event">
+      <div class="yc-event__body yc-reveal yc-reveal--delay">
+        <h3 class="yc-event__title">
+          <span class="yc-event__topic">Certificate Award Ceremony for the First Generation of the Program America&nbsp;- Dream. Build. Achieve.</span>
+        </h3>
+      </div>
+      <div class="yc-event__media yc-gallery yc-reveal">
+        <div class="yc-gallery__frame">
+          <ul class="yc-gallery__slides">
+            <li class="yc-gallery__slide is-active">
+              <img src="../../../projekti/program-america-dream-build-achieve/images/dodela-sertifikata-prvoj-generaciji-programa-america-dream-build-achieve-1.webp"
+                   width="2048" height="1365" alt="" loading="lazy"
+                   data-full="../../../projekti/program-america-dream-build-achieve/images/dodela-sertifikata-prvoj-generaciji-programa-america-dream-build-achieve-1.webp">
+            </li>
+          </ul>
+          <button class="yc-gallery__open" type="button" aria-label="Open photo">
+            <span class="yc-gallery__zoom" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h5v5M8 17H3v-5M17 3l-6 6M3 17l6-6"/></svg></span>
+          </button>
+        </div>
+      </div>
+    </li>
+
+  </ol>
+</section>
+
+<!-- =========================================================
+     Mladi kao nosioci unapređenja srpsko-američkih odnosa
+     ========================================================= -->
+<section class="yc-essay" aria-labelledby="yc-essay-title">
+  <div class="yc-essay__inner">
+
+    <div class="yc-essay__head yc-reveal">
+      <h2 class="yc-essay__title" id="yc-essay-title">Young People as Drivers of Stronger Serbian-American Relations</h2>
+    </div>
+
+    <div class="yc-essay__body">
+      <p class="yc-reveal">The desire to improve relations is not, and must not become, an empty phrase.</p>
+      <p class="yc-reveal">
+        If we pause for a moment to consider the aspirations of young people today, we would realize that the desire for a stable, promising, and predictable future—one in which individuals can fully realize their potential—is closely aligned with the broader vision embodied in the concept of the American Dream.
+      </p>
+      <p class="yc-reveal">
+        The American Dream represents a globally inspiring ideal in which the conditions necessary for both individuals and societies to pursue happiness are achieved, thereby fulfilling the vision set forth in the 1776 Declaration of Independence of the United States. The concept of the pursuit of happiness became the foundation of what James Truslow Adams would later describe in his 1931 book Epic of America as the “American Dream.”
+      </p>
+      <p class="yc-reveal">
+        Systemic support for individual achievement—where personal success helps move society forward and creates opportunities for progress and modernization—is perhaps best illustrated through entrepreneurship and the efforts of ambitious individuals who sought to accomplish great things during their lifetimes and improve the world around them.
+      </p>
+      <p class="yc-reveal">
+        This reflects the fundamental concept of the United States: a nation rooted in commerce and enterprise, one that naturally globalizes its culture, influence, and historical legacy, transcending the fluctuations and challenges that may arise throughout the evolution of the American Dream.
+      </p>
+      <p class="yc-reveal">
+        It is precisely the American Dream, together with the societal principles that underpin it, that serves as a point of connection between Serbia and the United States.
+      </p>
+      <p class="yc-reveal">
+        Public opinion surveys and research on the attitudes of young people in Serbia toward the United States reveal certain fluctuations over time and, in recent years, somewhat more positive trends. Yet one element remains firmly established: the desire to improve Serbian-American relations.
+      </p>
+      <p class="yc-reveal">
+        With the conviction that young people are the pathway toward a successful and modern future—and, I would argue, toward Serbia’s future as a member of the European Union—the organization Youth Caucus was founded in July 2025. On May 11 and 12, with the support of the American Resource Center in Serbia and the U.S. Embassy in Belgrade, the organization implemented the innovative program Dream. Build. Achieve.
+      </p>
+      <p class="yc-reveal">
+        The program’s primary goal was to bring together high school students from Belgrade, as well as university students—predominantly from the University of Belgrade—through entrepreneurial encouragement and education about Serbian-American relations.
+      </p>
+      <p class="yc-reveal">
+        Participants’ noticeable surprise at various geographical and historical facts about the United States significantly increased their interest in topics such as the presence of the United States in everyday life, the historical development of Serbian-American relations, and entrepreneurship, which were explored throughout the program.
+      </p>
+      <p class="yc-reveal">
+        As participants recognized American influences in both their everyday environment and the digital world—along with entrepreneurship, for which the United States serves as a global benchmark and cradle—the lecture on the development of Serbian-American relations through the centuries proved particularly impactful.
+      </p>
+      <p class="yc-reveal">
+        Information about U.S.-Serbian relations during the nineteenth and early twentieth centuries, which often remains absent from public discourse (whether intentionally or unintentionally, I leave to the reader’s judgment), sparked a wave of questions and discussion within an objective and critical atmosphere throughout the program.
+      </p>
+      <p class="yc-reveal">
+        One especially notable outcome among participants was a growing desire to engage more deeply in researching the United States and our bilateral relations. Many recognized that this path offers valuable tools for their future academic and professional advancement—something of vital importance to any society.
+      </p>
+      <p class="yc-reveal">
+        This initiative demonstrated that sustainable attitudes and genuine motivation can only be built upon objective and truthful foundations.
+      </p>
+      <p class="yc-reveal">
+        Young people, understandably and from a human perspective, are often able to approach discussions about improving Serbian-American relations with fewer stereotypes—or none at all—than previous generations.
+      </p>
+      <p class="yc-reveal">
+        For that dialogue to be productive, it must be grounded in the same principles that shaped participants’ perspectives during the Dream. Build. Achieve. program: factual, objective, and critical thinking. Even if the natural enthusiasm of young people regarding their future is not always a sufficiently strong driver of public dialogue, there will always remain the less visible, yet undeniable and natural ties between the people of Serbia and the United States. Equally important are the pragmatic considerations that emerge when reflecting on the world’s largest economy—the United States—which is likely to remain a leading global, and in our context regional, engine of development for years to come.
+      </p>
+    </div>
+
+    <div class="yc-essay__sign yc-reveal">
+      <p class="yc-essay__name">Novak Đurić</p>
+      <p class="yc-essay__role">President, Youth Caucus</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     Pročitajte još
+     ========================================================= -->
+<section class="yc-more" aria-labelledby="yc-more-title">
+  <div class="yc-more__inner">
+    <h2 class="yc-more__title yc-reveal" id="yc-more-title">READ MORE:</h2>
+    <ul class="yc-more__list">
+
+      <li class="yc-reveal">
+        <a class="yc-more__link" href="../third-cycle-of-the-ethics-school-programme/">
+          <div class="yc-more__frame">
+            <div class="yc-more__photo">
+              <img src="../../../projekti/treci-ciklus-programa-skole-etike/images/treci-ciklus-programa-skole-etike.webp"
+                   width="475" height="548" alt="" loading="lazy">
+            </div>
+          </div>
+          <h3 class="yc-more__name">Third Cycle of the Ethics School Programme</h3>
+        </a>
+      </li>
+
+      <li class="yc-reveal yc-reveal--delay">
+        <a class="yc-more__link" href="../the-second-cycle-of-the-school-of-ethics-program/">
+          <div class="yc-more__frame">
+            <div class="yc-more__photo">
+              <img src="../../../projekti/drugi-ciklus-programa-skole-etike/images/drugi-ciklus-programa-skole-etike.webp"
+                   width="1080" height="1080" alt="" loading="lazy">
+            </div>
+          </div>
+          <h3 class="yc-more__name">The Second Cycle of the School of Ethics Program</h3>
+        </a>
+      </li>
+
+      <li class="yc-reveal yc-reveal--delay">
+        <a class="yc-more__link" href="../the-first-cycle-of-the-school-of-ethics-of-the-youth-caucus-ethics-forum-william-c-mccoy/">
+          <div class="yc-more__frame">
+            <div class="yc-more__photo">
+              <img src="../../../projekti/prvi-ciklus-skole-etike-youth-caucus-ethics-foruma-william-c-mccoy/images/youth-caucus-ethics-forum-william-c-mccoy-skola-etike.webp"
+                   width="1000" height="1000" alt="" loading="lazy">
+            </div>
+          </div>
+          <h3 class="yc-more__name">The first cycle of the “School of Ethics” of the Youth Caucus Ethics Forum “William C. McCoy”</h3>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<!-- lightbox za fotografije događaja -->
+<div class="yc-lightbox" id="yc-lightbox" role="dialog" aria-modal="true" aria-label="Photo" aria-hidden="true">
+  <p class="yc-lightbox__count" aria-live="polite"></p>
+  <img class="yc-lightbox__img" alt="">
+  <button class="yc-lightbox__btn yc-lightbox__close" type="button" aria-label="Close">
+    <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l12 12M17 5L5 17"/></svg>
+  </button>
+  <button class="yc-lightbox__btn yc-lightbox__prev" type="button" aria-label="Previous photo">
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg>
+  </button>
+  <button class="yc-lightbox__btn yc-lightbox__next" type="button" aria-label="Next photo">
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
+  </button>
+</div>
+
+<!-- =========================================================
+     Footer
+     ========================================================= -->
+<footer class="yc-footer">
+  <div class="yc-footer__inner">
+
+    <div class="yc-footer__top">
+      <div class="yc-footer__brand">
+        <div class="yc-footer__contact">
+          <p class="yc-footer__contact-title">Contact</p>
+          <ul class="yc-contact">
+            <li>
+              <a class="yc-contact__item" href="mailto:office@youthcaucus.rs">
+                <span class="yc-contact__icon" aria-hidden="true">
+                  <svg viewBox="2.2 2.2 19.6 19.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="5" width="18" height="14" rx="2"/>
+                    <path d="m3.8 6.4 8.2 6.3 8.2-6.3"/>
+                  </svg>
+                </span>
+                <span class="yc-contact__value">office@youthcaucus.rs</span>
+              </a>
+            </li>
+            <li>
+              <a class="yc-contact__item" href="https://www.instagram.com/youth_caucus" target="_blank" rel="noopener" aria-label="Instagram @youth_caucus">
+                <span class="yc-contact__icon" aria-hidden="true">
+                  <svg viewBox="2.2 2.2 19.6 19.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="5.2"/>
+                    <circle cx="12" cy="12" r="4.2"/>
+                    <circle cx="17.3" cy="6.7" r="1.05" fill="currentColor" stroke="none"/>
+                  </svg>
+                </span>
+                <span class="yc-contact__value">@youth_caucus</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <nav class="yc-footer__nav" aria-label="Footer navigation">
+        <div>
+          <ul class="yc-footer__list">
+            <li><a class="yc-footer__link" href="../../">Home</a></li>
+            <li><a class="yc-footer__link" href="../" aria-current="true">Projects</a></li>
+            <li><a class="yc-footer__link" href="../../about-us/">About Us</a></li>
+            <li><a class="yc-footer__link" href="../../senior-advisory-board/">Senior Advisory Board</a></li>
+          </ul>
+        </div>
+        <div>
+          <ul class="yc-footer__list">
+            <li><a class="yc-footer__link" href="../../ethics-forum/">Ethics Forum</a></li>
+            <li><a class="yc-footer__link" href="../../events/">Events</a></li>
+            <li><a class="yc-footer__link" href="../../blog/">Blog</a></li>
+            <li><a class="yc-footer__link" href="../../caucus-recommendation/">Caucus Recommendation</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="yc-footer__bottom">
+      <p class="yc-footer__copy">© 2026 Youth Caucus. All rights reserved.</p>
+    </div>
+
+    <div class="yc-footer__wordmark" aria-hidden="true">Youth Caucus</div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var items = document.querySelectorAll('.yc-reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+
+  /* Navigacija: bela pozadina posle skrolovanja + meni za tablet i telefon */
+  (function () {
+    var nav = document.querySelector('.yc-nav');
+    var menu = document.getElementById('yc-menu');
+    if (!nav || !menu) return;
+    var openBtn = nav.querySelector('.yc-nav__toggle');
+
+    function onScroll() { nav.classList.toggle('is-scrolled', window.scrollY > 8); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    function openMenu() {
+      menu.classList.add('is-open');
+      nav.classList.add('is-menu-open');
+      openBtn.setAttribute('aria-expanded', 'true');
+      openBtn.setAttribute('aria-label', 'Close menu');
+      document.documentElement.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      if (!menu.classList.contains('is-open')) return;
+      menu.classList.remove('is-open');
+      nav.classList.remove('is-menu-open');
+      openBtn.setAttribute('aria-expanded', 'false');
+      openBtn.setAttribute('aria-label', 'Open menu');
+      document.documentElement.style.overflow = '';
+      openBtn.focus();
+    }
+
+    openBtn.addEventListener('click', function () {
+      if (menu.classList.contains('is-open')) closeMenu(); else openMenu();
+    });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) closeMenu(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+    window.matchMedia('(min-width: 992px)').addEventListener('change', function (e) { if (e.matches) closeMenu(); });
+  })();
+</script>
+<script>
+  /* Galerije po događajima: linija na dnu slike se puni 5 s pa ide sledeća fotografija;
+     staje na hover/fokus, dok galerija nije na ekranu i dok je lightbox otvoren.
+     Jedan zajednički lightbox prikazuje fotografije događaja na koji je kliknuto. */
+  (function () {
+    var lb = document.getElementById('yc-lightbox');
+    if (!lb) return;
+    var lbImg = lb.querySelector('.yc-lightbox__img');
+    var lbClose = lb.querySelector('.yc-lightbox__close');
+    var lbPrev = lb.querySelector('.yc-lightbox__prev');
+    var lbNext = lb.querySelector('.yc-lightbox__next');
+    var lbCount = lb.querySelector('.yc-lightbox__count');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var current = null;
+    var lastFocus = null;
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    /* prevlačenje prstom menja fotografiju (i u galeriji i u lightboxu) */
+    function swipe(el, onSwipe) {
+      var x0 = null;
+      el.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+      el.addEventListener('touchend', function (e) {
+        if (x0 === null) return;
+        var dx = e.changedTouches[0].clientX - x0;
+        x0 = null;
+        if (Math.abs(dx) > 40) { e.preventDefault(); onSwipe(dx < 0 ? 1 : -1); }
+      });
+    }
+
+    function makeGallery(g) {
+      var slides = [].slice.call(g.querySelectorAll('.yc-gallery__slide'));
+      var bar = g.querySelector('.yc-gallery__bar span');
+      var multi = slides.length > 1 && !!bar;
+      var api = { el: g, slides: slides, index: 0 };
+
+      api.restart = function () {
+        if (reduce || !multi) return;
+        g.classList.remove('is-playing');
+        void bar.offsetWidth;                 // restart animacije
+        g.classList.add('is-playing');
+      };
+      api.show = function (n) {
+        if (slides.length < 2) return;
+        slides[api.index].classList.remove('is-active');
+        slides[api.index].setAttribute('aria-hidden', 'true');
+        api.index = (n + slides.length) % slides.length;
+        slides[api.index].classList.add('is-active');
+        slides[api.index].removeAttribute('aria-hidden');
+        api.restart();
+      };
+
+      if (multi) {
+        bar.addEventListener('animationend', function () { api.show(api.index + 1); });
+        g.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowRight') { e.preventDefault(); api.show(api.index + 1); }
+          if (e.key === 'ArrowLeft')  { e.preventDefault(); api.show(api.index - 1); }
+        });
+        swipe(g.querySelector('.yc-gallery__frame'), function (d) { api.show(api.index + d); });
+
+        if ('IntersectionObserver' in window) {
+          new IntersectionObserver(function (entries) {
+            g.classList.toggle('is-inview', entries[0].isIntersecting);
+          }, { threshold: 0.35 }).observe(g);
+        } else {
+          g.classList.add('is-inview');
+        }
+        api.restart();
+      }
+
+      g.querySelector('.yc-gallery__open').addEventListener('click', function () { lbOpen(api); });
+      return api;
+    }
+
+    /* ---- lightbox ---- */
+    function lbRender() {
+      lbCount.innerHTML = pad(current.index + 1) +
+        '<span class="yc-lightbox__total">/' + pad(current.slides.length) + '</span>';
+      var src = current.slides[current.index].querySelector('img').getAttribute('data-full');
+      if (lbImg.getAttribute('src') === src) return;
+      lbImg.classList.add('is-loading');
+      lbImg.onload = function () { lbImg.classList.remove('is-loading'); };
+      lbImg.src = src;
+    }
+    function lbGo(d) {
+      if (!current || current.slides.length < 2) return;
+      current.show(current.index + d);
+      lbRender();
+    }
+    function lbOpen(g) {
+      current = g;
+      lastFocus = document.activeElement;
+      g.el.classList.add('is-paused');
+      lb.classList.toggle('is-single', g.slides.length < 2);
+      lbRender();
+      lb.classList.add('is-open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.documentElement.style.overflow = 'hidden';
+      lbClose.focus();
+    }
+    function lbCloseFn() {
+      if (!lb.classList.contains('is-open')) return;
+      lb.classList.remove('is-open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.documentElement.style.overflow = '';
+      current.el.classList.remove('is-paused');
+      current.restart();
+      if (lastFocus) lastFocus.focus();
+    }
+
+    lbClose.addEventListener('click', lbCloseFn);
+    lbPrev.addEventListener('click', function () { lbGo(-1); });
+    lbNext.addEventListener('click', function () { lbGo(1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) lbCloseFn(); });   // klik na pozadinu zatvara
+    swipe(lb, lbGo);
+
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('is-open')) return;
+      if (e.key === 'Escape') lbCloseFn();
+      if (e.key === 'ArrowRight') { e.preventDefault(); lbGo(1); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); lbGo(-1); }
+      if (e.key === 'Tab') {                 // fokus ostaje unutar lightboxa
+        var btns = lb.classList.contains('is-single') ? [lbClose] : [lbClose, lbPrev, lbNext];
+        var i = btns.indexOf(document.activeElement);
+        var next = e.shiftKey ? (i <= 0 ? btns.length - 1 : i - 1) : (i + 1) % btns.length;
+        e.preventDefault();
+        btns[next].focus();
+      }
+    });
+
+    [].forEach.call(document.querySelectorAll('.yc-gallery'), makeGallery);
+  })();
+</script>
+
+<script src="../../../assets/search/search.js?v=7" defer></script>
+</body>
+</html>

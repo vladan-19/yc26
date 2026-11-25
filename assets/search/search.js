@@ -13,6 +13,9 @@
    - istaknute reči u naslovu i u delu članka gde stoje zajedno
    - prečice: "/" ili Ctrl+K otvara, Esc zatvara, strelice biraju rezultat
 
+   Na engleskim stranicama (<html lang="en">) traži kroz englesku verziju
+   sajta (search-index-en.js) i sve poruke ispisuje na engleskom.
+
    Indeks (search-index.js) pravi alati/indeks-pretrage.py; učitava se
    tek kad posetilac pređe mišem preko lupe ili otvori pretragu.
    ========================================================= */
@@ -21,11 +24,22 @@
 
   var SCRIPT_SRC = document.currentScript ? document.currentScript.src : location.href;
   var ROOT = new URL('../../', SCRIPT_SRC);
+  var EN = (document.documentElement.lang || '').toLowerCase().slice(0, 2) === 'en';
   /* indeks dobija istu oznaku verzije (?v=...) kao ovaj fajl, da pregledač ne koristi stari iz keša */
-  var INDEX_SRC = new URL('search-index.js' + new URL(SCRIPT_SRC).search, SCRIPT_SRC).href;
+  var INDEX_SRC = new URL((EN ? 'search-index-en.js' : 'search-index.js') + new URL(SCRIPT_SRC).search, SCRIPT_SRC).href;
+  var INDEX_VAR = EN ? 'YC_SEARCH_INDEX_EN' : 'YC_SEARCH_INDEX';
 
-  /* naziv sekcije iznad naslova rezultata */
-  var LABEL = { projekti: 'Projekti', dogadjaji: 'Događaji', blog: 'Blog', preporuke: 'Preporuke', stranice: 'Stranica' };
+  /* tekstovi prozora i naziv sekcije iznad naslova rezultata */
+  var T = EN ? {
+    search: 'Search', close: 'Close search', loading: 'Loading…', none: 'No results',
+    failed: 'Search is currently unavailable',
+    label: { projekti: 'Projects', dogadjaji: 'Events', blog: 'Blog', preporuke: 'Recommendations', stranice: 'Page' }
+  } : {
+    search: 'Pretraga', close: 'Zatvori pretragu', loading: 'Učitavanje…', none: 'Nema rezultata',
+    failed: 'Pretraga trenutno nije dostupna',
+    label: { projekti: 'Projekti', dogadjaji: 'Događaji', blog: 'Blog', preporuke: 'Preporuke', stranice: 'Stranica' }
+  };
+  var LABEL = T.label;
 
   /* ---------------------------------------------------------
      Normalizacija teksta
@@ -100,7 +114,7 @@
 
   function loadIndex() {
     if (data || loading) return;
-    if (window.YC_SEARCH_INDEX) { prepare(window.YC_SEARCH_INDEX); return; }
+    if (window[INDEX_VAR]) { prepare(window[INDEX_VAR]); return; }
     loading = true;
     failed = false;
     var s = document.createElement('script');
@@ -108,7 +122,7 @@
     s.async = true;
     s.onload = function () {
       loading = false;
-      if (window.YC_SEARCH_INDEX) prepare(window.YC_SEARCH_INDEX);
+      if (window[INDEX_VAR]) prepare(window[INDEX_VAR]);
       else failed = true;
       if (ui) run();
     };
@@ -314,18 +328,18 @@
     root.id = 'yc-search';
     root.setAttribute('role', 'dialog');
     root.setAttribute('aria-modal', 'true');
-    root.setAttribute('aria-label', 'Pretraga');
+    root.setAttribute('aria-label', T.search);
     root.innerHTML =
       '<div class="yc-search__head">' +
         '<div class="yc-search__wrap">' +
           '<div class="yc-search__top">' +
             '<form class="yc-search__form" role="search" action="#">' +
-              '<label class="yc-search__label" for="yc-search-input">Pretraga</label>' +
+              '<label class="yc-search__label" for="yc-search-input">' + T.search + '</label>' +
               ICON.replace('<svg', '<svg class="yc-search__icon"') +
-              '<input class="yc-search__input" id="yc-search-input" type="search" placeholder="Pretraga" ' +
+              '<input class="yc-search__input" id="yc-search-input" type="search" placeholder="' + T.search + '" ' +
                 'autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">' +
             '</form>' +
-            '<button class="yc-search__close" type="button" aria-label="Zatvori pretragu"><span></span><span></span></button>' +
+            '<button class="yc-search__close" type="button" aria-label="' + T.close + '"><span></span><span></span></button>' +
           '</div>' +
         '</div>' +
       '</div>' +
@@ -370,6 +384,7 @@
   }
 
   function plural(n) {
+    if (EN) return n + (n === 1 ? ' result' : ' results');
     var d = n % 10, h = n % 100;
     return n + (d === 1 && h !== 11 ? ' rezultat' : ' rezultata');
   }
@@ -377,11 +392,11 @@
   function render() {
     if (query.empty) { ui.status.textContent = ''; ui.list.innerHTML = ''; return; }
     if (!data || !result) {
-      ui.status.textContent = failed ? 'Pretraga trenutno nije dostupna' : 'Učitavanje…';
+      ui.status.textContent = failed ? T.failed : T.loading;
       ui.list.innerHTML = '';
       return;
     }
-    ui.status.textContent = result.length ? plural(result.length) : 'Nema rezultata';
+    ui.status.textContent = result.length ? plural(result.length) : T.none;
     ui.list.innerHTML = result.map(function (r) { return hit(r.doc); }).join('');
   }
 
@@ -501,7 +516,7 @@
     close: close,
     /* za proveru iz konzole: YCSearch.test('dan am') */
     test: function (raw) {
-      if (!data) return 'indeks nije učitan';
+      if (!data) return EN ? 'index not loaded' : 'indeks nije učitan';
       var q = parse(raw), list = q.empty ? [] : search(q);
       return { count: list.length, titles: list.map(function (x) { return x.doc.title; }) };
     }

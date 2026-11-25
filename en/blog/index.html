@@ -6,11 +6,11 @@
 <title>Blog | Youth Caucus</title>
 <link rel="icon" type="image/png" href="../../assets/images/favicon-youth-caucus.png">
 <link rel="apple-touch-icon" href="../../assets/images/webclip-youth-caucus.png">
-<meta name="description" content="Youth Caucus connects young people from Serbia through education, ethics, entrepreneurship, and international collaboration, strengthening youth engagement">
+<meta name="description" content="Academic papers and columns by our members and collaborators, as well as other materials of special importance for the mission of the Youth Caucus.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Youth Caucus">
 <meta property="og:title" content="Blog | Youth Caucus">
-<meta property="og:description" content="Youth Caucus connects young people from Serbia through education, ethics, entrepreneurship, and international collaboration, strengthening youth engagement">
+<meta property="og:description" content="Academic papers and columns by our members and collaborators, as well as other materials of special importance for the mission of the Youth Caucus.">
 <meta property="og:url" content="https://www.youthcaucus.rs/en/blog/">
 <meta property="og:image" content="https://www.youthcaucus.rs/assets/images/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -19,24 +19,33 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" hreflang="sr" href="../../blog/">
 <link rel="preload" href="../../assets/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/oswald-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(../../assets/fonts/oswald-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
 @font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(../../assets/fonts/oswald-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(../../assets/fonts/oswald-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 </style>
 <style>
+  /* ===== Tokeni preuzeti sa youthcaucus.rs ===== */
   :root {
-    --yc-navy: #052149;
-    --yc-burgundy: #7a1f3d;
+    --yc-navy: #052149;          /* primarna boja sajta (tabovi, naslovi) */
+    --yc-navy-80: rgba(5, 33, 73, .8);
+    --yc-navy-10: rgba(5, 33, 73, .08);
+    --yc-burgundy: #7a1f3d;      /* akcent iz gradijenta u futeru */
     --yc-ink: #333333;
     --yc-white: #ffffff;
     --yc-mist: #e6ebf3;
+    /* isti prazan prostor kao na Senior Savetu, O nama i Ethics Forumu; sekcije se i dalje stapaju */
+    --yc-gap-out: clamp(4rem, 6vw, 5.5rem);
+    --yc-gap-in: clamp(4.5rem, 7vw, 6.5rem);
   }
+
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--yc-white); font-family: Oswald, sans-serif; color: var(--yc-ink); }
+  main { background: var(--yc-mist); }   /* ispod sekcija, za slučaj delimičnog piksela na spoju */
 
   /* =========================================================
-     Navigation
+     Navigacija
      ========================================================= */
   :root { --yc-nav-h: 8rem; }
   html { scroll-padding-top: var(--yc-nav-h); scrollbar-gutter: stable; }   /* bez pomeranja kad meni zaključa skrol */
@@ -247,6 +256,396 @@
     .yc-nav, .yc-menu { padding-left: 1rem; padding-right: 1rem; }
     .yc-menu__link { font-size: 1.875rem; }
   }
+
+
+
+  /* =========================================================
+     Kartica članka: slika u prirodnom formatu (teget blok iza fotografije + bordo linija na vrhu),
+     ispod tekst. Naslovi na fotografijama se ne sasecaju, a tekst u redu počinje na istoj visini.
+     ========================================================= */
+  .yc-post {
+    display: flex;
+    flex-direction: column;
+    color: inherit;
+    text-decoration: none;
+  }
+  .yc-post:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 0.75rem; }
+  .yc-post__media { align-self: flex-start; width: 100%; }
+
+  .yc-post__frame {
+    position: relative;
+    margin: 0 0.875rem 0.875rem 0;
+  }
+  .yc-post__frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translate(0.875rem, 0.875rem);
+    background: var(--yc-navy);
+    transition: transform .45s cubic-bezier(.22,.61,.36,1);
+  }
+  .yc-post__photo {
+    position: relative;
+    overflow: hidden;
+    background: var(--yc-mist);
+  }
+  .yc-post__frame::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 4px;
+    background: var(--yc-burgundy);
+  }
+  .yc-post__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform .6s cubic-bezier(.22,.61,.36,1);
+  }
+
+  .yc-post__body { display: flex; flex-direction: column; align-items: flex-start; margin-top: 2rem; }
+  .yc-post__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 1.25rem;
+    margin: 0 0 0.875rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--yc-burgundy);
+  }
+  .yc-post__title {
+    margin: 0;
+    font-size: clamp(1.375rem, 1.9vw, 1.625rem);
+    font-weight: 500;
+    line-height: 1.36;            /* kvačica na Š, Č, Ž ide do 1.06em; ne sme da dodirne slova u redu iznad */
+    letter-spacing: -.005em;
+    color: var(--yc-navy);
+    text-wrap: balance;
+  }
+  .yc-post__text {
+    margin: 1rem 0 0;
+    font-size: clamp(1.125rem, 1rem + .35vw, 1.25rem);   /* isti opisni font kao na ostalim stranicama */
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--yc-navy-80);
+  }
+
+  .yc-post:hover .yc-post__frame::before,
+  .yc-post:focus-visible .yc-post__frame::before { transform: translate(1.25rem, 1.25rem); }
+  .yc-post:hover .yc-post__photo img,
+  .yc-post:focus-visible .yc-post__photo img { transform: scale(1.04); }
+
+  /* mreža kartica: tri, dve ili jedna kolona; slike u redu leže na istoj liniji, tekst počinje na istoj visini */
+  .yc-grid {
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    max-width: 70rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: clamp(2rem, 4vw, 3.5rem);
+    row-gap: clamp(5.5rem, 9vw, 8rem);
+  }
+  @supports (grid-template-rows: subgrid) {
+    .yc-grid { row-gap: 0; }
+    .yc-grid > li {
+      display: grid;
+      grid-row: span 2;
+      grid-template-rows: subgrid;
+      padding-bottom: clamp(5.5rem, 9vw, 8rem);
+    }
+    .yc-grid > li > .yc-post {
+      display: grid;
+      grid-row: 1 / span 2;
+      grid-template-rows: subgrid;
+    }
+    .yc-post__media { align-self: end; }
+    .yc-post__body { margin-top: 0; padding-top: 2rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-post__frame::before, .yc-post__photo img { transition: none; }
+  }
+
+  @media (max-width: 960px) {
+    .yc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 640px) {
+    .yc-grid { grid-template-columns: minmax(0, 1fr); }
+    .yc-post__media { width: min(35rem, 100%); }
+    .yc-post__frame { margin: 0 0.75rem 0.75rem 0; }
+    .yc-post__frame::before { transform: translate(0.75rem, 0.75rem); }
+    .yc-post:hover .yc-post__frame::before,
+    .yc-post:focus-visible .yc-post__frame::before { transform: translate(1.125rem, 1.125rem); }
+  }
+  @media (max-width: 480px) {
+    .yc-post__title { font-size: 1.375rem; }
+  }
+
+  /* =========================================================
+     Blog: tekstualni hero (krupan naslov, ispod uvodni tekst, sve levo)
+     ========================================================= */
+  .yc-bl-hero {
+    position: relative;
+    overflow: hidden;
+    padding: calc(var(--yc-nav-h) + clamp(3rem, 7vw, 7rem)) 1.25rem var(--yc-gap-out);
+    background:
+      linear-gradient(180deg, rgba(230, 235, 243, 0) 45%, var(--yc-mist) 100%),   /* dno se stapa sa listom članaka */
+      radial-gradient(55% 70% at 92% 30%, rgba(122, 31, 61, .10) 0%, rgba(122, 31, 61, 0) 70%),
+      linear-gradient(160deg, var(--yc-mist) 0%, var(--yc-white) 62%);
+    background-repeat: no-repeat;
+    color: var(--yc-navy);
+  }
+  .yc-bl-hero__inner {
+    max-width: 70rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 45rem);
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+  }
+  .yc-bl-hero__title {
+    margin: 0;
+    font-size: clamp(4rem, 8.4vw, 7rem);
+    font-weight: 600;
+    line-height: .9;
+    letter-spacing: -.01em;
+    color: var(--yc-navy);
+    animation: yc-bl-rise 1.1s cubic-bezier(.2, .7, .2, 1) both;
+  }
+  /* opisni tekst: isti font kao na Senior Savetu, O nama, Ethics Forumu, Projektima i Događajima */
+  .yc-bl-hero__statement {
+    margin: 0;
+    font-size: clamp(1.125rem, 1rem + .35vw, 1.25rem);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--yc-navy-80);
+    animation: yc-bl-rise 1.1s cubic-bezier(.2, .7, .2, 1) .12s both;
+  }
+  @keyframes yc-bl-rise {
+    from { opacity: 0; transform: translateY(1.75rem); }
+    to   { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .yc-bl-hero__title, .yc-bl-hero__statement { animation: none; }
+  }
+  @media (max-width: 480px) {
+    .yc-bl-hero { padding-left: 1rem; padding-right: 1rem; }
+    .yc-bl-hero__title { font-size: 4rem; }
+    .yc-bl-hero__statement { font-size: 1.125rem; }
+  }
+
+  /* =========================================================
+     Blog: lista članaka
+     ========================================================= */
+  .yc-blog {
+    position: relative;
+    padding: var(--yc-gap-in) 1.25rem clamp(2.5rem, 5vw, 4.5rem);
+    background:
+      radial-gradient(45% 30% at 0% 100%, rgba(122, 31, 61, .06) 0%, rgba(122, 31, 61, 0) 70%),
+      linear-gradient(180deg, var(--yc-mist) 0, var(--yc-white) 60rem);
+  }
+  @media (max-width: 480px) {
+    .yc-blog { padding-left: 1rem; padding-right: 1rem; }
+  }
+
+  /* ===== Animacija pri skrolovanju ===== */
+  .yc-reveal {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    filter: blur(0.375rem);
+    transition: opacity .9s ease, transform .9s ease, filter .9s ease;
+  }
+  .yc-reveal.is-visible { opacity: 1; transform: none; filter: none; }
+  .yc-reveal--delay { transition-delay: .2s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-reveal { opacity: 1; transform: none; filter: none; transition: none; }
+  }
+
+
+  .yc-visually-hidden {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+
+  /* =========================================================
+     Footer
+     ========================================================= */
+  .yc-footer {
+    --yc-footer-fs: 1.375rem;          /* jedna veličina teksta za ceo footer */
+    position: relative;
+    overflow: hidden;
+    padding: clamp(4.8rem, 8.8vw, 8rem) 1.5rem 0;
+    color: var(--yc-white);
+    background:
+      radial-gradient(90% 120% at 100% 0%, rgba(122, 31, 61, .95) 0%, rgba(122, 31, 61, .5) 32%, rgba(122, 31, 61, 0) 70%),
+      radial-gradient(60% 80% at 100% 100%, rgba(150, 110, 150, .45) 0%, rgba(150, 110, 150, 0) 70%),
+      linear-gradient(100deg, #041a3b 0%, var(--yc-navy) 40%, #1d2b56 100%);
+  }
+
+  .yc-footer__inner {
+    position: relative;
+    max-width: 70rem;
+    margin: 0 auto;
+    container-type: inline-size;   /* natpis se meri prema širini sadržaja */
+  }
+
+  .yc-footer__top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "brand nav";
+    align-items: start;
+    column-gap: clamp(4rem, 8vw, 8rem);
+    row-gap: 3.6rem;
+    padding-bottom: clamp(4.4rem, 8vw, 6.8rem);
+  }
+
+  /* --- brend --- */
+  .yc-footer__brand { grid-area: brand; }
+  /* --- navigacija --- */
+  .yc-footer__nav {
+    grid-area: nav;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    column-gap: clamp(4rem, 8vw, 8rem);
+  }
+  .yc-footer__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.125rem;
+    line-height: 1.4;
+  }
+  .yc-footer__link {
+    color: var(--yc-white);
+    font-size: var(--yc-footer-fs);
+    font-weight: 400;
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-footer__link:hover,
+  .yc-footer__link:focus-visible,
+  .yc-footer__link[aria-current="page"] { opacity: 1; }
+
+  /* --- kontakt --- */
+  /* kontakt kao krupna tipografija: email i Instagram su glavni sadržaj */
+  /* ista veličina i ritam redova kao linkovi desno, pa se redovi poravnaju */
+  .yc-footer__contact-title {
+    margin: 0 0 1.125rem;
+    font-size: var(--yc-footer-fs);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: .02em;
+    color: var(--yc-white);
+  }
+  .yc-contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.125rem;
+    font-size: var(--yc-footer-fs);
+    line-height: 1.4;
+  }
+
+  /* bazno prigušeno, na hover 100% */
+  .yc-contact__item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .45em;
+    color: var(--yc-white);
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-contact__item:hover,
+  .yc-contact__item:focus-visible { opacity: 1; }
+  .yc-contact__icon {
+    flex: none;
+    display: inline-flex;
+  }
+  /* obe ikonice u istom kvadratu visine velikog slova (.82em u Oswaldu),
+     na istoj osnovnoj liniji kao tekst, pa tekst u oba reda počinje na istom mestu */
+  .yc-contact__icon svg { display: block; width: .82em; height: .82em; overflow: visible; }
+
+  .yc-contact__value {
+    font-weight: 400;
+    overflow-wrap: anywhere;
+  }
+
+  .yc-footer a:focus-visible { outline: 2px solid var(--yc-white); outline-offset: 4px; }
+
+  /* --- donja traka --- */
+  .yc-footer__bottom {
+    padding: 2rem 0;
+  }
+  .yc-footer__copy {
+    margin: 0;
+    text-align: center;
+    font-size: 0.9375rem;
+    font-weight: 300;
+    letter-spacing: .02em;
+    color: rgba(255, 255, 255, .6);
+  }
+
+  /* --- veliki natpis u dnu, kao "1918" gore --- */
+  .yc-footer__wordmark {
+    display: block;
+    margin: clamp(1.6rem, 4vw, 3.6rem) 0 -0.2em;
+    font-size: clamp(2.5rem, 12vw, 10.5rem);   /* rezerva za starije pretraživače */
+    font-size: calc(100cqw / 6.085);        /* slova tačno od leve do desne margine */
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--yc-white);
+    opacity: .06;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-footer__link, .yc-contact__item { transition: none; }
+  }
+
+  @media (max-width: 900px) {
+    .yc-footer__top {
+      grid-template-columns: auto auto;
+      grid-template-areas: "brand nav";
+      justify-content: space-between;
+      column-gap: 4rem;
+      row-gap: 3.6rem;
+    }
+    .yc-footer__nav { column-gap: 4rem; }
+  }
+
+  @media (max-width: 560px) {
+    .yc-footer { padding: 4.4rem 1rem 0; }
+    .yc-footer__top {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "brand"
+        "nav";
+      row-gap: 3.2rem;
+      padding-bottom: 4rem;
+    }
+    .yc-footer__nav { grid-template-columns: repeat(2, 1fr); column-gap: 1.5rem; }
+    .yc-footer__bottom { padding: 1.6rem 0; }
+    .yc-footer { --yc-footer-fs: 1.25rem; }
+  }
 </style>
 <link rel="stylesheet" href="../../assets/search/search.css?v=7">
 </head>
@@ -271,7 +670,7 @@
         <li><a class="yc-nav__link" href="./" aria-current="page">Blog</a></li>
         <li><a class="yc-nav__link" href="../caucus-recommendation/">Caucus Recommendation</a></li>
         <li class="yc-nav__search-item">
-          <button class="yc-nav__search" type="button" aria-label="Search">
+          <button class="yc-nav__search" type="button" aria-label="Search" aria-haspopup="dialog" aria-expanded="false" aria-controls="yc-search">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.75"/><path d="M15.6 15.6 21 21"/></svg>
           </button>
         </li>
@@ -306,11 +705,364 @@
     </ul>
   </nav>
 </div>
+<main>
 
-<main></main>
+<!-- =========================================================
+     Hero: Blog (text only)
+     ========================================================= -->
+<section class="yc-bl-hero" aria-labelledby="yc-bl-title">
+  <div class="yc-bl-hero__inner">
+    <h1 class="yc-bl-hero__title" id="yc-bl-title">Blog</h1>
+    <p class="yc-bl-hero__statement">Academic papers and columns by our members and collaborators, as well as other materials of special importance for the mission of the Youth Caucus.</p>
+  </div>
+</section>
+
+<!-- =========================================================
+     Post list
+     ========================================================= -->
+<section class="yc-blog" aria-labelledby="yc-bl-title">
+  <ul class="yc-grid">
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="special-edition-of-diplomacy-commerce-marking-the-250th-anniversary-of-the-independence-of-the-united-states-of-america/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../blog/specijalno-izdanje-diplomacy-commerce-povodom-250-godina-nezavisnosti-sjedinjenih-americkih-drzava/images/specijalno-izdanje-diplomacy-commerce-povodom-250-godina-nezavisnosti-sjedinjenih-americkih-drzava.webp"
+                   width="995" height="1348" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <p class="yc-post__meta"><span>13.09.2026</span><span>1 min</span></p>
+          <h2 class="yc-post__title">Special edition of Diplomacy &amp; Commerce marking the 250th anniversary of the independence of the United States of America</h2>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="what-the-launch-of-the-strategic-dialogue-means-for-young-people-in-serbia/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="what-the-launch-of-the-strategic-dialogue-means-for-young-people-in-serbia/images/7069f565.jpeg"
+                   width="1080" height="1440" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <p class="yc-post__meta"><span>21.07.2026</span><span>4 min</span></p>
+          <h2 class="yc-post__title">What the Launch of the Strategic Dialogue Means for Young People in Serbia</h2>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="250-years-of-united-states-of-america/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="250-years-of-united-states-of-america/images/bf0e51f9.png"
+                   width="1024" height="1280" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <p class="yc-post__meta"><span>04.07.2026</span><span>2 min</span></p>
+          <h2 class="yc-post__title">250 years of United States of America</h2>
+          <p class="yc-post__text">250 years of United States of America and overlook of the Serbian-American relations and history</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="centuries-after-columbus-serbian-writers-on-the-discovery-of-america-and-the-discovery-of-serbia/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="centuries-after-columbus-serbian-writers-on-the-discovery-of-america-and-the-discovery-of-serbia/images/centuries-after-columbus.webp"
+                   width="1000" height="1000" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <p class="yc-post__meta"><span>15.03.2026</span><span>4 min</span></p>
+          <h2 class="yc-post__title">Centuries After Columbus: Serbian Writers on the Discovery of America and the “Discovery” of Serbia</h2>
+          <p class="yc-post__text">Views on the discovery of Christopher Columbus and the vision of friendship that should be lived through the centuries.</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="nikola-tesla-and-the-three-dimensional-advancement-of-serbian-american-relations/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="nikola-tesla-and-the-three-dimensional-advancement-of-serbian-american-relations/images/nikola-tesla-and-the-three-dimensional-advancement-of-serbian-american-relations.webp"
+                   width="1000" height="1000" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <p class="yc-post__meta"><span>01.03.2026</span><span>4 min</span></p>
+          <h2 class="yc-post__title">Nikola Tesla and the Three-Dimensional Advancement of Serbian-American Relations</h2>
+          <p class="yc-post__text">Nikola Tesla as a Foundation for Advancing Serbian-American Relations</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="250-magnificent-years-the-federalist-papers-and-the-path-from-confederation-to-federal-union/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="250-magnificent-years-the-federalist-papers-and-the-path-from-confederation-to-federal-union/images/250-magnificent-years-the-federalist-papers-and-the-path-from-confederation-to-federal-union.webp"
+                   width="1000" height="1000" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <p class="yc-post__meta"><span>22.02.2026</span><span>4 min</span></p>
+          <h2 class="yc-post__title">250 Magnificent Years – The Federalist Papers and the Path from Confederation to Federal Union</h2>
+          <p class="yc-post__text">Get acquainted with the process of the formation of the foundations of the modern constitutional system of the United States.</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="the-effects-of-the-presence-of-business-oriented-programs-on-television-the-case-of-the-show-shark-tank/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="the-effects-of-the-presence-of-business-oriented-programs-on-television-the-case-of-the-show-shark-tank/images/the-effects-of-the-presence-of-business-oriented-programs-on-television.webp"
+                   width="1000" height="1000" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <p class="yc-post__meta"><span>14.02.2026</span><span>5 min</span></p>
+          <h2 class="yc-post__title">The Effects of the Presence of Business-Oriented Programs on Television - The Case of the Show Shark Tank</h2>
+          <p class="yc-post__text">More and more young people in our region are choosing entrepreneurship. Is it a coincidence and can they be educated about entrepreneurship through the media?</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="i-will-not-die-until-i-take-care-of-him-the-issue-of-improving-the-status-of-children-with-developmental-disabilities-in-serbia/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="i-will-not-die-until-i-take-care-of-him-the-issue-of-improving-the-status-of-children-with-developmental-disabilities-in-serbia/images/the-issue-of-improving-the-status-of-children-with-developmental-disabilities-in-serbia.webp"
+                   width="1080" height="1440" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <p class="yc-post__meta"><span>05.02.2026</span><span>6 min</span></p>
+          <h2 class="yc-post__title">I Will Not Die Until I Take Care of Him - The Issue of Improving the Status of Children with Developmental Disabilities in Serbia</h2>
+          <p class="yc-post__text">Improving the position of children with developmental disabilities in Serbia through international cooperation.</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="gold-and-silver-a-new-view-of-the-world-and-more-than-jewelry/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="gold-and-silver-a-new-view-of-the-world-and-more-than-jewelry/images/1767701904318249.jpg"
+                   width="1080" height="1440" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <p class="yc-post__meta"><span>06.01.2026</span><span>7 min</span></p>
+          <h2 class="yc-post__title">Gold and Silver - A New View of the World and More Than Jewelry</h2>
+          <p class="yc-post__text">Gold and silver are more than jewelry – discover their role in investing, financial literacy and today’s global economy.</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="milan-nedeljkovic-and-most/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../blog/milan-nedeljkovic-i-most/images/milan-nedeljkovic-i-most-youth-caucus.webp"
+                   width="1000" height="1000" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <p class="yc-post__meta"><span>4 min</span></p>
+          <h2 class="yc-post__title">Milan Nedeljković and MOST: A brief reminder to support young people from Serbia abroad, but also at home</h2>
+          <p class="yc-post__text">Supporting young people from Serbia in both global and local communities through inspiration and practical ideas</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="ethics-in-democratic-transition/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../blog/etika-u-demokratskoj-tranziciji/images/etika-u-demokratskoj-tranziciji-youth-caucus.webp"
+                   width="1080" height="1350" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <p class="yc-post__meta"><span>3 min</span></p>
+          <h2 class="yc-post__title">Ethics in Democratic Transition</h2>
+          <p class="yc-post__text">An analysis of the importance of ethical principles during social and political changes in democratic systems</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="ethics-as-a-criterion-of-everyday-life/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../blog/etika-kao-kriterijum-svakodnevnice/images/etika-kao-kriterijum-svakodnevnice-youth-caucus.webp"
+                   width="1080" height="1350" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <p class="yc-post__meta"><span>2 min</span></p>
+          <h2 class="yc-post__title">Ethics as a Criterion of Everyday Life</h2>
+          <p class="yc-post__text">How ethical standards shape our daily choices and contribute to a responsible society</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="the-importance-of-ethics-in-the-modern-world/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../blog/znacaj-etike-u-savremenom-svetu/images/znacaj-etike-u-savremenom-svetu-youth-caucus.webp"
+                   width="1080" height="1350" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <p class="yc-post__meta"><span>2 min</span></p>
+          <h2 class="yc-post__title">The Importance of Ethics in the Modern World</h2>
+          <p class="yc-post__text">Highlighting the role of ethics in a global context and its influence on social and professional decisions</p>
+        </div>
+      </a>
+    </li>
+
+    <li class="yc-reveal">
+      <a class="yc-post" href="how-did-nabi-manage-to-sell-at-a-price-equivalent-to-8-of-the-entire-industrys-value-by-selling-more-expensive-vehicles/">
+        <div class="yc-post__media">
+          <div class="yc-post__frame">
+            <div class="yc-post__photo">
+              <img src="../../blog/kako-je-kompanija-nabi-prodajom-skupljih-vozila-uspela-da-bude-prodata-za-cenu-ekvivalentnu-8-vrednosti-cele-industrije/images/kompanija-nabi-blog-youth-caucus.webp"
+                   width="1000" height="1000" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="yc-post__body">
+          <p class="yc-post__meta"><span>4 min</span></p>
+          <h2 class="yc-post__title">How Did NABI Manage to Sell at a Price Equivalent to 8% of the Entire Industry’s Value by Selling More Expensive Vehicles?</h2>
+          <p class="yc-post__text">An analysis of NABI’s business decision and key lessons on market strategy and corporate values</p>
+        </div>
+      </a>
+    </li>
+
+  </ul>
+</section>
+
+</main>
+
+<!-- =========================================================
+     Footer
+     ========================================================= -->
+<footer class="yc-footer">
+  <div class="yc-footer__inner">
+
+    <div class="yc-footer__top">
+      <div class="yc-footer__brand">
+        <div class="yc-footer__contact">
+          <p class="yc-footer__contact-title">Contact</p>
+          <ul class="yc-contact">
+            <li>
+              <a class="yc-contact__item" href="mailto:office@youthcaucus.rs">
+                <span class="yc-contact__icon" aria-hidden="true">
+                  <svg viewBox="2.2 2.2 19.6 19.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="5" width="18" height="14" rx="2"/>
+                    <path d="m3.8 6.4 8.2 6.3 8.2-6.3"/>
+                  </svg>
+                </span>
+                <span class="yc-contact__value">office@youthcaucus.rs</span>
+              </a>
+            </li>
+            <li>
+              <a class="yc-contact__item" href="https://www.instagram.com/youth_caucus" target="_blank" rel="noopener" aria-label="Instagram @youth_caucus">
+                <span class="yc-contact__icon" aria-hidden="true">
+                  <svg viewBox="2.2 2.2 19.6 19.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="5.2"/>
+                    <circle cx="12" cy="12" r="4.2"/>
+                    <circle cx="17.3" cy="6.7" r="1.05" fill="currentColor" stroke="none"/>
+                  </svg>
+                </span>
+                <span class="yc-contact__value">@youth_caucus</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <nav class="yc-footer__nav" aria-label="Footer navigation">
+        <div>
+          <ul class="yc-footer__list">
+            <li><a class="yc-footer__link" href="../">Home</a></li>
+            <li><a class="yc-footer__link" href="../projects/">Projects</a></li>
+            <li><a class="yc-footer__link" href="../about-us/">About Us</a></li>
+            <li><a class="yc-footer__link" href="../senior-advisory-board/">Senior Advisory Board</a></li>
+          </ul>
+        </div>
+        <div>
+          <ul class="yc-footer__list">
+            <li><a class="yc-footer__link" href="../ethics-forum/">Ethics Forum</a></li>
+            <li><a class="yc-footer__link" href="../events/">Events</a></li>
+            <li><a class="yc-footer__link" href="./" aria-current="page">Blog</a></li>
+            <li><a class="yc-footer__link" href="../caucus-recommendation/">Caucus Recommendation</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="yc-footer__bottom">
+      <p class="yc-footer__copy">© 2026 Youth Caucus. All rights reserved.</p>
+    </div>
+
+    <div class="yc-footer__wordmark" aria-hidden="true">Youth Caucus</div>
+  </div>
+</footer>
 
 <script>
-  /* Navigation: white background after scrolling + menu for tablet and phone */
+  (function () {
+    var items = document.querySelectorAll('.yc-reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+
+    /* Navigation: white background after scrolling + menu for tablet and phone */
   (function () {
     var nav = document.querySelector('.yc-nav');
     var menu = document.getElementById('yc-menu');
@@ -346,5 +1098,6 @@
     window.matchMedia('(min-width: 992px)').addEventListener('change', function (e) { if (e.matches) closeMenu(); });
   })();
 </script>
+<script src="../../assets/search/search.js?v=7" defer></script>
 </body>
 </html>

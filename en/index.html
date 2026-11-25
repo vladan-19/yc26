@@ -604,7 +604,7 @@
         <li><a class="yc-nav__link" href="./blog/">Blog</a></li>
         <li><a class="yc-nav__link" href="./caucus-recommendation/">Caucus Recommendation</a></li>
         <li class="yc-nav__search-item">
-          <button class="yc-nav__search" type="button" aria-label="Search">
+          <button class="yc-nav__search" type="button" aria-label="Search" aria-haspopup="dialog" aria-expanded="false" aria-controls="yc-search">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.75"/><path d="M15.6 15.6 21 21"/></svg>
           </button>
         </li>
@@ -787,5 +787,6 @@
     window.matchMedia('(min-width: 992px)').addEventListener('change', function (e) { if (e.matches) closeMenu(); });
   })();
 </script>
+<script src="../assets/search/search.js?v=7" defer></script>
 </body>
 </html>

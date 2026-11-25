@@ -3,7 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>404 | Page Not Found | Youth Caucus</title>
+<script>
+  /* hosting koji ima samo jednu 404 stranicu (npr. GitHub Pages): za adrese pod /en/ prikaži englesku */
+  (function () {
+    if (!/^\/en(\/|$)/.test(location.pathname) || !window.fetch) return;
+    var root = document.documentElement;
+    root.style.visibility = 'hidden';
+    var show = function () { root.style.visibility = ''; };
+    fetch('/en/404.html').then(function (r) {
+      if (!r.ok) throw 0;
+      return r.text();
+    }).then(function (html) {
+      document.open();
+      document.write(html);
+      document.close();
+    }, show);
+    setTimeout(show, 3000);
+  })();
+</script>
+<title>404 | Stranica nije pronađena | Youth Caucus</title>
 <link rel="icon" type="image/png" href="/assets/images/favicon-youth-caucus.png">
 <link rel="apple-touch-icon" href="/assets/images/webclip-youth-caucus.png">
 <script>
@@ -610,8 +628,8 @@
       </p>
 
       <div class="e404__body">
-        <h1 class="e404__title" id="e404-title" lang="en">Page not found</h1>
-        <a class="e404__btn" href="/" lang="en">Go to homepage</a>
+        <h1 class="e404__title" id="e404-title">Stranica nije pronađena</h1>
+        <a class="e404__btn" href="/">Idi na početnu</a>
       </div>
     </div>
   </section>
@@ -659,14 +677,14 @@
         <div>
           <ul class="yc-footer__list">
             <li><a class="yc-footer__link" href="/">Početna</a></li>
+            <li><a class="yc-footer__link" href="/projekti/">Projekti</a></li>
             <li><a class="yc-footer__link" href="/o-nama/">O nama</a></li>
             <li><a class="yc-footer__link" href="/senior-savet/">Senior Savet</a></li>
-            <li><a class="yc-footer__link" href="/ethics-forum/">Ethics Forum</a></li>
           </ul>
         </div>
         <div>
           <ul class="yc-footer__list">
-            <li><a class="yc-footer__link" href="/projekti/">Projekti</a></li>
+            <li><a class="yc-footer__link" href="/ethics-forum/">Ethics Forum</a></li>
             <li><a class="yc-footer__link" href="/dogadjaji/">Događaji</a></li>
             <li><a class="yc-footer__link" href="/blog/">Blog</a></li>
             <li><a class="yc-footer__link" href="/preporuka-caucus-a/">Preporuka Caucus-a</a></li>
@@ -745,6 +763,6 @@
   })();
 </script>
 
-<script src="/assets/search/search.js?v=4" defer></script>
+<script src="/assets/search/search.js?v=7" defer></script>
 </body>
 </html>
