@@ -27,6 +27,7 @@
 <style>
   :root {
     --yc-navy: #052149;
+    --yc-navy-80: rgba(5, 33, 73, .8);
     --yc-burgundy: #7a1f3d;
     --yc-ink: #333333;
     --yc-white: #ffffff;
@@ -247,6 +248,338 @@
     .yc-nav, .yc-menu { padding-left: 1rem; padding-right: 1rem; }
     .yc-menu__link { font-size: 1.875rem; }
   }
+
+  /* =========================================================
+     Hero, varijanta 3: teget blok, tekst levo, kolone fotografija koje klize desno
+     ========================================================= */
+  .yc-hero-dark {
+    --yc-gutter: 1.25rem;
+    --yc-hero-dark-accent: #a9c1e8;
+    padding-top: var(--yc-nav-h);           /* navigacija ostaje na beloj podlozi, logo čitljiv */
+  }
+  .yc-hero-dark__band {
+    position: relative;
+    overflow: hidden;
+    min-height: min(calc(100svh - var(--yc-nav-h)), 50rem);
+    display: flex;
+    align-items: center;
+    padding: clamp(4rem, 8vw, 7rem) var(--yc-gutter);
+    background:
+      radial-gradient(45% 60% at 8% 100%, rgba(122, 31, 61, .35) 0%, rgba(122, 31, 61, 0) 70%),
+      radial-gradient(60% 80% at 30% 0%, rgba(169, 193, 232, .14) 0%, rgba(169, 193, 232, 0) 70%),
+      var(--yc-navy);
+    color: var(--yc-white);
+  }
+  .yc-hero-dark__inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 70rem;
+    margin: 0 auto;
+  }
+  .yc-hero-dark__text { max-width: 50%; padding-right: 2rem; }
+
+  .yc-hero-dark__title {
+    margin: 0;
+    font-size: clamp(2.25rem, 3.7vw, 3.625rem);
+    font-weight: 500;
+    line-height: 1.26;
+    letter-spacing: -.005em;
+    color: var(--yc-white);
+    animation: yc-hero-dark-in 1s cubic-bezier(.2, .7, .2, 1) both;
+  }
+  .yc-hero-dark__accent { color: var(--yc-hero-dark-accent); }
+
+  .yc-hero-dark__lead {
+    margin: clamp(1.5rem, 2.6vw, 2.25rem) 0 0;
+    max-width: 34rem;
+    font-size: clamp(1.25rem, 1.7vw, 1.5rem);
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, .82);
+    animation: yc-hero-dark-in 1s cubic-bezier(.2, .7, .2, 1) .12s both;
+  }
+
+  .yc-hero-dark__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: clamp(2rem, 3.4vw, 2.75rem);
+    animation: yc-hero-dark-in 1s cubic-bezier(.2, .7, .2, 1) .24s both;
+  }
+  .yc-hero-dark__btn {
+    display: inline-block;
+    padding: 0.8125rem 1.625rem;
+    background: var(--yc-white);
+    color: var(--yc-navy);
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.2;
+    text-decoration: none;
+    transition: background-color .25s ease, color .25s ease;
+  }
+  .yc-hero-dark__btn:hover,
+  .yc-hero-dark__btn:focus-visible { background: var(--yc-hero-dark-accent); }
+  .yc-hero-dark__link {
+    display: inline-block;
+    padding: 0.8125rem 1.625rem;
+    background: rgba(255, 255, 255, .12);
+    color: var(--yc-white);
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.2;
+    text-decoration: none;
+    transition: background-color .25s ease;
+  }
+  .yc-hero-dark__link:hover,
+  .yc-hero-dark__link:focus-visible { background: rgba(255, 255, 255, .22); }
+  .yc-hero-dark a:focus-visible { outline: 2px solid var(--yc-hero-dark-accent); outline-offset: 4px; }
+
+  @keyframes yc-hero-dark-in {
+    from { opacity: 0; transform: translateY(1.5rem); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* --- kolone fotografija: od sredine do desne ivice ekrana, cela visina bloka --- */
+  .yc-hero-dark__media {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(50% + 1.5rem);
+    right: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
+    animation: yc-hero-dark-fade 1.4s ease .2s both;
+  }
+  @keyframes yc-hero-dark-fade { from { opacity: 0; } to { opacity: 1; } }
+
+  .yc-hero-dark__col { overflow: hidden; }
+  .yc-hero-dark__track {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    animation: yc-hero-dark-up 60s linear infinite;
+  }
+  .yc-hero-dark__col:nth-child(2) .yc-hero-dark__track { animation-name: yc-hero-dark-down; animation-duration: 70s; }
+  .yc-hero-dark__col:nth-child(3) .yc-hero-dark__track { animation-duration: 54s; }
+  .yc-hero-dark__media:hover .yc-hero-dark__track { animation-play-state: paused; }
+
+  /* razmak je deo stavke, pa je pomeraj od tačno pola trake bez šava */
+  .yc-hero-dark__item { padding-bottom: 1.25rem; }
+  .yc-hero-dark__item img {
+    display: block;
+    width: 100%;
+    height: auto;                /* prirodan format, bez sečenja */
+    box-shadow: 0 1.5rem 3rem -1.5rem rgba(0, 0, 0, .55);
+  }
+
+  @keyframes yc-hero-dark-up   { from { transform: translateY(0); }    to { transform: translateY(-50%); } }
+  @keyframes yc-hero-dark-down { from { transform: translateY(-50%); } to { transform: translateY(0); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-hero-dark__title, .yc-hero-dark__lead, .yc-hero-dark__actions,
+    .yc-hero-dark__media, .yc-hero-dark__track { animation: none; }
+  }
+
+  /* --- tablet i telefon: tekst gore, kolone ispod u traci fiksne visine --- */
+  @media (max-width: 860px) {
+    .yc-hero-dark__band { display: block; min-height: 0; padding-bottom: 0; }
+    .yc-hero-dark__text { max-width: none; padding-right: 0; }
+    .yc-hero-dark__media {
+      position: relative;
+      left: auto;
+      height: 26rem;
+      margin: 3rem calc(var(--yc-gutter) * -1) 0;
+      gap: 0.75rem;
+    }
+    .yc-hero-dark__item { padding-bottom: 0.75rem; }
+  }
+  @media (max-width: 480px) {
+    .yc-hero-dark { --yc-gutter: 1rem; }
+    .yc-hero-dark__title { font-size: 2.125rem; }
+    .yc-hero-dark__media { grid-template-columns: repeat(2, minmax(0, 1fr)); height: 22rem; }
+    .yc-hero-dark__col:nth-child(3) { display: none; }
+  }
+
+  /* ===== Sekcija ===== */
+  .yc-quote {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(4.5rem, 10vw, 8rem) 1.25rem;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(122, 31, 61, .07), transparent 45%),
+      linear-gradient(135deg, var(--yc-white) 0%, var(--yc-white) 35%, var(--yc-mist) 100%);
+  }
+
+  /* veliki "1918" u pozadini */
+  .yc-quote__year {
+    position: absolute;
+    right: -0.04em;
+    bottom: -0.22em;
+    font-family: Oswald, sans-serif;
+    font-weight: 600;
+    font-size: clamp(10rem, 26vw, 23.75rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--yc-navy);
+    opacity: .05;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .yc-quote__container {
+    position: relative;
+    max-width: 70rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(13.75rem, 18.75rem) 1fr;
+    gap: clamp(3rem, 7vw, 6rem);
+    align-items: center;
+  }
+
+  /* ===== Portret ===== */
+  .yc-quote__portrait { margin: 0; }
+
+  .yc-quote__frame {
+    position: relative;
+    width: 100%;
+    max-width: 16.875rem;
+  }
+  /* teget blok pomeren iza fotografije */
+  .yc-quote__frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translate(1.125rem, 1.125rem);
+    background: var(--yc-navy);
+  }
+  /* tanka bordo linija na vrhu */
+  .yc-quote__frame::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 4px;
+    background: var(--yc-burgundy);
+  }
+  .yc-quote__frame img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: grayscale(1) contrast(1.05);
+  }
+
+  .yc-quote__caption {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .yc-quote__name {
+    font-size: 1.375rem;
+    font-weight: 500;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--yc-navy);
+  }
+  .yc-quote__role {
+    font-size: 0.9375rem;
+    font-weight: 300;
+    letter-spacing: .02em;
+    color: var(--yc-navy-80);
+  }
+
+  /* ===== Tekst ===== */
+  .yc-quote__body { position: relative; margin: 0; }
+
+  .yc-quote__mark {
+    display: block;
+    height: .5em;
+    margin-bottom: 0.5rem;
+    font-size: 8.75rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--yc-burgundy);
+  }
+
+  .yc-quote__text {
+    margin: 0;
+    font-size: clamp(1.25rem, 2.1vw, 1.75rem);
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--yc-navy);
+  }
+  .yc-quote__cite {
+    margin-top: 2.25rem;
+    display: flex;
+    align-items: center;
+  }
+  .yc-quote__source {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-style: normal;
+  }
+  .yc-quote__source-title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    color: var(--yc-navy);
+  }
+  .yc-quote__source-date {
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: .02em;
+    color: var(--yc-navy-80);
+  }
+
+  /* ===== Animacija pri skrolovanju ===== */
+  .yc-reveal {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    filter: blur(0.375rem);
+    transition: opacity .9s ease, transform .9s ease, filter .9s ease;
+  }
+  .yc-reveal.is-visible { opacity: 1; transform: none; filter: none; }
+  .yc-reveal--delay { transition-delay: .2s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-reveal { opacity: 1; transform: none; filter: none; transition: none; }
+  }
+
+  /* ===== Tablet / mobilni ===== */
+  @media (max-width: 860px) {
+    .yc-quote { padding-bottom: 9.375rem; }
+    .yc-quote__year { font-size: 10.625rem; }
+    .yc-quote__container {
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      text-align: center;
+    }
+    .yc-quote__portrait {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .yc-quote__content { max-width: 38.75rem; margin: 0 auto; }
+    .yc-quote__frame { max-width: 13.75rem; margin-right: 1.125rem; }
+    .yc-quote__caption { align-items: center; margin-top: 2.25rem; }
+    .yc-quote__mark { font-size: 6.875rem; }
+    .yc-quote__cite { justify-content: center; text-align: left; }
+  }
+
+  @media (max-width: 480px) {
+    .yc-quote { padding-left: 1rem; padding-right: 1rem; }
+    .yc-quote__text { font-size: 1.1875rem; line-height: 1.55; }
+    .yc-quote__cite { text-align: center; }
+    .yc-quote__source { align-items: center; }
+    .yc-quote__source-title { font-size: 1rem; }
+  }
 </style>
 <link rel="stylesheet" href="../assets/search/search.css?v=7">
 </head>
@@ -307,7 +640,115 @@
   </nav>
 </div>
 
-<main></main>
+<main>
+<section class="yc-hero-dark" aria-label="Youth Caucus">
+  <div class="yc-hero-dark__band">
+    <div class="yc-hero-dark__inner">
+      <div class="yc-hero-dark__text">
+        <h1 class="yc-hero-dark__title">We encourage the youth of Serbia to engage in <span class="yc-hero-dark__accent">global collaboration, self-improvement, education, and dialogue.</span></h1>
+        <p class="yc-hero-dark__lead">We work to strengthen Serbian - American relations and enhance the role of young people in advancing them.</p>
+        <div class="yc-hero-dark__actions">
+          <a class="yc-hero-dark__btn" href="./projects/">Projects</a>
+          <a class="yc-hero-dark__link" href="./about-us/">About Us</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="yc-hero-dark__media" aria-hidden="true">
+      <div class="yc-hero-dark__col">
+        <ul class="yc-hero-dark__track">
+          <li class="yc-hero-dark__item"><img src="../images/youth-caucus-1.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/yc7.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/1795049559783979.jpg" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/yc9.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/youth-caucus-1.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/yc7.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/1795049559783979.jpg" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/yc9.webp" alt="" decoding="async"></li>
+        </ul>
+      </div>
+      <div class="yc-hero-dark__col">
+        <ul class="yc-hero-dark__track">
+          <li class="yc-hero-dark__item"><img src="../images/youth-caucus-2.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/youth-caucus-3.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/yc8.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/youth-caucus-2.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/youth-caucus-3.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/yc8.webp" alt="" decoding="async"></li>
+        </ul>
+      </div>
+      <div class="yc-hero-dark__col">
+        <ul class="yc-hero-dark__track">
+          <li class="yc-hero-dark__item"><img src="../images/1795049574222795.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/youth-caucus-6.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/yc10.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/1795049574222795.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/youth-caucus-6.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="../images/yc10.webp" alt="" decoding="async"></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="yc-quote" aria-label="President Woodrow Wilsons telegram to Nikola Pašić">
+  <div class="yc-quote__year" aria-hidden="true">1918</div>
+
+  <div class="yc-quote__container">
+
+    <figure class="yc-quote__portrait yc-reveal">
+      <div class="yc-quote__frame">
+        <img src="../images/vudro-vilson.png" width="250" height="379"
+             alt="Black and white portrait of US President Woodrow Wilson">
+      </div>
+      <figcaption class="yc-quote__caption">
+        <span class="yc-quote__name">Woodrow Wilson</span>
+        <span class="yc-quote__role">28th President of the United States · 1913–1921</span>
+      </figcaption>
+    </figure>
+
+    <div class="yc-quote__content yc-reveal yc-reveal--delay">
+      <blockquote class="yc-quote__body">
+        <span class="yc-quote__mark" aria-hidden="true">“</span>
+        <p class="yc-quote__text">
+          We know the deep waters of suffering through which Serbia has passed and our sympathies
+          not only, but our profound friendship and an eager desire to help, follows your courageous
+          people through every state of the present tragical course of the war. I am sure that
+          justice to Serbia stands at the very top of any program of justice in the thoughts of
+          every thinking and patriotic man in the United States
+        </p>
+      </blockquote>
+
+      <div class="yc-quote__cite">
+        <cite class="yc-quote__source">
+          <span class="yc-quote__source-title">President Woodrow Wilsons telegram to Nikola Pašić</span>
+          <span class="yc-quote__source-date">July 31st, 1918</span>
+        </cite>
+      </div>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<script>
+  (function () {
+    var items = document.querySelectorAll('.yc-reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+</script>
 
 <script>
   /* Navigation: white background after scrolling + menu for tablet and phone */

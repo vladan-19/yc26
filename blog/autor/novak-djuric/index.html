@@ -496,6 +496,21 @@
   }
   .yc-art__body > :last-child { margin-bottom: 0; }
 
+  /* opis autora: isti font kao opis na stranici O nama */
+  .yc-art--bio .yc-art__body > p,
+  .yc-art--bio .yc-art__body > p:first-of-type {
+    margin: 0 0 1.2em;
+    font-size: clamp(1.125rem, 1rem + .35vw, 1.25rem);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--yc-navy-80);
+  }
+  .yc-art--bio .yc-art__body > p:last-child { margin-bottom: 0; }
+  @media (max-width: 480px) {
+    .yc-art--bio .yc-art__body > p,
+    .yc-art--bio .yc-art__body > p:first-of-type { font-size: 1.125rem; }
+  }
+
   /* fotografije u članku: širi od teksta, isti okvir kao ostale fotografije */
   .yc-art__figure {
     margin: clamp(3rem, 6vw, 4.5rem) 0;
@@ -938,7 +953,7 @@
 <!-- =========================================================
      O autoru
      ========================================================= -->
-<section class="yc-art">
+<section class="yc-art yc-art--bio">
   <div class="yc-art__inner">
     <div class="yc-art__body">
       <p>Novak Đurić, osnivač i vizionar Youth Caucus udruženja, čvrsto veruje da su mladi ljudi najveće bogatstvo jednog društva. Vrednost tog bogatstva meri se obrazovanjem i prilikama koje se pružaju mladima u jednom društvu. Kao neko ko dolazi iz male sredine, sa Juga Srbije, iz Vranja, Novak je svedok kako danas mladi nemaju dovoljno prostora da pokažu stepen svojih kapaciteta, niti dovoljno alata da svoje kapacitete i veštine unaprede.</p>
