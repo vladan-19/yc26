@@ -428,6 +428,15 @@
   .yc-bp-hero__title--md { font-size: clamp(2.375rem, 4.6vw, 4rem); }
   .yc-bp-hero__title--sm { font-size: clamp(1.875rem, 3.5vw, 3rem); }
 
+  /* zvanje ispod imena autora, isti izgled kao uloga člana na stranici O nama */
+  .yc-bp-hero__role {
+    margin: 1.25rem 0 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--yc-burgundy);
+  }
+
   .yc-bp-hero__media { animation: yc-bp-rise 1.1s cubic-bezier(.2, .7, .2, 1) .16s both; }
   .yc-bp-hero__frame { position: relative; margin: 0 1.125rem 1.125rem 0; }
   .yc-bp-hero__frame::before {
@@ -911,6 +920,7 @@
 
     <div class="yc-bp-hero__content">
       <h1 class="yc-bp-hero__title yc-bp-hero__title--lg" id="yc-bp-title">Novak Đurić</h1>
+      <p class="yc-bp-hero__role">Diplomirani politikolog za međunarodne odnose</p>
     </div>
 
     <div class="yc-bp-hero__media">
