@@ -1,0 +1,11 @@
+# Podešavanja za Claude / lokalni pregled
+.claude/
+
+# Pomoćne skripte (indeks pretrage, sitemap, vreme čitanja) — nisu deo sajta
+alati/
+
+# Sistemski fajlovi
+Thumbs.db
+desktop.ini
+.DS_Store
+__pycache__/

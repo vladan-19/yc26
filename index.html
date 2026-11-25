@@ -1,0 +1,1561 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Youth Caucus</title>
+<link rel="icon" type="image/png" href="assets/images/favicon-youth-caucus.png">
+<link rel="apple-touch-icon" href="assets/images/webclip-youth-caucus.png">
+<meta name="description" content="Youth Caucus povezuje mlade iz Srbije kroz obrazovanje, etiku, preduzetništvo i međunarodnu saradnju uz jačanje pozicija mladih">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Youth Caucus">
+<meta property="og:title" content="Youth Caucus">
+<meta property="og:description" content="Youth Caucus povezuje mlade iz Srbije kroz obrazovanje, etiku, preduzetništvo i međunarodnu saradnju uz jačanje pozicija mladih">
+<meta property="og:url" content="https://www.youthcaucus.rs/./">
+<meta property="og:image" content="https://www.youthcaucus.rs/assets/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Youth Caucus">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/oswald-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(assets/fonts/oswald-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(assets/fonts/oswald-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(assets/fonts/oswald-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<style>
+  /* ===== Tokeni preuzeti sa youthcaucus.rs ===== */
+  :root {
+    --yc-navy: #052149;          /* primarna boja sajta (tabovi, naslovi) */
+    --yc-navy-80: rgba(5, 33, 73, .8);
+    --yc-navy-10: rgba(5, 33, 73, .08);
+    --yc-burgundy: #7a1f3d;      /* akcent iz gradijenta u futeru */
+    --yc-ink: #333333;
+    --yc-white: #ffffff;
+    --yc-mist: #e6ebf3;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--yc-white); font-family: Oswald, sans-serif; color: var(--yc-ink); }
+
+  /* =========================================================
+     Navigacija
+     ========================================================= */
+  :root { --yc-nav-h: 8rem; }
+  html { scroll-padding-top: var(--yc-nav-h); scrollbar-gutter: stable; }   /* bez pomeranja kad meni zaključa skrol */
+
+  .yc-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding: 0 1.25rem;
+    /* z-index se vraća tek kad meni potpuno nestane, da X animacija ostane vidljiva */
+    transition: background-color .3s ease, box-shadow .3s ease, -webkit-backdrop-filter .3s ease, backdrop-filter .3s ease, z-index 0s linear .3s;
+  }
+  /* providna preko heroja, bela kad se skroluje */
+  .yc-nav.is-scrolled {
+    background: rgba(255, 255, 255, .92);
+    -webkit-backdrop-filter: blur(0.75rem);
+    backdrop-filter: blur(0.75rem);
+    box-shadow: 0 0.75rem 2rem -26px rgba(5, 33, 73, .55);
+  }
+
+  .yc-nav__inner {
+    max-width: 70rem;
+    height: var(--yc-nav-h);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    transition: height .3s ease;
+  }
+  .yc-nav.is-scrolled .yc-nav__inner { height: 5.5rem; }
+
+  .yc-nav__logo { display: block; flex: none; }
+  .yc-nav__logo img {
+    display: block;
+    height: 6.5rem;
+    width: auto;
+    transition: height .3s ease;
+  }
+  .yc-nav.is-scrolled .yc-nav__logo img { height: 4.25rem; }   /* prvobitna veličina, posle skrolovanja */
+
+  /* linkovi: isti princip kao u futeru, bazno prigušeni, na hover 100% */
+  .yc-nav__links {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.25rem, 2.4vw, 2.25rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .yc-nav__link {
+    color: var(--yc-navy);
+    font-size: 1.125rem;
+    font-weight: 400;
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-nav__link:hover,
+  .yc-nav__link:focus-visible,
+  .yc-nav__link[aria-current="page"] { opacity: 1; }
+
+  /* jezik: zastavica kao na sajtu; na hover se pretopi u zastavicu jezika na koji vodi */
+  .yc-lang {
+    position: relative;
+    display: block;
+    flex: none;
+    width: 1.875rem;
+    height: 1.25rem;
+  }
+  .yc-lang__flag {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity .25s ease;
+  }
+  .yc-lang__flag--en { opacity: 0; }
+  .yc-lang:hover .yc-lang__flag--sr,
+  .yc-lang:focus-visible .yc-lang__flag--sr { opacity: 0; }
+  .yc-lang:hover .yc-lang__flag--en,
+  .yc-lang:focus-visible .yc-lang__flag--en { opacity: 1; }
+
+  .yc-nav a:focus-visible,
+  .yc-nav button:focus-visible,
+  .yc-menu a:focus-visible,
+  .yc-menu button:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 4px; }
+
+  /* dugme za meni (samo tablet i telefon) */
+  .yc-nav__toggle {
+    appearance: none;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-right: -0.625rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--yc-navy);
+    cursor: pointer;
+  }
+  .yc-burger {
+    position: relative;
+    display: block;
+    width: 1.5rem;
+    height: 1.125rem;
+  }
+  .yc-burger span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform .3s ease, opacity .3s ease;
+  }
+  .yc-burger span:nth-child(1) { top: 0; }
+  .yc-burger span:nth-child(2) { top: calc(50% - 1px); }
+  .yc-burger span:nth-child(3) { bottom: 0; }
+  /* u X, u istom trenutku i istom trajanju kao otvaranje/zatvaranje menija */
+  .yc-nav__toggle[aria-expanded="true"] .yc-burger span:nth-child(1) { transform: translateY(0.5rem) rotate(45deg); }
+  .yc-nav__toggle[aria-expanded="true"] .yc-burger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .yc-nav__toggle[aria-expanded="true"] .yc-burger span:nth-child(3) { transform: translateY(-0.5rem) rotate(-45deg); }
+
+  /* dok je meni otvoren, zaglavlje (logo, jezik, X) ostaje iznad njega */
+  .yc-nav.is-menu-open {
+    z-index: 70;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    transition: background-color .3s ease, box-shadow .3s ease, -webkit-backdrop-filter .3s ease, backdrop-filter .3s ease, z-index 0s;
+  }
+
+  /* --- meni preko celog ekrana --- */
+  .yc-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1.25rem 2.5rem;
+    background: linear-gradient(160deg, var(--yc-mist) 0%, var(--yc-white) 60%);
+    color: var(--yc-navy);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility 0s linear .3s;
+    overflow-y: auto;
+  }
+  .yc-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .3s ease;
+  }
+  .yc-menu__top {
+    height: var(--yc-nav-h);
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .yc-menu__links {
+    margin: 3rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0;
+  }
+  /* ceo red je klikabilan, ne samo tekst; razmak između stavki je deo linka */
+  .yc-menu__link {
+    display: block;
+    padding: 0.4375rem 0;
+    color: var(--yc-navy);
+    font-size: 2.125rem;
+    font-weight: 500;
+    line-height: 1.25;
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-menu__link:hover, .yc-menu__link:focus-visible { opacity: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-nav, .yc-nav__inner, .yc-nav__logo img, .yc-nav__link, .yc-lang__flag,
+    .yc-menu, .yc-menu__link, .yc-burger span { transition: none; }
+  }
+
+  @media (max-width: 991px) {
+    :root { --yc-nav-h: 6rem; }
+    .yc-nav__logo img { height: 4.75rem; }
+    .yc-nav.is-scrolled .yc-nav__inner { height: 4.5rem; }
+    .yc-nav.is-scrolled .yc-nav__logo img { height: 3.5rem; }
+    .yc-nav__inner { gap: 1.25rem; }
+    .yc-nav__inner > nav { margin-left: auto; }
+    .yc-nav__links > li:not(.yc-nav__lang-item):not(.yc-nav__search-item) { display: none; }
+    .yc-nav .yc-lang { width: 1.6875rem; height: 1.125rem; }   /* ista visina kao hamburger */
+    .yc-nav__toggle { display: inline-flex; }
+  }
+  @media (max-width: 480px) {
+    .yc-nav, .yc-menu { padding-left: 1rem; padding-right: 1rem; }
+    .yc-menu__link { font-size: 1.875rem; }
+  }
+
+  /* =========================================================
+     Hero, varijanta 1: tekst levo, slajder u marginama desno
+     ========================================================= */
+  .yc-hero-alt {
+    position: relative;
+    overflow: hidden;
+    padding: calc(var(--yc-nav-h) + clamp(3rem, 7vw, 7rem)) 1.25rem clamp(5rem, 9vw, 8.5rem);
+    background: linear-gradient(160deg, var(--yc-mist) 0%, var(--yc-white) 70%);
+    color: var(--yc-navy);
+  }
+
+  .yc-hero-alt__inner {
+    max-width: 70rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: clamp(3rem, 7vw, 6.5rem);
+    align-items: start;
+  }
+
+  /* --- tekst --- */
+  .yc-hero-alt__title {
+    margin: 0;
+    font-size: clamp(2.25rem, 4.2vw, 3.625rem);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -.005em;
+    color: var(--yc-navy);
+    animation: yc-hero-alt-in 1s ease both;
+  }
+  .yc-hero-alt__lead {
+    margin: 1.75rem 0 0;
+    max-width: 32.5rem;
+    font-size: clamp(1.125rem, 1.5vw, 1.3125rem);
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--yc-navy-80);
+    animation: yc-hero-alt-in 1s ease .15s both;
+  }
+  @keyframes yc-hero-alt-in {
+    from { opacity: 0; transform: translateY(1.125rem); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* --- slajder: isti teget "pomereni blok" kao iza Vilsonovog portreta --- */
+  .yc-hero-alt__media { animation: yc-hero-alt-in 1s ease .25s both; }
+  .yc-hero-alt__frame {
+    position: relative;
+    aspect-ratio: 3 / 2;         /* originalni format fotografija */
+    margin-right: 1.125rem;          /* blok iza slike završava se tačno na desnoj margini */
+  }
+  .yc-hero-alt__frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translate(1.125rem, 1.125rem);
+    background: var(--yc-navy);
+  }
+  .yc-hero-alt__slides {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    background: var(--yc-mist);
+  }
+  .yc-hero-alt__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.4s ease;
+  }
+  .yc-hero-alt__slide.is-active { opacity: 1; }
+  .yc-hero-alt__slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.08);
+    transition: transform 7.5s linear;
+  }
+  .yc-hero-alt__slide.is-active img { transform: scale(1); }
+
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-hero-alt__slide, .yc-hero-alt__slide img { transition: none; }
+    .yc-hero-alt__slide img { transform: none; }
+    .yc-hero-alt__title, .yc-hero-alt__lead, .yc-hero-alt__media { animation: none; }
+  }
+
+  @media (max-width: 860px) {
+    .yc-hero-alt__inner { grid-template-columns: 1fr; gap: 3.5rem; }
+    .yc-hero-alt__frame { margin-right: 0.75rem; }
+    .yc-hero-alt__frame::before { transform: translate(0.75rem, 0.75rem); }
+  }
+  @media (max-width: 480px) {
+    .yc-hero-alt { padding-left: 1rem; padding-right: 1rem; }
+  }
+
+  /* =========================================================
+     Hero, varijanta 2: krupan naslov levo, slajder koji izlazi do ivice ekrana desno
+     ========================================================= */
+  .yc-hero {
+    --yc-gutter: 1.25rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding: clamp(5rem, 9vw, 8rem) var(--yc-gutter) clamp(4rem, 8vw, 7rem);
+    background:
+      radial-gradient(55% 65% at 88% 38%, rgba(122, 31, 61, .12) 0%, rgba(122, 31, 61, 0) 70%),
+      linear-gradient(160deg, var(--yc-mist) 0%, var(--yc-white) 70%);
+    color: var(--yc-navy);
+  }
+
+  .yc-hero__inner {
+    width: 100%;
+    max-width: 70rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  /* --- naslov: krupno, verzal, dva tona (teget + bordo kao u logou) --- */
+  .yc-hero__title {
+    margin: 0;
+    font-size: clamp(2.5rem, 4.4vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1.26;            /* kvačica na Š ide do 1.06em; ne sme da dodirne red iznad (ni zarez) */
+    letter-spacing: -.01em;
+    color: var(--yc-navy);
+    animation: yc-hero-rise 1.1s cubic-bezier(.2, .7, .2, 1) both;
+  }
+  .yc-hero__accent { color: var(--yc-burgundy); }
+
+  .yc-hero__lead {
+    margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
+    max-width: 30rem;
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--yc-navy-80);
+    animation: yc-hero-rise 1.1s cubic-bezier(.2, .7, .2, 1) .15s both;
+  }
+
+  @keyframes yc-hero-rise {
+    from { opacity: 0; transform: translateY(2rem); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* --- slajder: izlazi do desne ivice ekrana, teget blok pomeren dole-levo --- */
+  .yc-hero__media {
+    /* desna margina sadržaja -> ivica ekrana */
+    margin-right: calc((100vw - min(70rem, 100vw - 2 * var(--yc-gutter))) / -2);
+  }
+  .yc-hero__frame {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    animation: yc-hero-wipe 1.3s cubic-bezier(.7, 0, .2, 1) .2s both;
+  }
+  .yc-hero__frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translate(-28px, 1.75rem);
+    background: var(--yc-navy);
+  }
+  @keyframes yc-hero-wipe {
+    from { clip-path: inset(0 0 0 100%); }
+    to   { clip-path: inset(-40px -40px -40px -40px); }
+  }
+
+  .yc-hero__slides {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    background: var(--yc-mist);
+  }
+  .yc-hero__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.4s ease;
+  }
+  .yc-hero__slide.is-active { opacity: 1; }
+  .yc-hero__slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.1);
+    transition: transform 7.5s linear;
+  }
+  .yc-hero__slide.is-active img { transform: scale(1); }
+
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-hero__slide, .yc-hero__slide img { transition: none; }
+    .yc-hero__slide img { transform: none; }
+    .yc-hero__title, .yc-hero__lead, .yc-hero__frame { animation: none; }
+  }
+
+  /* --- tablet i telefon: naslov gore, slika ispod (i dalje do desne ivice) --- */
+  @media (max-width: 860px) {
+    .yc-hero { min-height: 0; }
+    .yc-hero__inner { grid-template-columns: 1fr; gap: 3rem; }
+    .yc-hero__title { font-size: clamp(2.375rem, 7vw, 4rem); }
+    .yc-hero__frame::before { transform: translate(-12px, 0.75rem); }
+  }
+  @media (max-width: 480px) {
+    .yc-hero { --yc-gutter: 1rem; }
+    .yc-hero__title { font-size: 2.375rem; }
+  }
+
+  /* ===== Sekcija ===== */
+  .yc-quote {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(4.5rem, 10vw, 8rem) 1.25rem;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(122, 31, 61, .07), transparent 45%),
+      linear-gradient(135deg, var(--yc-white) 0%, var(--yc-white) 35%, var(--yc-mist) 100%);
+  }
+
+  /* veliki "1918" u pozadini */
+  .yc-quote__year {
+    position: absolute;
+    right: -0.04em;
+    bottom: -0.22em;
+    font-family: Oswald, sans-serif;
+    font-weight: 600;
+    font-size: clamp(10rem, 26vw, 23.75rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--yc-navy);
+    opacity: .05;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .yc-quote__container {
+    position: relative;
+    max-width: 70rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(13.75rem, 18.75rem) 1fr;
+    gap: clamp(3rem, 7vw, 6rem);
+    align-items: center;
+  }
+
+  /* ===== Portret ===== */
+  .yc-quote__portrait { margin: 0; }
+
+  .yc-quote__frame {
+    position: relative;
+    width: 100%;
+    max-width: 16.875rem;
+  }
+  /* teget blok pomeren iza fotografije */
+  .yc-quote__frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translate(1.125rem, 1.125rem);
+    background: var(--yc-navy);
+  }
+  /* tanka bordo linija na vrhu */
+  .yc-quote__frame::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 4px;
+    background: var(--yc-burgundy);
+  }
+  .yc-quote__frame img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: grayscale(1) contrast(1.05);
+  }
+
+  .yc-quote__caption {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .yc-quote__name {
+    font-size: 1.375rem;
+    font-weight: 500;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--yc-navy);
+  }
+  .yc-quote__role {
+    font-size: 0.9375rem;
+    font-weight: 300;
+    letter-spacing: .02em;
+    color: var(--yc-navy-80);
+  }
+
+  /* ===== Tekst ===== */
+  .yc-quote__body { position: relative; margin: 0; }
+
+  .yc-quote__mark {
+    display: block;
+    height: .5em;
+    margin-bottom: 0.5rem;
+    font-size: 8.75rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--yc-burgundy);
+  }
+
+  .yc-quote__text {
+    margin: 0;
+    font-size: clamp(1.25rem, 2.1vw, 1.75rem);
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--yc-navy);
+  }
+  .yc-quote__cite {
+    margin-top: 2.25rem;
+    display: flex;
+    align-items: center;
+  }
+  .yc-quote__source {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-style: normal;
+  }
+  .yc-quote__source-title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    color: var(--yc-navy);
+  }
+  .yc-quote__source-date {
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: .02em;
+    color: var(--yc-navy-80);
+  }
+
+  /* ===== Animacija pri skrolovanju ===== */
+  .yc-reveal {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    filter: blur(0.375rem);
+    transition: opacity .9s ease, transform .9s ease, filter .9s ease;
+  }
+  .yc-reveal.is-visible { opacity: 1; transform: none; filter: none; }
+  .yc-reveal--delay { transition-delay: .2s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-reveal { opacity: 1; transform: none; filter: none; transition: none; }
+  }
+
+  /* ===== Tablet / mobilni ===== */
+  @media (max-width: 860px) {
+    .yc-quote { padding-bottom: 9.375rem; }
+    .yc-quote__year { font-size: 10.625rem; }
+    .yc-quote__container {
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      text-align: center;
+    }
+    .yc-quote__portrait {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .yc-quote__content { max-width: 38.75rem; margin: 0 auto; }
+    .yc-quote__frame { max-width: 13.75rem; margin-right: 1.125rem; }
+    .yc-quote__caption { align-items: center; margin-top: 2.25rem; }
+    .yc-quote__mark { font-size: 6.875rem; }
+    .yc-quote__cite { justify-content: center; text-align: left; }
+  }
+
+  @media (max-width: 480px) {
+    .yc-quote { padding-left: 1rem; padding-right: 1rem; }
+    .yc-quote__text { font-size: 1.1875rem; line-height: 1.55; }
+    .yc-quote__cite { text-align: center; }
+    .yc-quote__source { align-items: center; }
+    .yc-quote__source-title { font-size: 1rem; }
+  }
+
+  /* =========================================================
+     Sekcija: Projekti / Događaji / Blog / Preporuke
+     ========================================================= */
+  .yc-visually-hidden {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .yc-feed {
+    position: relative;
+    padding: clamp(6.5rem, 12vw, 11rem) 1.25rem;
+    background: linear-gradient(180deg, var(--yc-mist) 0%, var(--yc-white) 60%);
+  }
+
+  .yc-feed__container {
+    max-width: 70rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "tabs"
+      "panels";
+    row-gap: clamp(3.5rem, 6vw, 5.5rem);
+  }
+
+  /* --- tabovi: bez kutija, samo krupna tipografija; aktivni je pun teget, ostali prigušeni --- */
+  .yc-feed__head {
+    grid-area: tabs;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+  .yc-tabs {
+    position: relative;
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .yc-tabs::-webkit-scrollbar { display: none; }
+  .yc-tab {
+    appearance: none;
+    margin: 0;
+    padding: 4px 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--yc-navy);
+    font: 600 clamp(1.5rem, 2.4vw, 2.125rem)/1.1 Oswald, sans-serif;
+    letter-spacing: .01em;
+    text-transform: uppercase;
+    flex: none;
+    cursor: pointer;
+    opacity: .45;
+    transition: opacity .25s ease;
+  }
+  .yc-tab:hover { opacity: .75; }
+
+  /* aktivni tab kreće sa 85% (kao hover) i za 5 s se sleva nadesno puni do 100%, pa se prelazi na sledeći */
+  .yc-tab[aria-selected="true"] {
+    opacity: 1;
+    color: transparent;
+    background-image:
+      linear-gradient(var(--yc-navy), var(--yc-navy)),
+      linear-gradient(rgba(5, 33, 73, .85), rgba(5, 33, 73, .85));
+    background-size: 0% 100%, 100% 100%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: yc-tab-fill 5s linear forwards;
+  }
+  @keyframes yc-tab-fill {
+    to { background-size: 100% 100%, 100% 100%; }
+  }
+  /* staje dok je kursor ili fokus u sekciji, i dok sekcija nije na ekranu */
+  .yc-feed__container:hover .yc-tab[aria-selected="true"],
+  .yc-feed__container:focus-within .yc-tab[aria-selected="true"],
+  .yc-feed:not(.is-inview) .yc-tab[aria-selected="true"] { animation-play-state: paused; }
+  .yc-tab:focus-visible {
+    outline: 2px solid var(--yc-burgundy);
+    outline-offset: -2px;
+  }
+
+  /* link ka celoj kolekciji aktivnog taba */
+  .yc-feed__all {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: var(--yc-navy);
+    font: 400 1.125rem/1.2 Oswald, sans-serif;
+    text-decoration: none;
+    white-space: nowrap;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-feed__all svg { width: 1.125rem; height: 1.125rem; transition: transform .25s ease; }
+  .yc-feed__all:hover { opacity: 1; }
+  .yc-feed__all:hover svg { transform: translateX(0.25rem); }
+  .yc-feed__all:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 4px; }
+
+  /* --- paneli --- */
+  /* svi paneli u istoj ćeliji: visina = najviši panel, pa promena taba ne trza;
+     sadržaj je dole, da slike rastu nagore kao i u kartici */
+  .yc-feed__panels {
+    grid-area: panels;
+    min-width: 0;
+    display: grid;
+  }
+  .yc-panel {
+    grid-area: 1 / 1;
+    align-self: end;
+    min-width: 0;
+  }
+  .yc-panel[hidden] {
+    display: block;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .yc-panel:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 0.5rem; }
+  .yc-panel.is-entering { animation: yc-panel-in .5s ease both; }
+  @keyframes yc-panel-in {
+    from { opacity: 0; transform: translateY(0.875rem); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .yc-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  /* --- kartica: slika u prirodnom formatu, poravnata po donjoj ivici; naslovi počinju u istoj liniji ---
+     teget "pomereni blok" crtaju senke slike i tela, pa prati stvarnu visinu slike */
+  .yc-card {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+  .yc-card__link {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    color: inherit;
+    text-decoration: none;
+  }
+  .yc-card__link:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 3px; }
+
+  .yc-card__media {
+    align-self: end;
+    overflow: hidden;
+    background: var(--yc-mist);
+    box-shadow: 0 0 0 var(--yc-navy);
+    transition: box-shadow .35s ease;
+  }
+  .yc-card__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform .6s cubic-bezier(.22,.61,.36,1);
+  }
+  .yc-card:hover .yc-card__media img { transform: scale(1.04); }
+
+  .yc-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding: 2rem 2rem 2.25rem;
+    background: var(--yc-white);
+    box-shadow: 0 0 0 var(--yc-navy), 0 1.125rem 2.5rem -26px rgba(5, 33, 73, .5);
+    transition: box-shadow .35s ease;
+  }
+  .yc-card:hover .yc-card__media,
+  .yc-card:focus-within .yc-card__media { box-shadow: 0.75rem 0.75rem 0 var(--yc-navy); }
+  .yc-card:hover .yc-card__body,
+  .yc-card:focus-within .yc-card__body { box-shadow: 0.75rem 0.75rem 0 var(--yc-navy), 0 1.125rem 2.5rem -26px rgba(5, 33, 73, .5); }
+  .yc-card__title {
+    margin: 0;
+    font-size: 1.4375rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--yc-navy);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-card__media, .yc-card__body, .yc-card__media img, .yc-tab, .yc-feed__all svg { transition: none; }
+    .yc-tab[aria-selected="true"] { animation: none; }   /* bez automatske smene */
+    .yc-panel.is-entering { animation: none; }
+  }
+
+  /* --- tablet --- */
+  @media (max-width: 960px) {
+    .yc-feed__container { row-gap: 3.5rem; }
+    .yc-grid { gap: 2rem; }
+    .yc-card__body { padding: 1.625rem 1.5rem 1.875rem; }
+    .yc-card__title { font-size: 1.25rem; }
+  }
+
+  /* --- telefon: kartice u horizontalnom nizu sa "virenjem" sledeće --- */
+  @media (max-width: 720px) {
+    .yc-feed__head { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .yc-tabs { max-width: 100%; }
+    .yc-feed__all { font-size: 1rem; }
+    .yc-grid {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: 78%;
+      gap: 1.25rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 1.25rem;
+      margin: 0 -20px;
+      padding: 4px 2rem 1.75rem 1.25rem;
+      scrollbar-width: none;
+    }
+    .yc-grid::-webkit-scrollbar { display: none; }
+    .yc-card { scroll-snap-align: start; }
+  }
+
+  @media (max-width: 480px) {
+    .yc-feed { padding-left: 1rem; padding-right: 1rem; }
+    .yc-tabs { column-gap: 1.5rem; }
+    .yc-tab { font-size: 1.375rem; }
+    .yc-grid {
+      grid-auto-columns: 84%;
+      scroll-padding-inline: 1rem;
+      margin: 0 -16px;
+      padding: 4px 1.75rem 1.75rem 1rem;
+    }
+  }
+
+  /* =========================================================
+     Footer
+     ========================================================= */
+  .yc-footer {
+    --yc-footer-fs: 1.375rem;          /* jedna veličina teksta za ceo footer */
+    position: relative;
+    overflow: hidden;
+    padding: clamp(4.8rem, 8.8vw, 8rem) 1.5rem 0;
+    color: var(--yc-white);
+    background:
+      radial-gradient(90% 120% at 100% 0%, rgba(122, 31, 61, .95) 0%, rgba(122, 31, 61, .5) 32%, rgba(122, 31, 61, 0) 70%),
+      radial-gradient(60% 80% at 100% 100%, rgba(150, 110, 150, .45) 0%, rgba(150, 110, 150, 0) 70%),
+      linear-gradient(100deg, #041a3b 0%, var(--yc-navy) 40%, #1d2b56 100%);
+  }
+
+  .yc-footer__inner {
+    position: relative;
+    max-width: 70rem;
+    margin: 0 auto;
+    container-type: inline-size;   /* natpis se meri prema širini sadržaja */
+  }
+
+  .yc-footer__top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "brand nav";
+    align-items: start;
+    column-gap: clamp(4rem, 8vw, 8rem);
+    row-gap: 3.6rem;
+    padding-bottom: clamp(4.4rem, 8vw, 6.8rem);
+  }
+
+  /* --- brend --- */
+  .yc-footer__brand { grid-area: brand; }
+  /* --- navigacija --- */
+  .yc-footer__nav {
+    grid-area: nav;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    column-gap: clamp(4rem, 8vw, 8rem);
+  }
+  .yc-footer__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.125rem;
+    line-height: 1.4;
+  }
+  .yc-footer__link {
+    color: var(--yc-white);
+    font-size: var(--yc-footer-fs);
+    font-weight: 400;
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-footer__link:hover,
+  .yc-footer__link:focus-visible { opacity: 1; }
+
+  /* --- kontakt --- */
+  /* kontakt kao krupna tipografija: email i Instagram su glavni sadržaj */
+  /* ista veličina i ritam redova kao linkovi desno, pa se redovi poravnaju */
+  .yc-footer__contact-title {
+    margin: 0 0 1.125rem;
+    font-size: var(--yc-footer-fs);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: .02em;
+    color: var(--yc-white);
+  }
+  .yc-contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.125rem;
+    font-size: var(--yc-footer-fs);
+    line-height: 1.4;
+  }
+
+  /* bazno prigušeno, na hover 100% */
+  .yc-contact__item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .45em;
+    color: var(--yc-white);
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-contact__item:hover,
+  .yc-contact__item:focus-visible { opacity: 1; }
+  .yc-contact__icon {
+    flex: none;
+    display: inline-flex;
+  }
+  /* obe ikonice u istom kvadratu visine velikog slova (.82em u Oswaldu),
+     na istoj osnovnoj liniji kao tekst, pa tekst u oba reda počinje na istom mestu */
+  .yc-contact__icon svg { display: block; width: .82em; height: .82em; overflow: visible; }
+
+  .yc-contact__value {
+    font-weight: 400;
+    overflow-wrap: anywhere;
+  }
+
+  .yc-footer a:focus-visible { outline: 2px solid var(--yc-white); outline-offset: 4px; }
+
+  /* --- donja traka --- */
+  .yc-footer__bottom {
+    padding: 2rem 0;
+  }
+  .yc-footer__copy {
+    margin: 0;
+    text-align: center;
+    font-size: 0.9375rem;
+    font-weight: 300;
+    letter-spacing: .02em;
+    color: rgba(255, 255, 255, .6);
+  }
+
+  /* --- veliki natpis u dnu, kao "1918" gore --- */
+  .yc-footer__wordmark {
+    display: block;
+    margin: clamp(1.6rem, 4vw, 3.6rem) 0 -0.2em;
+    font-size: clamp(2.5rem, 12vw, 10.5rem);   /* rezerva za starije pretraživače */
+    font-size: calc(100cqw / 6.085);        /* slova tačno od leve do desne margine */
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--yc-white);
+    opacity: .06;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-footer__link, .yc-contact__item { transition: none; }
+  }
+
+  @media (max-width: 900px) {
+    .yc-footer__top {
+      grid-template-columns: auto auto;
+      grid-template-areas: "brand nav";
+      justify-content: space-between;
+      column-gap: 4rem;
+      row-gap: 3.6rem;
+    }
+    .yc-footer__nav { column-gap: 4rem; }
+  }
+
+  @media (max-width: 560px) {
+    .yc-footer { padding: 4.4rem 1rem 0; }
+    .yc-footer__top {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "brand"
+        "nav";
+      row-gap: 3.2rem;
+      padding-bottom: 4rem;
+    }
+    .yc-footer__nav { grid-template-columns: repeat(2, 1fr); column-gap: 1.5rem; }
+    .yc-footer__bottom { padding: 1.6rem 0; }
+    .yc-footer { --yc-footer-fs: 1.25rem; }
+  }
+</style>
+<link rel="stylesheet" href="assets/search/search.css?v=7">
+</head>
+<body>
+
+<!-- =========================================================
+     Hero
+     ========================================================= -->
+<!-- =========================================================
+     Navigacija
+     ========================================================= -->
+<header class="yc-nav">
+  <div class="yc-nav__inner">
+    <a class="yc-nav__logo" href="index.html" aria-label="Youth Caucus, početna">
+      <img src="assets/images/youth-caucus-logo.png" width="260" height="313" alt="">
+    </a>
+
+    <nav aria-label="Glavna navigacija">
+      <ul class="yc-nav__links">
+        <li><a class="yc-nav__link" href="projekti/">Projekti</a></li>
+        <li><a class="yc-nav__link" href="o-nama/">O nama</a></li>
+        <li><a class="yc-nav__link" href="senior-savet/">Senior Savet</a></li>
+        <li><a class="yc-nav__link" href="ethics-forum/">Ethics Forum</a></li>
+        <li><a class="yc-nav__link" href="dogadjaji/">Događaji</a></li>
+        <li><a class="yc-nav__link" href="blog/">Blog</a></li>
+        <li><a class="yc-nav__link" href="preporuka-caucus-a/">Preporuka Caucus-a</a></li>
+        <li class="yc-nav__search-item">
+          <button class="yc-nav__search" type="button" aria-label="Pretraga" aria-haspopup="dialog" aria-expanded="false" aria-controls="yc-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.75"/><path d="M15.6 15.6 21 21"/></svg>
+          </button>
+        </li>
+        <li class="yc-nav__lang-item">
+          <a class="yc-lang" href="en/index.html" hreflang="en" lang="en" aria-label="English">
+            <img class="yc-lang__flag yc-lang__flag--sr" src="assets/images/sr.png" width="30" height="20" alt="">
+            <img class="yc-lang__flag yc-lang__flag--en" src="assets/images/en.png" width="30" height="20" alt="">
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <button class="yc-nav__toggle" type="button" aria-label="Otvori meni" aria-expanded="false" aria-controls="yc-menu">
+      <span class="yc-burger" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+</header>
+
+<!-- meni za tablet i telefon -->
+<div class="yc-menu" id="yc-menu" aria-label="Meni">
+  <div class="yc-menu__top" aria-hidden="true"></div>
+
+  <nav aria-label="Meni">
+    <ul class="yc-menu__links">
+      <li><a class="yc-menu__link" href="projekti/">Projekti</a></li>
+      <li><a class="yc-menu__link" href="o-nama/">O nama</a></li>
+      <li><a class="yc-menu__link" href="senior-savet/">Senior Savet</a></li>
+      <li><a class="yc-menu__link" href="ethics-forum/">Ethics Forum</a></li>
+      <li><a class="yc-menu__link" href="dogadjaji/">Događaji</a></li>
+      <li><a class="yc-menu__link" href="blog/">Blog</a></li>
+      <li><a class="yc-menu__link" href="preporuka-caucus-a/">Preporuka Caucus-a</a></li>
+    </ul>
+  </nav>
+</div>
+
+<section class="yc-hero-alt" aria-label="Youth Caucus">
+  <div class="yc-hero-alt__inner">
+
+    <div class="yc-hero-alt__text">
+      <h1 class="yc-hero-alt__title">Podstičemo mlade iz Srbije na globalnu saradnju, usavršavanje, obrazovanje i dijalog.</h1>
+      <p class="yc-hero-alt__lead">Radimo na unapređenju srpsko-američkih odnosa i uloge mladih u unapređenju istih.</p>
+    </div>
+
+    <div class="yc-hero-alt__media">
+      <div class="yc-hero-alt__frame">
+        <ul class="yc-hero-alt__slides" aria-hidden="true">
+          <li class="yc-hero-alt__slide is-active"><img src="images/youth-caucus-1.webp" alt="" fetchpriority="high"></li>
+          <li class="yc-hero-alt__slide"><img src="images/youth-caucus-2.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-alt__slide"><img src="images/yc7.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-alt__slide"><img src="images/youth-caucus-3.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-alt__slide"><img src="images/1795049559783979.jpg" alt="" decoding="async"></li>
+          <li class="yc-hero-alt__slide"><img src="images/1795049574222795.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-alt__slide"><img src="images/yc8.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-alt__slide"><img src="images/youth-caucus-6.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-alt__slide"><img src="images/yc9.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-alt__slide"><img src="images/yc10.webp" alt="" decoding="async"></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="yc-hero" aria-label="Youth Caucus, varijanta 2">
+  <div class="yc-hero__inner">
+
+    <div class="yc-hero__text">
+      <h2 class="yc-hero__title">Podstičemo mlade iz Srbije na <span class="yc-hero__accent">globalnu saradnju, usavršavanje, obrazovanje i dijalog.</span></h2>
+      <p class="yc-hero__lead">Radimo na unapređenju srpsko-američkih odnosa i uloge mladih u unapređenju istih.</p>
+    </div>
+
+    <div class="yc-hero__media">
+      <div class="yc-hero__frame">
+        <ul class="yc-hero__slides" aria-hidden="true">
+          <li class="yc-hero__slide is-active"><img src="images/youth-caucus-1.webp" alt="" fetchpriority="high"></li>
+          <li class="yc-hero__slide"><img src="images/youth-caucus-2.webp" alt="" decoding="async"></li>
+          <li class="yc-hero__slide"><img src="images/yc7.webp" alt="" decoding="async"></li>
+          <li class="yc-hero__slide"><img src="images/youth-caucus-3.webp" alt="" decoding="async"></li>
+          <li class="yc-hero__slide"><img src="images/1795049559783979.jpg" alt="" decoding="async"></li>
+          <li class="yc-hero__slide"><img src="images/1795049574222795.webp" alt="" decoding="async"></li>
+          <li class="yc-hero__slide"><img src="images/yc8.webp" alt="" decoding="async"></li>
+          <li class="yc-hero__slide"><img src="images/youth-caucus-6.webp" alt="" decoding="async"></li>
+          <li class="yc-hero__slide"><img src="images/yc9.webp" alt="" decoding="async"></li>
+          <li class="yc-hero__slide"><img src="images/yc10.webp" alt="" decoding="async"></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="yc-quote" aria-label="Telegram predsednika Vudroa Vilsona Srbiji">
+  <div class="yc-quote__year" aria-hidden="true">1918</div>
+
+  <div class="yc-quote__container">
+
+    <figure class="yc-quote__portrait yc-reveal">
+      <div class="yc-quote__frame">
+        <img src="images/vudro-vilson.png" width="250" height="379"
+             alt="Crno-beli portret predsednika SAD Vudroa Vilsona">
+      </div>
+      <figcaption class="yc-quote__caption">
+        <span class="yc-quote__name">Vudro Vilson</span>
+        <span class="yc-quote__role">28. predsednik Sjedinjenih Država · 1913–1921.</span>
+      </figcaption>
+    </figure>
+
+    <div class="yc-quote__content yc-reveal yc-reveal--delay">
+      <blockquote class="yc-quote__body">
+        <span class="yc-quote__mark" aria-hidden="true">“</span>
+        <p class="yc-quote__text">
+          Upoznati smo sa velikim patnjama kroz koje je Srbija prošla i naše saosećanje,
+          kao i naše iskreno prijateljstvo i velika želja da pomognemo, su uz vaše hrabre
+          ljude u svakom trenutku tokom ovog tragičnog rata. Siguran sam da se
+          pravda za Srbiju nalazi u vrhu prioriteta svakog mislećeg
+          i patriotskog stanovnika Sjedinjenih Država.
+        </p>
+      </blockquote>
+
+      <div class="yc-quote__cite">
+        <cite class="yc-quote__source">
+          <span class="yc-quote__source-title">Telegram predsednika Vudroa Vilsona Srbiji</span>
+          <span class="yc-quote__source-date">31. jul 1918. godine</span>
+        </cite>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     Projekti / Događaji / Blog / Preporuke
+     ========================================================= -->
+<section class="yc-feed" aria-labelledby="yc-feed-title">
+  <h2 class="yc-visually-hidden" id="yc-feed-title">Aktuelno iz Youth Caucus-a</h2>
+
+  <div class="yc-feed__container yc-reveal">
+
+    <div class="yc-feed__head">
+    <div class="yc-tabs" role="tablist" aria-label="Kategorije sadržaja">
+      <button class="yc-tab" type="button" role="tab" id="yc-tab-projekti" data-all="projekti/" data-all-text="Projekti" aria-controls="yc-panel-projekti" aria-selected="true">Projekti</button>
+      <button class="yc-tab" type="button" role="tab" id="yc-tab-dogadjaji" data-all="dogadjaji/" data-all-text="Događaji" aria-controls="yc-panel-dogadjaji" aria-selected="false" tabindex="-1">Događaji</button>
+      <button class="yc-tab" type="button" role="tab" id="yc-tab-blog" data-all="blog/" data-all-text="Blog" aria-controls="yc-panel-blog" aria-selected="false" tabindex="-1">Blog</button>
+      <button class="yc-tab" type="button" role="tab" id="yc-tab-preporuke" data-all="preporuka-caucus-a/" data-all-text="Preporuka Caucus-a" aria-controls="yc-panel-preporuke" aria-selected="false" tabindex="-1">Preporuke</button>
+    </div>
+      <a class="yc-feed__all" href="projekti/"><span class="yc-feed__all-text">Projekti</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+
+    <div class="yc-feed__panels">
+
+      <!-- Projekti -->
+      <div class="yc-panel" role="tabpanel" id="yc-panel-projekti" aria-labelledby="yc-tab-projekti" tabindex="0">
+        <ul class="yc-grid">
+          <li class="yc-card">
+            <a class="yc-card__link" href="projekti/treci-ciklus-programa-skole-etike/">
+              <div class="yc-card__media"><img src="projekti/treci-ciklus-programa-skole-etike/images/treci-ciklus-programa-skole-etike.webp" width="475" height="548" alt="" loading="lazy"></div>
+              <div class="yc-card__body">                <h3 class="yc-card__title">Treći ciklus programa Škole Etike</h3>              </div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="projekti/program-america-dream-build-achieve/">
+              <div class="yc-card__media"><img src="projekti/program-america-dream-build-achieve/images/program-america-dream-build-achieve.webp" width="1287" height="1592" alt="" loading="lazy"></div>
+              <div class="yc-card__body">                <h3 class="yc-card__title">Program America - Dream. Build. Achieve.</h3>              </div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="projekti/drugi-ciklus-programa-skole-etike/">
+              <div class="yc-card__media"><img src="projekti/drugi-ciklus-programa-skole-etike/images/drugi-ciklus-programa-skole-etike.webp" width="1080" height="1080" alt="" loading="lazy"></div>
+              <div class="yc-card__body">                <h3 class="yc-card__title">Drugi ciklus programa Škole Etike</h3>              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Događaji -->
+      <div class="yc-panel" role="tabpanel" id="yc-panel-dogadjaji" aria-labelledby="yc-tab-dogadjaji" tabindex="0" hidden>
+        <ul class="yc-grid">
+          <li class="yc-card">
+            <a class="yc-card__link" href="dogadjaji/gostovanje-na-newsmax-balkans-jutarnjem-programu/">
+              <div class="yc-card__media"><img src="dogadjaji/gostovanje-na-newsmax-balkans-jutarnjem-programu/images/1795188171770598.webp" width="2264" height="1290" alt="" loading="lazy"></div>
+              <div class="yc-card__body">                <h3 class="yc-card__title">Gostovanje na Newsmax Balkans jutarnjem programu</h3>              </div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="dogadjaji/poseta-sedistu-kompanije-vega-it/">
+              <div class="yc-card__media"><img src="dogadjaji/poseta-sedistu-kompanije-vega-it/images/1795044530920506.webp" width="3024" height="4032" alt="" loading="lazy"></div>
+              <div class="yc-card__body">                <h3 class="yc-card__title">Poseta sedištu kompanije Vega IT</h3>              </div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="dogadjaji/sastanak-sa-upravom-fakulteta-politickih-nauka-univerziteta-u-beogradu/">
+              <div class="yc-card__media"><img src="dogadjaji/sastanak-sa-upravom-fakulteta-politickih-nauka-univerziteta-u-beogradu/images/6afdcc7a8b9488886022e499_badd0942.jpeg" width="2048" height="1536" alt="" loading="lazy"></div>
+              <div class="yc-card__body">                <h3 class="yc-card__title">Sastanak sa upravom Fakulteta političkih nauka Univerziteta u Beogradu</h3>              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Blog -->
+      <div class="yc-panel" role="tabpanel" id="yc-panel-blog" aria-labelledby="yc-tab-blog" tabindex="0" hidden>
+        <ul class="yc-grid">
+          <li class="yc-card">
+            <a class="yc-card__link" href="blog/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama/">
+              <div class="yc-card__media"><img src="blog/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama/images/dr-allen-church-u-poseti-ambasadi-republike-srbije-u-sjedinjenim-americkim-drzavama.webp" width="796" height="598" alt="" loading="lazy"></div>
+              <div class="yc-card__body">                <h3 class="yc-card__title">Dr Allen Church u poseti ambasadi Republike Srbije u Sjedinjenim Američkim Državama</h3>              </div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="blog/specijalno-izdanje-diplomacy-commerce-povodom-250-godina-nezavisnosti-sjedinjenih-americkih-drzava/">
+              <div class="yc-card__media"><img src="blog/specijalno-izdanje-diplomacy-commerce-povodom-250-godina-nezavisnosti-sjedinjenih-americkih-drzava/images/specijalno-izdanje-diplomacy-commerce-povodom-250-godina-nezavisnosti-sjedinjenih-americkih-drzava.webp" width="995" height="1348" alt="" loading="lazy"></div>
+              <div class="yc-card__body">                <h3 class="yc-card__title">Specijalno izdanje Diplomacy&amp;Commerce povodom 250 godina nezavisnosti Sjedinjenih Američkih Država</h3>              </div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="blog/sta-pokretanje-strateskog-dijaloga-znaci-za-mlade-u-srbiji/">
+              <div class="yc-card__media"><img src="blog/sta-pokretanje-strateskog-dijaloga-znaci-za-mlade-u-srbiji/images/sta-pokretanje-strateskog-dijaloga-znaci-za-mlade-u-srbiji.webp" width="1080" height="1440" alt="" loading="lazy"></div>
+              <div class="yc-card__body">                <h3 class="yc-card__title">Šta pokretanje Strateškog Dijaloga znači za mlade u Srbiji</h3>              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Preporuke -->
+      <div class="yc-panel" role="tabpanel" id="yc-panel-preporuke" aria-labelledby="yc-tab-preporuke" tabindex="0" hidden>
+        <ul class="yc-grid">
+          <li class="yc-card">
+            <a class="yc-card__link" href="preporuka-caucus-a/mit-o-preduzetnistvu/">
+              <div class="yc-card__media"><img src="preporuka-caucus-a/mit-o-preduzetnistvu/images/mit-o-preduzetnistvu-kvadrat.webp" width="1000" height="1000" alt="" loading="lazy"></div>
+              <div class="yc-card__body">                <h3 class="yc-card__title">Mit o preduzetništvu</h3>              </div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="preporuka-caucus-a/o-slobodi-dzon-stjuart-mil/">
+              <div class="yc-card__media"><img src="preporuka-caucus-a/o-slobodi-dzon-stjuart-mil/images/o-slobodi-dzon-stjuart-mil-kvadrat.webp" width="1000" height="1000" alt="" loading="lazy"></div>
+              <div class="yc-card__body">                <h3 class="yc-card__title">O slobodi | Džon Stjuart Mil</h3>              </div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="preporuka-caucus-a/no-rules-rules-reed-hastings-i-erin-meyer/">
+              <div class="yc-card__media"><img src="preporuka-caucus-a/no-rules-rules-reed-hastings-i-erin-meyer/images/no-rules-rules-reed-hastings-i-erin-meyer-kvadrat.webp" width="1000" height="1000" alt="" loading="lazy"></div>
+              <div class="yc-card__body">                <h3 class="yc-card__title">No Rules Rules | Reed Hastings i Erin Meyer</h3>              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     Footer
+     ========================================================= -->
+<footer class="yc-footer">
+  <div class="yc-footer__inner">
+
+    <div class="yc-footer__top">
+      <div class="yc-footer__brand">
+        <div class="yc-footer__contact">
+          <p class="yc-footer__contact-title">Kontakt</p>
+          <ul class="yc-contact">
+            <li>
+              <a class="yc-contact__item" href="mailto:office@youthcaucus.rs">
+                <span class="yc-contact__icon" aria-hidden="true">
+                  <svg viewBox="2.2 2.2 19.6 19.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="5" width="18" height="14" rx="2"/>
+                    <path d="m3.8 6.4 8.2 6.3 8.2-6.3"/>
+                  </svg>
+                </span>
+                <span class="yc-contact__value">office@youthcaucus.rs</span>
+              </a>
+            </li>
+            <li>
+              <a class="yc-contact__item" href="https://www.instagram.com/youth_caucus" target="_blank" rel="noopener" aria-label="Instagram @youth_caucus">
+                <span class="yc-contact__icon" aria-hidden="true">
+                  <svg viewBox="2.2 2.2 19.6 19.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="5.2"/>
+                    <circle cx="12" cy="12" r="4.2"/>
+                    <circle cx="17.3" cy="6.7" r="1.05" fill="currentColor" stroke="none"/>
+                  </svg>
+                </span>
+                <span class="yc-contact__value">@youth_caucus</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <nav class="yc-footer__nav" aria-label="Navigacija u futeru">
+        <div>
+          <ul class="yc-footer__list">
+            <li><a class="yc-footer__link" href="index.html">Početna</a></li>
+            <li><a class="yc-footer__link" href="o-nama/">O nama</a></li>
+            <li><a class="yc-footer__link" href="senior-savet/">Senior Savet</a></li>
+            <li><a class="yc-footer__link" href="ethics-forum/">Ethics Forum</a></li>
+          </ul>
+        </div>
+        <div>
+          <ul class="yc-footer__list">
+            <li><a class="yc-footer__link" href="projekti/">Projekti</a></li>
+            <li><a class="yc-footer__link" href="dogadjaji/">Događaji</a></li>
+            <li><a class="yc-footer__link" href="blog/">Blog</a></li>
+            <li><a class="yc-footer__link" href="preporuka-caucus-a/">Preporuka Caucus-a</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="yc-footer__bottom">
+      <p class="yc-footer__copy">© 2026 Youth Caucus. Sva prava zadržana.</p>
+    </div>
+
+    <div class="yc-footer__wordmark" aria-hidden="true">Youth Caucus</div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var items = document.querySelectorAll('.yc-reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+
+  /* Navigacija: bela pozadina posle skrolovanja + meni za tablet i telefon */
+  (function () {
+    var nav = document.querySelector('.yc-nav');
+    var menu = document.getElementById('yc-menu');
+    if (!nav || !menu) return;
+    var openBtn = nav.querySelector('.yc-nav__toggle');
+
+    function onScroll() { nav.classList.toggle('is-scrolled', window.scrollY > 8); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    function openMenu() {
+      menu.classList.add('is-open');
+      nav.classList.add('is-menu-open');
+      openBtn.setAttribute('aria-expanded', 'true');
+      openBtn.setAttribute('aria-label', 'Zatvori meni');
+      document.documentElement.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      if (!menu.classList.contains('is-open')) return;
+      menu.classList.remove('is-open');
+      nav.classList.remove('is-menu-open');
+      openBtn.setAttribute('aria-expanded', 'false');
+      openBtn.setAttribute('aria-label', 'Otvori meni');
+      document.documentElement.style.overflow = '';
+      openBtn.focus();
+    }
+
+    openBtn.addEventListener('click', function () {
+      if (menu.classList.contains('is-open')) closeMenu(); else openMenu();
+    });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) closeMenu(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+    window.matchMedia('(min-width: 992px)').addEventListener('change', function (e) { if (e.matches) closeMenu(); });
+  })();
+
+  /* Hero slajderi (obe varijante): menjaju fotografiju na 6 s, mogu da se pauziraju */
+  ['yc-hero-alt', 'yc-hero'].forEach(function (p) {
+    var hero = document.querySelector('.' + p);
+    if (!hero) return;
+    var slides = [].slice.call(hero.querySelectorAll('.' + p + '__slide'));
+    var current = hero.querySelector('.' + p + '__current');
+    var toggle = hero.querySelector('.' + p + '__toggle');
+    var index = 0, timer = null, DELAY = 6000;
+
+    function show(n) {
+      slides[index].classList.remove('is-active');
+      index = (n + slides.length) % slides.length;
+      slides[index].classList.add('is-active');
+      if (current) current.textContent = String(index + 1).padStart(2, '0');
+    }
+    function play() {
+      clearInterval(timer);
+      timer = setInterval(function () { show(index + 1); }, DELAY);
+      hero.classList.remove('is-paused');
+      if (toggle) toggle.setAttribute('aria-label', 'Pauziraj slajdove');
+    }
+    function pause() {
+      clearInterval(timer);
+      timer = null;
+      hero.classList.add('is-paused');
+      if (toggle) toggle.setAttribute('aria-label', 'Pokreni slajdove');
+    }
+
+    if (toggle) toggle.addEventListener('click', function () { timer ? pause() : play(); });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) pause();
+    else play();
+  });
+
+  /* Tabovi: Projekti / Događaji / Blog / Preporuke */
+  (function () {
+    var tabs = [].slice.call(document.querySelectorAll('.yc-tab'));
+    var bar = document.querySelector('.yc-tabs');
+    var feed = document.querySelector('.yc-feed');
+    var all = document.querySelector('.yc-feed__all');
+    var allText = all.querySelector('.yc-feed__all-text');
+
+    /* kad se aktivni tab napuni bordo bojom (5 s), prelazi se na sledeći */
+    bar.addEventListener('animationend', function (e) {
+      if (e.animationName !== 'yc-tab-fill') return;
+      var i = tabs.indexOf(e.target);
+      select(tabs[(i + 1) % tabs.length], false);
+    });
+
+    /* punjenje teče samo dok je sekcija na ekranu */
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        feed.classList.toggle('is-inview', entries[0].isIntersecting);
+      }, { threshold: 0.35 }).observe(feed);
+    } else {
+      feed.classList.add('is-inview');
+    }
+
+    function select(tab, moveFocus) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        panel.hidden = !on;
+        if (on) {
+          panel.classList.remove('is-entering');
+          void panel.offsetWidth;            // restart animacije
+          panel.classList.add('is-entering');
+          panel.querySelector('.yc-grid').scrollLeft = 0;
+        }
+      });
+      all.href = tab.dataset.all;
+      allText.textContent = tab.dataset.allText;
+      /* izabrani tab u vidno polje trake (telefon), bez pomeranja stranice */
+      bar.scrollLeft = Math.max(0, Math.min(bar.scrollLeft, tab.offsetLeft), tab.offsetLeft + tab.offsetWidth - bar.clientWidth);
+      if (moveFocus) tab.focus();
+    }
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { select(tab, false); });
+      tab.addEventListener('keydown', function (e) {
+        var next = null;
+        if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+        if (e.key === 'ArrowLeft')  next = tabs[(i - 1 + tabs.length) % tabs.length];
+        if (e.key === 'Home') next = tabs[0];
+        if (e.key === 'End')  next = tabs[tabs.length - 1];
+        if (next) { e.preventDefault(); select(next, true); }
+      });
+    });
+  })();
+</script>
+
+<script src="assets/search/search.js?v=4" defer></script>
+</body>
+</html>

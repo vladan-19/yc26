@@ -1,0 +1,314 @@
+/* =========================================================
+   Pretraga: lupa u navigaciji i prozor pretrage preko celog ekrana.
+   Prozor pravi assets/search/search.js; indeks pravi alati/indeks-pretrage.py.
+   ========================================================= */
+
+/* --- lupa u navigaciji, levo od zastavice --- */
+.yc-nav__search-item { display: flex; }
+.yc-nav__search {
+  appearance: none;
+  position: relative;
+  display: block;
+  flex: none;
+  width: 1.375rem;
+  height: 1.375rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--yc-navy, #052149);
+  cursor: pointer;
+  opacity: .72;
+  transition: opacity .25s ease;
+}
+.yc-nav__search::before {            /* veće polje za klik od same ikonice */
+  content: "";
+  position: absolute;
+  inset: -0.6875rem;
+}
+.yc-nav__search svg { display: block; width: 100%; height: 100%; }
+.yc-nav__search:hover,
+.yc-nav__search:focus-visible,
+.yc-nav__search[aria-expanded="true"] { opacity: 1; }
+
+@media (max-width: 991px) {
+  .yc-nav__search { width: 1.25rem; height: 1.25rem; }
+}
+
+/* --- prozor pretrage --- */
+.yc-search {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: linear-gradient(160deg, var(--yc-mist, #e6ebf3) 0%, var(--yc-white, #fff) 60%);
+  color: var(--yc-navy, #052149);
+  font-family: Oswald, sans-serif;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility 0s linear .3s;
+}
+.yc-search.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .3s ease;
+}
+
+/* polje ostaje gore dok se rezultati skroluju */
+.yc-search__head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 0 1.25rem;
+  transition: background-color .3s ease, box-shadow .3s ease, -webkit-backdrop-filter .3s ease, backdrop-filter .3s ease;
+}
+.yc-search__head.is-scrolled {
+  background: rgba(255, 255, 255, .92);
+  -webkit-backdrop-filter: blur(0.75rem);
+  backdrop-filter: blur(0.75rem);
+  box-shadow: 0 0.75rem 2rem -1.625rem rgba(5, 33, 73, .55);
+}
+.yc-search__wrap,
+.yc-search__body {
+  box-sizing: content-box;
+  max-width: 70rem;
+  margin: 0 auto;
+}
+.yc-search__body { padding: 0 1.25rem; }
+
+.yc-search__top {
+  height: var(--yc-nav-h, 8rem);
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.4vw, 2rem);
+}
+
+.yc-search__form {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+}
+.yc-search__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+.yc-search__icon {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  width: 1.375rem;
+  height: 1.375rem;
+  transform: translateY(-50%);
+  color: var(--yc-navy, #052149);
+  opacity: .55;
+  pointer-events: none;
+}
+.yc-search__input {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 4rem;
+  margin: 0;
+  padding: 0 1.25rem 0 3.5rem;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background: var(--yc-white, #fff);
+  color: var(--yc-navy, #052149);
+  font: 400 clamp(1.25rem, 2.2vw, 1.625rem)/1.3 Oswald, sans-serif;
+  letter-spacing: .01em;
+  box-shadow: 0 1rem 2.5rem -1.75rem rgba(5, 33, 73, .55), inset 0 0 0 1px rgba(5, 33, 73, .08);
+  transition: box-shadow .25s ease;
+}
+.yc-search__input::placeholder { color: rgba(5, 33, 73, .45); opacity: 1; }
+.yc-search__input:focus { box-shadow: 0 1rem 2.5rem -1.75rem rgba(5, 33, 73, .55), inset 0 0 0 2px rgba(5, 33, 73, .32); }
+.yc-search__input::-webkit-search-decoration,
+.yc-search__input::-webkit-search-cancel-button { -webkit-appearance: none; display: none; }
+
+/* zatvaranje: isti X kao kod menija */
+.yc-search__close {
+  appearance: none;
+  position: relative;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0 -0.625rem 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--yc-navy, #052149);
+  cursor: pointer;
+}
+.yc-search__close span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.5rem;
+  height: 2px;
+  margin: -1px 0 0 -0.75rem;
+  border-radius: 2px;
+  background: currentColor;
+}
+.yc-search__close span:first-child { transform: rotate(45deg); }
+.yc-search__close span:last-child { transform: rotate(-45deg); }
+
+.yc-search a:focus-visible,
+.yc-search button:focus-visible { outline: 2px solid var(--yc-burgundy, #7a1f3d); outline-offset: 4px; }
+
+/* broj rezultata */
+.yc-search__status {
+  margin: 0.75rem 0 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--yc-navy-80, rgba(5, 33, 73, .8));
+}
+.yc-search__status:empty { display: none; }
+
+/* --- rezultati: tekst levo, slika desno u prirodnom formatu --- */
+.yc-search__results {
+  margin: 0;
+  padding: 0 0 4rem;
+  list-style: none;
+}
+.yc-hit + .yc-hit { border-top: 1px solid rgba(5, 33, 73, .12); }
+.yc-hit__link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 8rem;
+  align-items: start;
+  gap: clamp(1.25rem, 3vw, 3rem);
+  padding: 1.75rem 0;
+  color: inherit;
+  text-decoration: none;
+}
+.yc-search .yc-hit__link:focus-visible { outline-offset: 0.5rem; }
+.yc-hit__body { min-width: 0; max-width: 44rem; }
+.yc-hit__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 1.25rem;
+  margin: 0 0 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--yc-burgundy, #7a1f3d);
+}
+.yc-hit__title {
+  margin: 0;
+  font-size: clamp(1.25rem, 1.9vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.36;             /* kvačica na Š, Č, Ž ide do 1.06em; ne sme da dodirne red iznad */
+  letter-spacing: -.005em;
+  color: var(--yc-navy, #052149);
+  text-wrap: pretty;
+}
+.yc-hit__text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  margin: 0.625rem 0 0;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--yc-navy-80, rgba(5, 33, 73, .8));
+}
+.yc-search mark {
+  padding: 0 .08em;
+  border-radius: 2px;
+  background: rgba(122, 31, 61, .14);
+  color: inherit;
+}
+
+/* mala slika: teget blok iza fotografije i bordo linija na vrhu, kao na karticama */
+.yc-hit__frame {
+  position: relative;
+  margin: 0 0.5rem 0.5rem 0;
+}
+.yc-hit__frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translate(0.5rem, 0.5rem);
+  background: var(--yc-navy, #052149);
+  transition: transform .45s cubic-bezier(.22,.61,.36,1);
+}
+.yc-hit__frame::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--yc-burgundy, #7a1f3d);
+}
+.yc-hit__photo {
+  position: relative;
+  overflow: hidden;
+  background: var(--yc-mist, #e6ebf3);
+}
+.yc-hit__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform .6s cubic-bezier(.22,.61,.36,1);
+}
+.yc-hit__link:hover .yc-hit__frame::before,
+.yc-hit__link:focus-visible .yc-hit__frame::before { transform: translate(0.75rem, 0.75rem); }
+.yc-hit__link:hover .yc-hit__photo img,
+.yc-hit__link:focus-visible .yc-hit__photo img { transform: scale(1.04); }
+
+@media (max-width: 991px) {
+  .yc-search__input { height: 3.5rem; }
+}
+@media (max-width: 600px) {
+  .yc-search__input { height: 3.25rem; padding-left: 3rem; font-size: 1.25rem; }
+  .yc-search__icon { left: 1rem; width: 1.25rem; height: 1.25rem; }
+  .yc-hit__link { grid-template-columns: minmax(0, 1fr) 5.5rem; gap: 1.125rem; padding: 1.375rem 0; }
+  .yc-hit__title { font-size: 1.1875rem; }
+  .yc-hit__text { font-size: 0.9375rem; }
+}
+@media (max-width: 480px) {
+  .yc-search__head, .yc-search__body { padding-left: 1rem; padding-right: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yc-nav__search, .yc-search, .yc-search__head, .yc-search__input,
+  .yc-hit__frame::before, .yc-hit__photo img { transition: none; }
+}
+
+/* glatki hover: senka-okvir dobija sopstveni GPU sloj pa se pomera bez preračunavanja;
+   slike namerno ne dobijaju sloj jer se tada poravnaju na cele piksele i ispod njih proviri linijica */
+.yc-post__frame::before, .yc-author__frame::before, .yc-more__frame::before,
+.yc-project__frame::before, .yc-gallery__frame::before, .yc-hit__frame::before {
+  will-change: transform;
+}
+
+/* slika je 1px šira/viša sa svake strane od okvira koji je seče, pa pri uvećanju
+   (dok pregledač sliku prebacuje na GPU i poravnava na cele piksele) ispod nje nikad ne proviri pozadina */
+html body .yc-post__photo img, html body .yc-card__media img, html body .yc-more__photo img,
+html body .yc-project__photo img, html body .yc-pe-hero__photo img, html body .yc-bp-hero__photo img,
+html body .yc-hit__photo img,
+html body .yc-author__photo img, html body .yc-member__photo img, html body .yc-ef-portrait__photo img {
+  width: calc(100% + 2px);
+  max-width: none;
+  margin: -1px;
+  will-change: transform;
+}
+/* portreti popunjavaju okvir fiksne veličine, pa i visinu produžimo za 2px */
+html body .yc-author__photo img, html body .yc-member__photo img, html body .yc-ef-portrait__photo img {
+  height: calc(100% + 2px);
+}

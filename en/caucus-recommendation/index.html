@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caucus Recommendation | Youth Caucus</title>
+<link rel="icon" type="image/png" href="../../assets/images/favicon-youth-caucus.png">
+<link rel="apple-touch-icon" href="../../assets/images/webclip-youth-caucus.png">
+<meta name="description" content="Youth Caucus connects young people from Serbia through education, ethics, entrepreneurship, and international collaboration, strengthening youth engagement">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Youth Caucus">
+<meta property="og:title" content="Caucus Recommendation | Youth Caucus">
+<meta property="og:description" content="Youth Caucus connects young people from Serbia through education, ethics, entrepreneurship, and international collaboration, strengthening youth engagement">
+<meta property="og:url" content="https://www.youthcaucus.rs/en/caucus-recommendation/">
+<meta property="og:image" content="https://www.youthcaucus.rs/assets/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Youth Caucus">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" hreflang="sr" href="../../preporuka-caucus-a/">
+<link rel="preload" href="../../assets/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(../../assets/fonts/oswald-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(../../assets/fonts/oswald-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(../../assets/fonts/oswald-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<style>
+  :root {
+    --yc-navy: #052149;
+    --yc-burgundy: #7a1f3d;
+    --yc-ink: #333333;
+    --yc-white: #ffffff;
+    --yc-mist: #e6ebf3;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--yc-white); font-family: Oswald, sans-serif; color: var(--yc-ink); }
+
+  /* =========================================================
+     Navigation
+     ========================================================= */
+  :root { --yc-nav-h: 8rem; }
+  html { scroll-padding-top: var(--yc-nav-h); scrollbar-gutter: stable; }   /* bez pomeranja kad meni zaključa skrol */
+
+  .yc-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding: 0 1.25rem;
+    /* z-index se vraća tek kad meni potpuno nestane, da X animacija ostane vidljiva */
+    transition: background-color .3s ease, box-shadow .3s ease, -webkit-backdrop-filter .3s ease, backdrop-filter .3s ease, z-index 0s linear .3s;
+  }
+  /* providna preko heroja, bela kad se skroluje */
+  .yc-nav.is-scrolled {
+    background: rgba(255, 255, 255, .92);
+    -webkit-backdrop-filter: blur(0.75rem);
+    backdrop-filter: blur(0.75rem);
+    box-shadow: 0 0.75rem 2rem -26px rgba(5, 33, 73, .55);
+  }
+
+  .yc-nav__inner {
+    max-width: 70rem;
+    height: var(--yc-nav-h);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    transition: height .3s ease;
+  }
+  .yc-nav.is-scrolled .yc-nav__inner { height: 5.5rem; }
+
+  .yc-nav__logo { display: block; flex: none; }
+  .yc-nav__logo img {
+    display: block;
+    height: 6.5rem;
+    width: auto;
+    transition: height .3s ease;
+  }
+  .yc-nav.is-scrolled .yc-nav__logo img { height: 4.25rem; }   /* prvobitna veličina, posle skrolovanja */
+
+  /* linkovi: isti princip kao u futeru, bazno prigušeni, na hover 100% */
+  .yc-nav__links {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.25rem, 2.4vw, 2.25rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .yc-nav__link {
+    color: var(--yc-navy);
+    font-size: 1.125rem;
+    font-weight: 400;
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-nav__link:hover,
+  .yc-nav__link:focus-visible,
+  .yc-nav__link[aria-current="page"] { opacity: 1; }
+
+  /* jezik: zastavica kao na sajtu; na hover se pretopi u zastavicu jezika na koji vodi */
+  .yc-lang {
+    position: relative;
+    display: block;
+    flex: none;
+    width: 1.875rem;
+    height: 1.25rem;
+  }
+  .yc-lang__flag {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity .25s ease;
+  }
+  .yc-lang__flag--sr { opacity: 0; }
+  .yc-lang:hover .yc-lang__flag--en,
+  .yc-lang:focus-visible .yc-lang__flag--en { opacity: 0; }
+  .yc-lang:hover .yc-lang__flag--sr,
+  .yc-lang:focus-visible .yc-lang__flag--sr { opacity: 1; }
+
+  .yc-nav a:focus-visible,
+  .yc-nav button:focus-visible,
+  .yc-menu a:focus-visible,
+  .yc-menu button:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 4px; }
+
+  /* dugme za meni (samo tablet i telefon) */
+  .yc-nav__toggle {
+    appearance: none;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-right: -0.625rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--yc-navy);
+    cursor: pointer;
+  }
+  .yc-burger {
+    position: relative;
+    display: block;
+    width: 1.5rem;
+    height: 1.125rem;
+  }
+  .yc-burger span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform .3s ease, opacity .3s ease;
+  }
+  .yc-burger span:nth-child(1) { top: 0; }
+  .yc-burger span:nth-child(2) { top: calc(50% - 1px); }
+  .yc-burger span:nth-child(3) { bottom: 0; }
+  /* u X, u istom trenutku i istom trajanju kao otvaranje/zatvaranje menija */
+  .yc-nav__toggle[aria-expanded="true"] .yc-burger span:nth-child(1) { transform: translateY(0.5rem) rotate(45deg); }
+  .yc-nav__toggle[aria-expanded="true"] .yc-burger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .yc-nav__toggle[aria-expanded="true"] .yc-burger span:nth-child(3) { transform: translateY(-0.5rem) rotate(-45deg); }
+
+  /* dok je meni otvoren, zaglavlje (logo, jezik, X) ostaje iznad njega */
+  .yc-nav.is-menu-open {
+    z-index: 70;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    transition: background-color .3s ease, box-shadow .3s ease, -webkit-backdrop-filter .3s ease, backdrop-filter .3s ease, z-index 0s;
+  }
+
+  /* --- meni preko celog ekrana --- */
+  .yc-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1.25rem 2.5rem;
+    background: linear-gradient(160deg, var(--yc-mist) 0%, var(--yc-white) 60%);
+    color: var(--yc-navy);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility 0s linear .3s;
+    overflow-y: auto;
+  }
+  .yc-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .3s ease;
+  }
+  .yc-menu__top {
+    height: var(--yc-nav-h);
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .yc-menu__links {
+    margin: 3rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0;
+  }
+  /* ceo red je klikabilan, ne samo tekst; razmak između stavki je deo linka */
+  .yc-menu__link {
+    display: block;
+    padding: 0.4375rem 0;
+    color: var(--yc-navy);
+    font-size: 2.125rem;
+    font-weight: 500;
+    line-height: 1.25;
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-menu__link:hover, .yc-menu__link:focus-visible,
+  .yc-menu__link[aria-current="page"] { opacity: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-nav, .yc-nav__inner, .yc-nav__logo img, .yc-nav__link, .yc-lang__flag,
+    .yc-menu, .yc-menu__link, .yc-burger span { transition: none; }
+  }
+
+  @media (max-width: 991px) {
+    :root { --yc-nav-h: 6rem; }
+    .yc-nav__logo img { height: 4.75rem; }
+    .yc-nav.is-scrolled .yc-nav__inner { height: 4.5rem; }
+    .yc-nav.is-scrolled .yc-nav__logo img { height: 3.5rem; }
+    .yc-nav__inner { gap: 1.25rem; }
+    .yc-nav__inner > nav { margin-left: auto; }
+    .yc-nav__links > li:not(.yc-nav__lang-item):not(.yc-nav__search-item) { display: none; }
+    .yc-nav .yc-lang { width: 1.6875rem; height: 1.125rem; }   /* ista visina kao hamburger */
+    .yc-nav__toggle { display: inline-flex; }
+  }
+  @media (max-width: 480px) {
+    .yc-nav, .yc-menu { padding-left: 1rem; padding-right: 1rem; }
+    .yc-menu__link { font-size: 1.875rem; }
+  }
+</style>
+<link rel="stylesheet" href="../../assets/search/search.css?v=7">
+</head>
+<body>
+
+<!-- =========================================================
+     Navigation
+     ========================================================= -->
+<header class="yc-nav">
+  <div class="yc-nav__inner">
+    <a class="yc-nav__logo" href="../" aria-label="Youth Caucus, home">
+      <img src="../../assets/images/youth-caucus-logo.png" width="260" height="313" alt="">
+    </a>
+
+    <nav aria-label="Main navigation">
+      <ul class="yc-nav__links">
+        <li><a class="yc-nav__link" href="../projects/">Projects</a></li>
+        <li><a class="yc-nav__link" href="../about-us/">About Us</a></li>
+        <li><a class="yc-nav__link" href="../senior-advisory-board/">Senior Advisory Board</a></li>
+        <li><a class="yc-nav__link" href="../ethics-forum/">Ethics Forum</a></li>
+        <li><a class="yc-nav__link" href="../events/">Events</a></li>
+        <li><a class="yc-nav__link" href="../blog/">Blog</a></li>
+        <li><a class="yc-nav__link" href="./" aria-current="page">Caucus Recommendation</a></li>
+        <li class="yc-nav__search-item">
+          <button class="yc-nav__search" type="button" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.75"/><path d="M15.6 15.6 21 21"/></svg>
+          </button>
+        </li>
+        <li class="yc-nav__lang-item">
+          <a class="yc-lang" href="../../preporuka-caucus-a/" hreflang="sr" lang="sr-Latn" aria-label="Srpski">
+            <img class="yc-lang__flag yc-lang__flag--en" src="../../assets/images/en.png" width="30" height="20" alt="">
+            <img class="yc-lang__flag yc-lang__flag--sr" src="../../assets/images/sr.png" width="30" height="20" alt="">
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <button class="yc-nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="yc-menu">
+      <span class="yc-burger" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+</header>
+
+<!-- menu for tablet and phone -->
+<div class="yc-menu" id="yc-menu" aria-label="Menu">
+  <div class="yc-menu__top" aria-hidden="true"></div>
+
+  <nav aria-label="Menu">
+    <ul class="yc-menu__links">
+      <li><a class="yc-menu__link" href="../projects/">Projects</a></li>
+      <li><a class="yc-menu__link" href="../about-us/">About Us</a></li>
+      <li><a class="yc-menu__link" href="../senior-advisory-board/">Senior Advisory Board</a></li>
+      <li><a class="yc-menu__link" href="../ethics-forum/">Ethics Forum</a></li>
+      <li><a class="yc-menu__link" href="../events/">Events</a></li>
+      <li><a class="yc-menu__link" href="../blog/">Blog</a></li>
+      <li><a class="yc-menu__link" href="./" aria-current="page">Caucus Recommendation</a></li>
+    </ul>
+  </nav>
+</div>
+
+<main></main>
+
+<script>
+  /* Navigation: white background after scrolling + menu for tablet and phone */
+  (function () {
+    var nav = document.querySelector('.yc-nav');
+    var menu = document.getElementById('yc-menu');
+    if (!nav || !menu) return;
+    var openBtn = nav.querySelector('.yc-nav__toggle');
+
+    function onScroll() { nav.classList.toggle('is-scrolled', window.scrollY > 8); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    function openMenu() {
+      menu.classList.add('is-open');
+      nav.classList.add('is-menu-open');
+      openBtn.setAttribute('aria-expanded', 'true');
+      openBtn.setAttribute('aria-label', 'Close menu');
+      document.documentElement.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      if (!menu.classList.contains('is-open')) return;
+      menu.classList.remove('is-open');
+      nav.classList.remove('is-menu-open');
+      openBtn.setAttribute('aria-expanded', 'false');
+      openBtn.setAttribute('aria-label', 'Open menu');
+      document.documentElement.style.overflow = '';
+      openBtn.focus();
+    }
+
+    openBtn.addEventListener('click', function () {
+      if (menu.classList.contains('is-open')) closeMenu(); else openMenu();
+    });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) closeMenu(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+    window.matchMedia('(min-width: 992px)').addEventListener('change', function (e) { if (e.matches) closeMenu(); });
+  })();
+</script>
+</body>
+</html>
