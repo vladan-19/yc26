@@ -299,8 +299,6 @@
   }
   /* veličina naslova prema dužini: kratak naslov krupno, dug naslov manje */
   .yc-pe-hero__name--lg { --yc-size: clamp(3rem, 6.4vw, 5.75rem); }
-  .yc-pe-hero__name--md { --yc-size: clamp(2.375rem, 4.6vw, 4rem); }
-  .yc-pe-hero__name--sm { --yc-size: clamp(1.875rem, 3.5vw, 3rem); }
   /* reč se nikad ne seče: veličina se smanji tako da najduža reč stane u širinu kolone */
   .yc-pe-hero__name { font-size: min(var(--yc-size), 100cqi / var(--yc-word, 1)); }
   .yc-pe-hero__sub {
@@ -822,8 +820,6 @@
   @media (max-width: 480px) {
     .yc-pe-hero, .yc-pe-lect, .yc-months, .yc-more { padding-left: 1rem; padding-right: 1rem; }
     .yc-pe-hero__name--lg { --yc-size: 2.75rem; }
-    .yc-pe-hero__name--md { --yc-size: 2.125rem; }
-    .yc-pe-hero__name--sm { --yc-size: 1.75rem; }
     .yc-pe-hero__sub { font-size: 1.4375rem; }
     .yc-pe-hero__accent { white-space: normal; }
     .yc-months__list { gap: 6rem; }
@@ -1656,6 +1652,6 @@
   })();
 </script>
 
-<script src="../../assets/search/search.js?v=16" defer></script>
+<script src="../../assets/search/search.js?v=24" defer></script>
 </body>
 </html>

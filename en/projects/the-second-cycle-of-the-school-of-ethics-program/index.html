@@ -298,9 +298,7 @@
     text-wrap: balance;
   }
   /* veličina naslova prema dužini: kratak naslov krupno, dug naslov manje */
-  .yc-pe-hero__name--lg { --yc-size: clamp(3rem, 6.4vw, 5.75rem); }
   .yc-pe-hero__name--md { --yc-size: clamp(2.375rem, 4.6vw, 4rem); }
-  .yc-pe-hero__name--sm { --yc-size: clamp(1.875rem, 3.5vw, 3rem); }
   /* reč se nikad ne seče: veličina se smanji tako da najduža reč stane u širinu kolone */
   .yc-pe-hero__name { font-size: min(var(--yc-size), 100cqi / var(--yc-word, 1)); }
   /* --- slika projekta: teget blok pomeren iza fotografije + bordo linija na vrhu, kao na stranici Projekti --- */
@@ -779,9 +777,7 @@
 
   @media (max-width: 480px) {
     .yc-pe-hero, .yc-pe-lect, .yc-days, .yc-more { padding-left: 1rem; padding-right: 1rem; }
-    .yc-pe-hero__name--lg { --yc-size: 2.75rem; }
     .yc-pe-hero__name--md { --yc-size: 2.125rem; }
-    .yc-pe-hero__name--sm { --yc-size: 1.75rem; }
     .yc-days__inner { gap: 8rem; }
     .yc-day__list { gap: 6rem; }
     .yc-day__date { margin-bottom: 2.5rem; font-size: 1.0625rem; }
@@ -803,17 +799,6 @@
 
   @media (prefers-reduced-motion: reduce) {
     .yc-reveal { opacity: 1; transform: none; filter: none; transition: none; }
-  }
-
-
-  .yc-visually-hidden {
-    position: absolute !important;
-    width: 1px; height: 1px;
-    padding: 0; margin: -1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    border: 0;
   }
 
 
@@ -1820,6 +1805,6 @@
   })();
 </script>
 
-<script src="../../../assets/search/search.js?v=16" defer></script>
+<script src="../../../assets/search/search.js?v=24" defer></script>
 </body>
 </html>

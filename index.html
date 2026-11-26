@@ -255,7 +255,7 @@
   }
 
   /* =========================================================
-     Hero, varijanta 3: teget blok, tekst levo, kolone fotografija koje klize desno
+     Hero: teget blok, tekst levo, kolone fotografija koje klize desno
      ========================================================= */
   .yc-hero-dark {
     --yc-gutter: 1.25rem;
@@ -408,230 +408,6 @@
     .yc-hero-dark__title { font-size: 2.125rem; }
     .yc-hero-dark__media { grid-template-columns: repeat(2, minmax(0, 1fr)); height: 22rem; }
     .yc-hero-dark__col:nth-child(3) { display: none; }
-  }
-
-  /* sakrivene varijante heroja (atribut hidden) */
-  .yc-hero[hidden], .yc-hero-alt[hidden] { display: none; }
-
-  /* =========================================================
-     Hero, varijanta 1: tekst levo, slajder u marginama desno
-     ========================================================= */
-  .yc-hero-alt {
-    position: relative;
-    overflow: hidden;
-    padding: calc(var(--yc-nav-h) + clamp(3rem, 7vw, 7rem)) 1.25rem clamp(5rem, 9vw, 8.5rem);
-    background: linear-gradient(160deg, var(--yc-mist) 0%, var(--yc-white) 70%);
-    color: var(--yc-navy);
-  }
-
-  .yc-hero-alt__inner {
-    max-width: 70rem;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: clamp(3rem, 7vw, 6.5rem);
-    align-items: start;
-  }
-
-  /* --- tekst --- */
-  .yc-hero-alt__title {
-    margin: 0;
-    font-size: clamp(2.25rem, 4.2vw, 3.625rem);
-    font-weight: 500;
-    line-height: 1.12;
-    letter-spacing: -.005em;
-    color: var(--yc-navy);
-    animation: yc-hero-alt-in 1s ease both;
-  }
-  .yc-hero-alt__lead {
-    margin: 1.75rem 0 0;
-    max-width: 32.5rem;
-    font-size: clamp(1.125rem, 1.5vw, 1.3125rem);
-    font-weight: 300;
-    line-height: 1.6;
-    color: var(--yc-navy-80);
-    animation: yc-hero-alt-in 1s ease .15s both;
-  }
-  @keyframes yc-hero-alt-in {
-    from { opacity: 0; transform: translateY(1.125rem); }
-    to   { opacity: 1; transform: none; }
-  }
-
-  /* --- slajder: isti teget "pomereni blok" kao iza Vilsonovog portreta --- */
-  .yc-hero-alt__media { animation: yc-hero-alt-in 1s ease .25s both; }
-  .yc-hero-alt__frame {
-    position: relative;
-    aspect-ratio: 3 / 2;         /* originalni format fotografija */
-    margin-right: 1.125rem;          /* blok iza slike završava se tačno na desnoj margini */
-  }
-  .yc-hero-alt__frame::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform: translate(1.125rem, 1.125rem);
-    background: var(--yc-navy);
-  }
-  .yc-hero-alt__slides {
-    position: absolute;
-    inset: 0;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    overflow: hidden;
-    background: var(--yc-mist);
-  }
-  .yc-hero-alt__slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 1.4s ease;
-  }
-  .yc-hero-alt__slide.is-active { opacity: 1; }
-  .yc-hero-alt__slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1.08);
-    transition: transform 7.5s linear;
-  }
-  .yc-hero-alt__slide.is-active img { transform: scale(1); }
-
-
-  @media (prefers-reduced-motion: reduce) {
-    .yc-hero-alt__slide, .yc-hero-alt__slide img { transition: none; }
-    .yc-hero-alt__slide img { transform: none; }
-    .yc-hero-alt__title, .yc-hero-alt__lead, .yc-hero-alt__media { animation: none; }
-  }
-
-  @media (max-width: 860px) {
-    .yc-hero-alt__inner { grid-template-columns: 1fr; gap: 3.5rem; }
-    .yc-hero-alt__frame { margin-right: 0.75rem; }
-    .yc-hero-alt__frame::before { transform: translate(0.75rem, 0.75rem); }
-  }
-  @media (max-width: 480px) {
-    .yc-hero-alt { padding-left: 1rem; padding-right: 1rem; }
-  }
-
-  /* =========================================================
-     Hero, varijanta 2: krupan naslov levo, slajder koji izlazi do ivice ekrana desno
-     ========================================================= */
-  .yc-hero {
-    --yc-gutter: 1.25rem;
-    position: relative;
-    overflow: hidden;
-    min-height: 100svh;
-    display: flex;
-    align-items: center;
-    padding: clamp(5rem, 9vw, 8rem) var(--yc-gutter) clamp(4rem, 8vw, 7rem);
-    background:
-      radial-gradient(55% 65% at 88% 38%, rgba(122, 31, 61, .12) 0%, rgba(122, 31, 61, 0) 70%),
-      linear-gradient(160deg, var(--yc-mist) 0%, var(--yc-white) 70%);
-    color: var(--yc-navy);
-  }
-
-  .yc-hero__inner {
-    width: 100%;
-    max-width: 70rem;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    gap: clamp(2.5rem, 5vw, 5rem);
-    align-items: center;
-  }
-
-  /* --- naslov: krupno, verzal, dva tona (teget + bordo kao u logou) --- */
-  .yc-hero__title {
-    margin: 0;
-    font-size: clamp(2.5rem, 4.4vw, 4.5rem);
-    font-weight: 600;
-    line-height: 1.26;            /* kvačica na Š ide do 1.06em; ne sme da dodirne red iznad (ni zarez) */
-    letter-spacing: -.01em;
-    color: var(--yc-navy);
-    animation: yc-hero-rise 1.1s cubic-bezier(.2, .7, .2, 1) both;
-  }
-  .yc-hero__accent { color: var(--yc-burgundy); }
-
-  .yc-hero__lead {
-    margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
-    max-width: 30rem;
-    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
-    font-weight: 300;
-    line-height: 1.6;
-    color: var(--yc-navy-80);
-    animation: yc-hero-rise 1.1s cubic-bezier(.2, .7, .2, 1) .15s both;
-  }
-
-  @keyframes yc-hero-rise {
-    from { opacity: 0; transform: translateY(2rem); }
-    to   { opacity: 1; transform: none; }
-  }
-
-  /* --- slajder: izlazi do desne ivice ekrana, teget blok pomeren dole-levo --- */
-  .yc-hero__media {
-    /* desna margina sadržaja -> ivica ekrana */
-    margin-right: calc((100vw - min(70rem, 100vw - 2 * var(--yc-gutter))) / -2);
-  }
-  .yc-hero__frame {
-    position: relative;
-    aspect-ratio: 3 / 2;
-    animation: yc-hero-wipe 1.3s cubic-bezier(.7, 0, .2, 1) .2s both;
-  }
-  .yc-hero__frame::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform: translate(-28px, 1.75rem);
-    background: var(--yc-navy);
-  }
-  @keyframes yc-hero-wipe {
-    from { clip-path: inset(0 0 0 100%); }
-    to   { clip-path: inset(-40px -40px -40px -40px); }
-  }
-
-  .yc-hero__slides {
-    position: absolute;
-    inset: 0;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    overflow: hidden;
-    background: var(--yc-mist);
-  }
-  .yc-hero__slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 1.4s ease;
-  }
-  .yc-hero__slide.is-active { opacity: 1; }
-  .yc-hero__slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1.1);
-    transition: transform 7.5s linear;
-  }
-  .yc-hero__slide.is-active img { transform: scale(1); }
-
-
-  @media (prefers-reduced-motion: reduce) {
-    .yc-hero__slide, .yc-hero__slide img { transition: none; }
-    .yc-hero__slide img { transform: none; }
-    .yc-hero__title, .yc-hero__lead, .yc-hero__frame { animation: none; }
-  }
-
-  /* --- tablet i telefon: naslov gore, slika ispod (i dalje do desne ivice) --- */
-  @media (max-width: 860px) {
-    .yc-hero { min-height: 0; }
-    .yc-hero__inner { grid-template-columns: 1fr; gap: 3rem; }
-    .yc-hero__title { font-size: clamp(2.375rem, 7vw, 4rem); }
-    .yc-hero__frame::before { transform: translate(-12px, 0.75rem); }
-  }
-  @media (max-width: 480px) {
-    .yc-hero { --yc-gutter: 1rem; }
-    .yc-hero__title { font-size: 2.375rem; }
   }
 
   /* ===== Sekcija ===== */
@@ -901,8 +677,6 @@
     outline: 2px solid var(--yc-burgundy);
     outline-offset: -2px;
   }
-
-  /* link ka celoj kolekciji aktivnog taba */
 
   /* --- paneli --- */
   /* svi paneli u istoj ćeliji: visina = najviši panel, pa promena taba ne trza;
@@ -1273,7 +1047,7 @@
   </nav>
 </div>
 
-<section class="yc-hero-dark" aria-label="Youth Caucus, varijanta 3">
+<section class="yc-hero-dark" aria-label="Youth Caucus">
   <div class="yc-hero-dark__band">
     <div class="yc-hero-dark__inner">
       <div class="yc-hero-dark__text">
@@ -1289,93 +1063,37 @@
     <div class="yc-hero-dark__media" aria-hidden="true">
       <div class="yc-hero-dark__col">
         <ul class="yc-hero-dark__track">
-          <li class="yc-hero-dark__item"><img src="images/youth-caucus-1.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/yc7.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/1795049559783979.jpg" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/yc9.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/youth-caucus-1.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/yc7.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/1795049559783979.jpg" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/yc9.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-7.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-3.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-1.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-5.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-7.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-3.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-1.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-5.webp" alt="" decoding="async"></li>
         </ul>
       </div>
       <div class="yc-hero-dark__col">
         <ul class="yc-hero-dark__track">
-          <li class="yc-hero-dark__item"><img src="images/youth-caucus-2.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/youth-caucus-3.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/yc8.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/youth-caucus-2.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/youth-caucus-3.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/yc8.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-8.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-9.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-4.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-8.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-9.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-4.webp" alt="" decoding="async"></li>
         </ul>
       </div>
       <div class="yc-hero-dark__col">
         <ul class="yc-hero-dark__track">
-          <li class="yc-hero-dark__item"><img src="images/1795049574222795.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/youth-caucus-6.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/yc10.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/1795049574222795.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/youth-caucus-6.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-dark__item"><img src="images/yc10.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-2.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-10.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-6.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-2.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-10.webp" alt="" decoding="async"></li>
+          <li class="yc-hero-dark__item"><img src="images/yc-6.webp" alt="" decoding="async"></li>
         </ul>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="yc-hero-alt" aria-label="Youth Caucus" hidden>
-  <div class="yc-hero-alt__inner">
-
-    <div class="yc-hero-alt__text">
-      <h1 class="yc-hero-alt__title">Podstičemo mlade iz Srbije na globalnu saradnju, usavršavanje, obrazovanje i dijalog.</h1>
-      <p class="yc-hero-alt__lead">Radimo na unapređenju srpsko-američkih odnosa i uloge mladih u unapređenju istih.</p>
-    </div>
-
-    <div class="yc-hero-alt__media">
-      <div class="yc-hero-alt__frame">
-        <ul class="yc-hero-alt__slides" aria-hidden="true">
-          <li class="yc-hero-alt__slide is-active"><img src="images/youth-caucus-1.webp" alt="" fetchpriority="high"></li>
-          <li class="yc-hero-alt__slide"><img src="images/youth-caucus-2.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-alt__slide"><img src="images/yc7.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-alt__slide"><img src="images/youth-caucus-3.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-alt__slide"><img src="images/1795049559783979.jpg" alt="" decoding="async"></li>
-          <li class="yc-hero-alt__slide"><img src="images/1795049574222795.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-alt__slide"><img src="images/yc8.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-alt__slide"><img src="images/youth-caucus-6.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-alt__slide"><img src="images/yc9.webp" alt="" decoding="async"></li>
-          <li class="yc-hero-alt__slide"><img src="images/yc10.webp" alt="" decoding="async"></li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<section class="yc-hero" aria-label="Youth Caucus, varijanta 2" hidden>
-  <div class="yc-hero__inner">
-
-    <div class="yc-hero__text">
-      <h2 class="yc-hero__title">Podstičemo mlade iz Srbije na <span class="yc-hero__accent">globalnu saradnju, usavršavanje, obrazovanje i dijalog.</span></h2>
-      <p class="yc-hero__lead">Radimo na unapređenju srpsko-američkih odnosa i uloge mladih u unapređenju istih.</p>
-    </div>
-
-    <div class="yc-hero__media">
-      <div class="yc-hero__frame">
-        <ul class="yc-hero__slides" aria-hidden="true">
-          <li class="yc-hero__slide is-active"><img src="images/youth-caucus-1.webp" alt="" fetchpriority="high"></li>
-          <li class="yc-hero__slide"><img src="images/youth-caucus-2.webp" alt="" decoding="async"></li>
-          <li class="yc-hero__slide"><img src="images/yc7.webp" alt="" decoding="async"></li>
-          <li class="yc-hero__slide"><img src="images/youth-caucus-3.webp" alt="" decoding="async"></li>
-          <li class="yc-hero__slide"><img src="images/1795049559783979.jpg" alt="" decoding="async"></li>
-          <li class="yc-hero__slide"><img src="images/1795049574222795.webp" alt="" decoding="async"></li>
-          <li class="yc-hero__slide"><img src="images/yc8.webp" alt="" decoding="async"></li>
-          <li class="yc-hero__slide"><img src="images/youth-caucus-6.webp" alt="" decoding="async"></li>
-          <li class="yc-hero__slide"><img src="images/yc9.webp" alt="" decoding="async"></li>
-          <li class="yc-hero__slide"><img src="images/yc10.webp" alt="" decoding="async"></li>
-        </ul>
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -1386,7 +1104,7 @@
 
     <figure class="yc-quote__portrait yc-reveal">
       <div class="yc-quote__frame">
-        <img src="images/vudro-vilson.png" width="250" height="379"
+        <img src="images/vudro-vilson.webp" width="250" height="379"
              alt="Crno-beli portret predsednika SAD Vudroa Vilsona">
       </div>
       <figcaption class="yc-quote__caption">
@@ -1466,19 +1184,19 @@
         <ul class="yc-grid">
           <li class="yc-card">
             <a class="yc-card__link" href="dogadjaji/gostovanje-na-newsmax-balkans-jutarnjem-programu/">
-              <div class="yc-card__media"><img src="dogadjaji/gostovanje-na-newsmax-balkans-jutarnjem-programu/images/1795188171770598.webp" width="2264" height="1290" alt="" loading="lazy"></div>
+              <div class="yc-card__media"><img src="dogadjaji/gostovanje-na-newsmax-balkans-jutarnjem-programu/images/gostovanje-na-newsmax-balkans-jutarnjem-programu-1.webp" width="2264" height="1290" alt="" loading="lazy"></div>
               <div class="yc-card__body">                <h3 class="yc-card__title">Gostovanje na Newsmax Balkans jutarnjem programu</h3>              </div>
             </a>
           </li>
           <li class="yc-card">
             <a class="yc-card__link" href="dogadjaji/poseta-sedistu-kompanije-vega-it/">
-              <div class="yc-card__media"><img src="dogadjaji/poseta-sedistu-kompanije-vega-it/images/1795044530920506.webp" width="3024" height="4032" alt="" loading="lazy"></div>
+              <div class="yc-card__media"><img src="dogadjaji/poseta-sedistu-kompanije-vega-it/images/poseta-sedistu-kompanije-vega-it-1.webp" width="1536" height="2048" alt="" loading="lazy"></div>
               <div class="yc-card__body">                <h3 class="yc-card__title">Poseta sedištu kompanije Vega IT</h3>              </div>
             </a>
           </li>
           <li class="yc-card">
             <a class="yc-card__link" href="dogadjaji/sastanak-sa-upravom-fakulteta-politickih-nauka-univerziteta-u-beogradu/">
-              <div class="yc-card__media"><img src="dogadjaji/sastanak-sa-upravom-fakulteta-politickih-nauka-univerziteta-u-beogradu/images/6afdcc7a8b9488886022e499_badd0942.jpeg" width="2048" height="1536" alt="" loading="lazy"></div>
+              <div class="yc-card__media"><img src="dogadjaji/sastanak-sa-upravom-fakulteta-politickih-nauka-univerziteta-u-beogradu/images/sastanak-sa-upravom-fakulteta-politickih-nauka-univerziteta-u-beogradu-1.webp" width="2048" height="1536" alt="" loading="lazy"></div>
               <div class="yc-card__body">                <h3 class="yc-card__title">Sastanak sa upravom Fakulteta političkih nauka Univerziteta u Beogradu</h3>              </div>
             </a>
           </li>
@@ -1502,7 +1220,7 @@
           </li>
           <li class="yc-card">
             <a class="yc-card__link" href="blog/250-godina-sjedinjenih-americkih-drzava/">
-              <div class="yc-card__media"><img src="blog/250-godina-sjedinjenih-americkih-drzava/images/4d8bffc1.png" width="1024" height="1280" alt="" loading="lazy"></div>
+              <div class="yc-card__media"><img src="blog/250-godina-sjedinjenih-americkih-drzava/images/250-godina-sjedinjenih-americkih-drzava.webp" width="1024" height="1280" alt="" loading="lazy"></div>
               <div class="yc-card__body">                <h3 class="yc-card__title">250 godina Sjedinjenih Američkih Država</h3>              </div>
             </a>
           </li>
@@ -1657,40 +1375,6 @@
     window.matchMedia('(min-width: 992px)').addEventListener('change', function (e) { if (e.matches) closeMenu(); });
   })();
 
-  /* Hero slajderi (obe varijante): menjaju fotografiju na 6 s, mogu da se pauziraju */
-  ['yc-hero-alt', 'yc-hero'].forEach(function (p) {
-    var hero = document.querySelector('.' + p);
-    if (!hero) return;
-    var slides = [].slice.call(hero.querySelectorAll('.' + p + '__slide'));
-    var current = hero.querySelector('.' + p + '__current');
-    var toggle = hero.querySelector('.' + p + '__toggle');
-    var index = 0, timer = null, DELAY = 6000;
-
-    function show(n) {
-      slides[index].classList.remove('is-active');
-      index = (n + slides.length) % slides.length;
-      slides[index].classList.add('is-active');
-      if (current) current.textContent = String(index + 1).padStart(2, '0');
-    }
-    function play() {
-      clearInterval(timer);
-      timer = setInterval(function () { show(index + 1); }, DELAY);
-      hero.classList.remove('is-paused');
-      if (toggle) toggle.setAttribute('aria-label', 'Pauziraj slajdove');
-    }
-    function pause() {
-      clearInterval(timer);
-      timer = null;
-      hero.classList.add('is-paused');
-      if (toggle) toggle.setAttribute('aria-label', 'Pokreni slajdove');
-    }
-
-    if (toggle) toggle.addEventListener('click', function () { timer ? pause() : play(); });
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) pause();
-    else play();
-  });
-
   /* Tabovi: Projekti / Događaji / Blog / Preporuke */
   (function () {
     var tabs = [].slice.call(document.querySelectorAll('.yc-tab'));
@@ -1746,6 +1430,6 @@
   })();
 </script>
 
-<script src="assets/search/search.js?v=16" defer></script>
+<script src="assets/search/search.js?v=24" defer></script>
 </body>
 </html>

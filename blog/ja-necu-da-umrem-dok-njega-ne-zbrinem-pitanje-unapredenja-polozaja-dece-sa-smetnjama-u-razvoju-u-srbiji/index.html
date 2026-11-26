@@ -307,18 +307,6 @@
   }
 
   .yc-post__body { display: flex; flex-direction: column; align-items: flex-start; margin-top: 2rem; }
-  .yc-post__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 1.25rem;
-    margin: 0 0 0.875rem;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    line-height: 1.4;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--yc-burgundy);
-  }
   .yc-post__title {
     margin: 0;
     font-size: clamp(1.375rem, 1.9vw, 1.625rem);
@@ -327,13 +315,6 @@
     letter-spacing: -.005em;
     color: var(--yc-navy);
     text-wrap: balance;
-  }
-  .yc-post__text {
-    margin: 1rem 0 0;
-    font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
-    font-weight: 300;
-    line-height: 1.7;
-    color: var(--yc-navy-80);
   }
 
   .yc-post:hover .yc-post__frame::before,
@@ -432,8 +413,6 @@
     color: var(--yc-navy);
   }
   /* veličina naslova prema dužini: kratak naslov krupno, dug naslov manje */
-  .yc-bp-hero__title--lg { --yc-size: clamp(3rem, 6.4vw, 5.75rem); }
-  .yc-bp-hero__title--md { --yc-size: clamp(2.375rem, 4.6vw, 4rem); }
   .yc-bp-hero__title--sm { --yc-size: clamp(1.875rem, 3.5vw, 3rem); }
   /* reč se nikad ne seče: veličina se smanji tako da najduža reč stane u širinu kolone */
   /* naslov je 25% manji od osnovne veličine (×0.75) */
@@ -517,23 +496,6 @@
   }
   .yc-art__photo img { display: block; width: 100%; height: auto; }
 
-  /* link u tekstu: običan tekst sa strelicom koja se pomera na hover */
-  .yc-art__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.625rem;
-    color: var(--yc-navy);
-    font-weight: 400;
-    text-decoration: none;
-  }
-  .yc-art__url { min-width: 0; overflow-wrap: anywhere; opacity: .72; transition: opacity .25s ease; }
-  .yc-art__icon { flex: none; width: 1.25rem; height: 1.25rem; transition: transform .3s ease; }
-  .yc-art__link:hover .yc-art__url,
-  .yc-art__link:focus-visible .yc-art__url { opacity: 1; }
-  .yc-art__link:hover .yc-art__icon,
-  .yc-art__link:focus-visible .yc-art__icon { transform: translate(3px, -3px); }
-  .yc-art__link:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 4px; }
-
   /* =========================================================
      Članak: pročitajte još (tri članka u nizu)
      ========================================================= */
@@ -557,7 +519,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .yc-bp-hero__content, .yc-bp-hero__media { animation: none; }
-    .yc-bp-hero__photo img, .yc-art__url, .yc-art__icon { transition: none; }
+    .yc-bp-hero__photo img { transition: none; }
   }
 
   @media (max-width: 860px) {
@@ -571,15 +533,13 @@
   }
   @media (max-width: 480px) {
     .yc-bp-hero, .yc-art, .yc-more { padding-left: 1rem; padding-right: 1rem; }
-    .yc-bp-hero__title--lg { --yc-size: 2.75rem; }
-    .yc-bp-hero__title--md { --yc-size: 2.125rem; }
     .yc-bp-hero__title--sm { --yc-size: 1.75rem; }
     .yc-art__body > p { font-size: 1.125rem; }
     .yc-art__body > h2 { font-size: 1.625rem; }
   }
 
   /* =========================================================
-     Lightbox: fotografije članka (slika u heroju i fotografije u tekstu) u punoj veličini
+     Lightbox: fotografije članka (fotografije u tekstu) u punoj veličini
      ========================================================= */
   /* providno dugme preko cele fotografije: klik ili Enter otvara lightbox */
   .yc-photo__open {
@@ -787,21 +747,9 @@
     transition: opacity .9s ease, transform .9s ease, filter .9s ease;
   }
   .yc-reveal.is-visible { opacity: 1; transform: none; filter: none; }
-  .yc-reveal--delay { transition-delay: .2s; }
 
   @media (prefers-reduced-motion: reduce) {
     .yc-reveal { opacity: 1; transform: none; filter: none; transition: none; }
-  }
-
-
-  .yc-visually-hidden {
-    position: absolute !important;
-    width: 1px; height: 1px;
-    padding: 0; margin: -1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    border: 0;
   }
 
 
@@ -1052,9 +1000,6 @@
         <div class="yc-bp-hero__photo">
           <img src="images/pitanje-unapredjenja-polozaja-dece-sa-smetnjama-u-razvoju-u-srbiji.webp"
                width="1080" height="1440" alt="" fetchpriority="high">
-          <button class="yc-photo__open" type="button" aria-label="Otvori fotografiju">
-            <span class="yc-photo__zoom" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h5v5M8 17H3v-5M17 3l-6 6M3 17l6-6"/></svg></span>
-          </button>
         </div>
       </div>
     </div>
@@ -1165,7 +1110,7 @@
         <div class="yc-post__media">
           <div class="yc-post__frame">
             <div class="yc-post__photo">
-              <img src="../250-godina-sjedinjenih-americkih-drzava/images/4d8bffc1.png"
+              <img src="../250-godina-sjedinjenih-americkih-drzava/images/250-godina-sjedinjenih-americkih-drzava.webp"
                    width="1024" height="1280" alt="" loading="lazy">
             </div>
           </div>
@@ -1321,7 +1266,7 @@
 </script>
 
 <script>
-  /* Lightbox: fotografije članka (slika u heroju i fotografije u tekstu) otvaraju se u punoj veličini;
+  /* Lightbox: fotografije članka (fotografije u tekstu) otvaraju se u punoj veličini;
      strelice, tastatura i prevlačenje prstom menjaju fotografiju. */
   (function () {
     var lb = document.getElementById('yc-lightbox');
@@ -1404,6 +1349,6 @@
   })();
 </script>
 
-<script src="../../assets/search/search.js?v=16" defer></script>
+<script src="../../assets/search/search.js?v=24" defer></script>
 </body>
 </html>

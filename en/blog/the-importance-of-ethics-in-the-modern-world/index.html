@@ -307,18 +307,6 @@
   }
 
   .yc-post__body { display: flex; flex-direction: column; align-items: flex-start; margin-top: 2rem; }
-  .yc-post__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 1.25rem;
-    margin: 0 0 0.875rem;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    line-height: 1.4;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--yc-burgundy);
-  }
   .yc-post__title {
     margin: 0;
     font-size: clamp(1.375rem, 1.9vw, 1.625rem);
@@ -327,13 +315,6 @@
     letter-spacing: -.005em;
     color: var(--yc-navy);
     text-wrap: balance;
-  }
-  .yc-post__text {
-    margin: 1rem 0 0;
-    font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
-    font-weight: 300;
-    line-height: 1.7;
-    color: var(--yc-navy-80);
   }
 
   .yc-post:hover .yc-post__frame::before,
@@ -413,15 +394,6 @@
   /* donja margina = pomeraj tamne senke ispod slike, pa je naslov na sredini same slike, ne slike sa senkom */
   .yc-bp-hero__content { animation: yc-bp-rise 1.1s cubic-bezier(.2, .7, .2, 1) both; container-type: inline-size; margin-bottom: 1.125rem; }
   /* datum je mala bordo oznaka iznad naslova */
-  .yc-bp-hero__date {
-    margin: 0 0 clamp(1.25rem, 2vw, 1.75rem);
-    font-size: 1rem;
-    font-weight: 500;
-    line-height: 1.4;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--yc-burgundy);
-  }
   .yc-bp-hero__title {
     margin: 0;
     font-weight: 600;
@@ -433,8 +405,6 @@
   }
   /* veličina naslova prema dužini: kratak naslov krupno, dug naslov manje */
   .yc-bp-hero__title--lg { --yc-size: clamp(3rem, 6.4vw, 5.75rem); }
-  .yc-bp-hero__title--md { --yc-size: clamp(2.375rem, 4.6vw, 4rem); }
-  .yc-bp-hero__title--sm { --yc-size: clamp(1.875rem, 3.5vw, 3rem); }
   /* reč se nikad ne seče: veličina se smanji tako da najduža reč stane u širinu kolone */
   /* naslov je 25% manji od osnovne veličine (×0.75) */
   .yc-bp-hero__title { font-size: calc(.75 * min(var(--yc-size), 100cqi / var(--yc-word, 1))); }
@@ -494,46 +464,6 @@
   .yc-art__body > :first-child { margin-top: 0; }   /* razmak do slike u heroju je uvek isti, i kad članak počinje fotografijom */
   .yc-art__body > :last-child { margin-bottom: 0; }
 
-  /* fotografije u članku: širi od teksta, isti okvir kao ostale fotografije */
-  .yc-art__figure {
-    margin: clamp(3rem, 6vw, 4.5rem) 0;
-    width: 100%;                   /* fotografija široka koliko i tekst */
-  }
-  .yc-art__frame { position: relative; margin: 0 0 1.125rem; }   /* slika poravnata sa tekstom, teget blok viri desno */
-  .yc-art__frame::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform: translate(1.125rem, 1.125rem);
-    background: var(--yc-navy);
-  }
-  .yc-art__photo { position: relative; overflow: hidden; background: var(--yc-mist); }
-  .yc-art__frame::after {
-    content: "";
-    position: absolute;
-    left: 0; right: 0; top: 0;
-    height: 4px;
-    background: var(--yc-burgundy);
-  }
-  .yc-art__photo img { display: block; width: 100%; height: auto; }
-
-  /* link u tekstu: običan tekst sa strelicom koja se pomera na hover */
-  .yc-art__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.625rem;
-    color: var(--yc-navy);
-    font-weight: 400;
-    text-decoration: none;
-  }
-  .yc-art__url { min-width: 0; overflow-wrap: anywhere; opacity: .72; transition: opacity .25s ease; }
-  .yc-art__icon { flex: none; width: 1.25rem; height: 1.25rem; transition: transform .3s ease; }
-  .yc-art__link:hover .yc-art__url,
-  .yc-art__link:focus-visible .yc-art__url { opacity: 1; }
-  .yc-art__link:hover .yc-art__icon,
-  .yc-art__link:focus-visible .yc-art__icon { transform: translate(3px, -3px); }
-  .yc-art__link:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 4px; }
-
   /* =========================================================
      Članak: pročitajte još (tri članka u nizu)
      ========================================================= */
@@ -557,7 +487,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .yc-bp-hero__content, .yc-bp-hero__media { animation: none; }
-    .yc-bp-hero__photo img, .yc-art__url, .yc-art__icon { transition: none; }
+    .yc-bp-hero__photo img { transition: none; }
   }
 
   @media (max-width: 860px) {
@@ -566,166 +496,13 @@
     .yc-bp-hero__media { width: min(26.25rem, 100%); }
     .yc-bp-hero__frame { margin: 0 0.75rem 0.75rem 0; }
     .yc-bp-hero__frame::before { transform: translate(0.75rem, 0.75rem); }
-    .yc-art__frame { margin: 0 0 0.75rem; }
-    .yc-art__frame::before { transform: translate(0.75rem, 0.75rem); }
   }
   @media (max-width: 480px) {
     .yc-bp-hero, .yc-art, .yc-more { padding-left: 1rem; padding-right: 1rem; }
     .yc-bp-hero__title--lg { --yc-size: 2.75rem; }
-    .yc-bp-hero__title--md { --yc-size: 2.125rem; }
-    .yc-bp-hero__title--sm { --yc-size: 1.75rem; }
     .yc-art__body > p { font-size: 1.125rem; }
     .yc-art__body > h2 { font-size: 1.625rem; }
   }
-
-  /* =========================================================
-     Lightbox: fotografije članka (slika u heroju i fotografije u tekstu) u punoj veličini
-     ========================================================= */
-  /* providno dugme preko cele fotografije: klik ili Enter otvara lightbox */
-  .yc-photo__open {
-    appearance: none;
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background: none;
-    cursor: zoom-in;
-  }
-  .yc-photo__open:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 4px; }
-  /* ikonica za uvećanje u uglu, pojavi se na hover/fokus */
-  .yc-photo__zoom {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    background: rgba(255, 255, 255, .92);
-    color: var(--yc-navy);
-    opacity: 0;
-    transform: translateY(-4px);
-    transition: opacity .25s ease, transform .25s ease;
-  }
-  .yc-photo__zoom svg { width: 1.25rem; height: 1.25rem; }
-  .yc-photo__open:hover .yc-photo__zoom,
-  .yc-photo__open:focus-visible .yc-photo__zoom { opacity: 1; transform: none; }
-
-  /* --- lightbox: ista svetla pozadina kao meni i hero --- */
-  .yc-lightbox {
-    position: fixed;
-    inset: 0;
-    z-index: 70;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5rem 6.5rem;
-    background: linear-gradient(160deg, var(--yc-mist) 0%, var(--yc-white) 60%);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .3s ease, visibility 0s linear .3s;
-    touch-action: pan-y;
-  }
-  .yc-lightbox.is-open {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity .3s ease;
-  }
-  .yc-lightbox__img {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    box-shadow: 0 1.875rem 4.375rem -34px rgba(5, 33, 73, .55);
-    transition: opacity .3s ease;
-  }
-  .yc-lightbox__img.is-loading { opacity: 0; }
-
-  .yc-lightbox__btn {
-    appearance: none;
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 3.25rem;
-    height: 3.25rem;
-    padding: 0;
-    border: 0;
-    background: none;
-    color: var(--yc-navy);
-    cursor: pointer;
-    opacity: .72;
-    transition: opacity .25s ease;
-  }
-  .yc-lightbox__btn svg { width: 1.75rem; height: 1.75rem; }
-  .yc-lightbox__btn:hover { opacity: 1; }
-  .yc-lightbox__btn:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 3px; }
-  .yc-lightbox__close { top: 1.25rem; right: 1.25rem; }
-  /* redni broj fotografije, u levom uglu naspram X */
-  .yc-lightbox__count {
-    position: absolute;
-    top: 1.25rem;
-    left: 2rem;
-    margin: 0;
-    height: 3.25rem;
-    display: flex;
-    align-items: center;
-    font-size: 1.125rem;
-    font-weight: 400;
-    letter-spacing: .06em;
-    font-variant-numeric: tabular-nums;
-    color: var(--yc-navy);
-  }
-  .yc-lightbox__total { opacity: .72; }
-  .yc-lightbox__prev { left: 1.75rem; top: 50%; margin-top: -26px; }
-  .yc-lightbox__next { right: 1.75rem; top: 50%; margin-top: -26px; }
-  /* članak sa jednom fotografijom: bez brojača i strelica */
-  .yc-lightbox.is-single .yc-lightbox__count,
-  .yc-lightbox.is-single .yc-lightbox__prev,
-  .yc-lightbox.is-single .yc-lightbox__next { display: none; }
-
-  @media (prefers-reduced-motion: reduce) {
-    .yc-photo__zoom, .yc-lightbox, .yc-lightbox__img, .yc-lightbox__btn { transition: none; }
-  }
-  @media (max-width: 720px) {
-    .yc-lightbox { padding: 4.75rem 1rem 6.25rem; }
-    .yc-lightbox.is-single { padding-bottom: 4.75rem; }
-    .yc-lightbox__close { top: 0.875rem; right: 0.875rem; }
-    .yc-lightbox__count { top: 0.875rem; left: 1.625rem; }
-    .yc-lightbox__prev, .yc-lightbox__next { top: auto; bottom: 1.75rem; margin-top: 0; }
-    .yc-lightbox__prev { left: calc(50% - 3.75rem); }
-    .yc-lightbox__next { right: calc(50% - 3.75rem); }
-  }
-
-  /* ===== Animacija pri skrolovanju ===== */
-  .yc-reveal {
-    opacity: 0;
-    transform: translateY(1.5rem);
-    filter: blur(0.375rem);
-    transition: opacity .9s ease, transform .9s ease, filter .9s ease;
-  }
-  .yc-reveal.is-visible { opacity: 1; transform: none; filter: none; }
-  .yc-reveal--delay { transition-delay: .2s; }
-
-  @media (prefers-reduced-motion: reduce) {
-    .yc-reveal { opacity: 1; transform: none; filter: none; transition: none; }
-  }
-
-
-  .yc-visually-hidden {
-    position: absolute !important;
-    width: 1px; height: 1px;
-    padding: 0; margin: -1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
 
   /* =========================================================
      Footer
@@ -971,9 +748,6 @@
         <div class="yc-bp-hero__photo">
           <img src="../../../blog/znacaj-etike-u-savremenom-svetu/images/znacaj-etike-u-savremenom-svetu-youth-caucus.webp"
                width="1080" height="1350" alt="" fetchpriority="high">
-          <button class="yc-photo__open" type="button" aria-label="Open photo">
-            <span class="yc-photo__zoom" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h5v5M8 17H3v-5M17 3l-6 6M3 17l6-6"/></svg></span>
-          </button>
         </div>
       </div>
     </div>
@@ -1028,7 +802,7 @@
         <div class="yc-post__media">
           <div class="yc-post__frame">
             <div class="yc-post__photo">
-              <img src="../what-the-launch-of-the-strategic-dialogue-means-for-young-people-in-serbia/images/7069f565.jpeg"
+              <img src="../what-the-launch-of-the-strategic-dialogue-means-for-young-people-in-serbia/images/what-the-launch-of-the-strategic-dialogue-means-for-young-people-in-serbia.webp"
                    width="1080" height="1440" alt="" loading="lazy">
             </div>
           </div>
@@ -1045,7 +819,7 @@
         <div class="yc-post__media">
           <div class="yc-post__frame">
             <div class="yc-post__photo">
-              <img src="../250-years-of-united-states-of-america/images/bf0e51f9.png"
+              <img src="../250-years-of-united-states-of-america/images/250-years-of-united-states-of-america.webp"
                    width="1024" height="1280" alt="" loading="lazy">
             </div>
           </div>
@@ -1062,21 +836,6 @@
 </section>
 
 </main>
-
-<!-- lightbox for post photos -->
-<div class="yc-lightbox" id="yc-lightbox" role="dialog" aria-modal="true" aria-label="Photo" aria-hidden="true">
-  <p class="yc-lightbox__count" aria-live="polite"></p>
-  <img class="yc-lightbox__img" alt="">
-  <button class="yc-lightbox__btn yc-lightbox__close" type="button" aria-label="Close">
-    <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l12 12M17 5L5 17"/></svg>
-  </button>
-  <button class="yc-lightbox__btn yc-lightbox__prev" type="button" aria-label="Previous photo">
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg>
-  </button>
-  <button class="yc-lightbox__btn yc-lightbox__next" type="button" aria-label="Next photo">
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
-  </button>
-</div>
 
 <!-- =========================================================
      Footer
@@ -1200,90 +959,6 @@
   })();
 </script>
 
-<script>
-  /* Lightbox: fotografije članka (slika u heroju i fotografije u tekstu) otvaraju se u punoj veličini;
-     strelice, tastatura i prevlačenje prstom menjaju fotografiju. */
-  (function () {
-    var lb = document.getElementById('yc-lightbox');
-    var openers = [].slice.call(document.querySelectorAll('.yc-photo__open'));
-    if (!lb || !openers.length) return;
-    var lbImg = lb.querySelector('.yc-lightbox__img');
-    var lbClose = lb.querySelector('.yc-lightbox__close');
-    var lbPrev = lb.querySelector('.yc-lightbox__prev');
-    var lbNext = lb.querySelector('.yc-lightbox__next');
-    var lbCount = lb.querySelector('.yc-lightbox__count');
-    var photos = openers.map(function (b) { return b.parentNode.querySelector('img'); });
-    var index = 0;
-    var lastFocus = null;
-
-    function pad(n) { return String(n).padStart(2, '0'); }
-
-    /* prevlačenje prstom menja fotografiju */
-    function swipe(el, onSwipe) {
-      var x0 = null;
-      el.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
-      el.addEventListener('touchend', function (e) {
-        if (x0 === null) return;
-        var dx = e.changedTouches[0].clientX - x0;
-        x0 = null;
-        if (Math.abs(dx) > 40) { e.preventDefault(); onSwipe(dx < 0 ? 1 : -1); }
-      });
-    }
-
-    function render() {
-      lbCount.innerHTML = pad(index + 1) + '<span class="yc-lightbox__total">/' + pad(photos.length) + '</span>';
-      var src = photos[index].src;
-      if (lbImg.src === src) return;
-      lbImg.classList.add('is-loading');
-      lbImg.onload = lbImg.onerror = function () { lbImg.classList.remove('is-loading'); };
-      lbImg.src = src;
-    }
-    function go(d) {
-      if (photos.length < 2) return;
-      index = (index + d + photos.length) % photos.length;
-      render();
-    }
-    function open(n) {
-      index = n;
-      lastFocus = document.activeElement;
-      lb.classList.toggle('is-single', photos.length < 2);
-      render();
-      lb.classList.add('is-open');
-      lb.setAttribute('aria-hidden', 'false');
-      document.documentElement.style.overflow = 'hidden';
-      lbClose.focus();
-    }
-    function close() {
-      if (!lb.classList.contains('is-open')) return;
-      lb.classList.remove('is-open');
-      lb.setAttribute('aria-hidden', 'true');
-      document.documentElement.style.overflow = '';
-      if (lastFocus) lastFocus.focus();
-    }
-
-    openers.forEach(function (b, n) { b.addEventListener('click', function () { open(n); }); });
-    lbClose.addEventListener('click', close);
-    lbPrev.addEventListener('click', function () { go(-1); });
-    lbNext.addEventListener('click', function () { go(1); });
-    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });   // klik na pozadinu zatvara
-    swipe(lb, go);
-
-    document.addEventListener('keydown', function (e) {
-      if (!lb.classList.contains('is-open')) return;
-      if (e.key === 'Escape') close();
-      if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
-      if (e.key === 'ArrowLeft')  { e.preventDefault(); go(-1); }
-      if (e.key === 'Tab') {                 // fokus ostaje unutar lightboxa
-        var btns = lb.classList.contains('is-single') ? [lbClose] : [lbClose, lbPrev, lbNext];
-        var i = btns.indexOf(document.activeElement);
-        var next = e.shiftKey ? (i <= 0 ? btns.length - 1 : i - 1) : (i + 1) % btns.length;
-        e.preventDefault();
-        btns[next].focus();
-      }
-    });
-  })();
-</script>
-
-<script src="../../../assets/search/search.js?v=16" defer></script>
+<script src="../../../assets/search/search.js?v=24" defer></script>
 </body>
 </html>
