@@ -33,11 +33,11 @@
   var T = EN ? {
     search: 'Search', close: 'Close search', loading: 'Loading…', none: 'No results',
     failed: 'Search is currently unavailable',
-    label: { projekti: 'Projects', dogadjaji: 'Events', blog: 'Blog', preporuke: 'Recommendations', stranice: 'Page' }
+    label: { projekti: 'Projects', dogadjaji: 'Events', blog: 'Blog', preporuke: 'Recommendations', stranice: 'Page', autor: 'Author' }
   } : {
     search: 'Pretraga', close: 'Zatvori pretragu', loading: 'Učitavanje…', none: 'Nema rezultata',
     failed: 'Pretraga trenutno nije dostupna',
-    label: { projekti: 'Projekti', dogadjaji: 'Događaji', blog: 'Blog', preporuke: 'Preporuke', stranice: 'Stranica' }
+    label: { projekti: 'Projekti', dogadjaji: 'Događaji', blog: 'Blog', preporuke: 'Preporuke', stranice: 'Stranica', autor: 'Autor' }
   };
   var LABEL = T.label;
 
@@ -96,6 +96,7 @@
       var doc = {
         order: i,
         section: it.section,
+        label: it.label || it.section,                   // oznaka iznad naslova (npr. Autor u sekciji Blog)
         url: it.url,
         title: it.title || '',
         date: it.date || '',
@@ -136,14 +137,29 @@
   }
 
   /* ---------------------------------------------------------
-     Upit: sve otkucane reči moraju da postoje zajedno u istom članku
+     Upit: sve otkucane reči moraju da postoje u istom članku, bilo gde;
+     reči pod navodnicima ("dan amerike") moraju da stoje tačno tako, jedna do druge
      --------------------------------------------------------- */
   var START = '(?:^|[^a-z0-9])';                     // na početku reči
   var GAP = '[^a-z0-9]+';                            // razmak i znaci između dve reči
+  var REST = '[a-z0-9]*';                            // ostatak reči koja počinje otkucanim slovima
+  var END = '(?![a-z0-9])';                          // kraj reči
+  var QUOTES = /["“”„«»]/g;  // " „ “ ” « »
 
   function parse(raw) {
-    var words = norm(raw).match(/[a-z0-9]+/g) || [];
-    if (words.join('').length < 2) return { empty: true, raw: raw };   // jedno slovo je premalo
+    var parts = norm(raw.replace(QUOTES, '"')).split('"');
+    var open = parts.length % 2 === 0;               // navodnik je otvoren, a još nije zatvoren
+    var words = [], phrases = [], letters = '';
+    parts.forEach(function (part, i) {
+      var ws = part.match(/[a-z0-9]+/g) || [];
+      letters += ws.join('');
+      if (i % 2 === 0) { words = words.concat(ws); return; }
+      if (!ws.length) return;
+      /* dok se fraza još kuca, poslednja reč može da se nastavlja */
+      var body = START + ws.map(esc).join(GAP) + (open && i === parts.length - 1 ? '' : END);
+      phrases.push({ re: new RegExp(body), reAll: new RegExp(body, 'g') });
+    });
+    if (letters.length < 2) return { empty: true, raw: raw };   // jedno slovo je premalo
     var seen = Object.create(null), terms = [];
     words.forEach(function (w) {
       if (seen[w]) return;
@@ -155,18 +171,19 @@
         mark: w.length > 1                             // pojedinačna slova se ne ističu
       });
     });
-    var chain = words.map(esc).join(GAP);
+    var chain = words.map(esc).join(REST + GAP);       // reči jedna do druge, svaka može da se nastavlja
     return {
       empty: false,
       raw: raw,
       terms: terms,
-      reStart: new RegExp('^' + chain),                // naslov počinje otkucanim tekstom
-      phrase: words.length > 1 ? { re: new RegExp(START + chain), reAll: new RegExp(START + chain, 'g') } : null
+      phrases: phrases,
+      reStart: words.length ? new RegExp('^' + chain) : null,    // naslov počinje otkucanim tekstom
+      near: words.length > 1 ? { re: new RegExp(START + chain), reAll: new RegExp(START + chain, 'g') } : null
     };
   }
 
   /* ---------------------------------------------------------
-     Bodovanje: reči jedna do druge (rečenica) > reči blizu > reči bilo gde;
+     Bodovanje: reči jedna do druge > reči blizu > reči bilo gde;
      naslov pre opisa, opis pre teksta
      --------------------------------------------------------- */
   function count(str, re, max) {
@@ -198,9 +215,15 @@
     return best;
   }
 
+  /* bodovi za skup reči jedna do druge; 0 ako ga nema nigde */
+  function phraseScore(doc, ph) {
+    var pt = ph.re.test(doc.nTitle), pd = ph.re.test(doc.nDesc), px = count(doc.nText, ph.reAll, 50);
+    return (pt ? 200 : 0) + (pd ? 60 : 0) + (px ? 100 + 10 * Math.log(px) : 0);
+  }
+
   function score(doc, q) {
-    var s = 0, inTitle = 0, inDesc = 0;
-    for (var i = 0; i < q.terms.length; i++) {
+    var s = 0, inTitle = 0, inDesc = 0, i;
+    for (i = 0; i < q.terms.length; i++) {
       var t = q.terms[i];
       var a = t.re.test(doc.nTitle), b = t.re.test(doc.nDesc), c = count(doc.nText, t.reAll, 50);
       if (!a && !b && !c) return 0;                    // svaka reč mora da postoji u članku
@@ -209,16 +232,16 @@
       s += Math.log(1 + c);
     }
     s += inTitle * 30 + inDesc * 8;
-    if (q.phrase) {
-      var pt = q.phrase.re.test(doc.nTitle);
-      var pd = q.phrase.re.test(doc.nDesc);
-      var px = count(doc.nText, q.phrase.reAll, 50);
-      if (pt) s += 200;
-      if (pd) s += 60;
-      if (px) s += 100 + 10 * Math.log(px);
-      if (!pt && !pd && !px) s += 40 / (1 + span(doc, q.terms));   // što su reči bliže, to bolje
+    for (i = 0; i < q.phrases.length; i++) {
+      var ps = phraseScore(doc, q.phrases[i]);
+      if (!ps) return 0;                               // fraza pod navodnicima mora da postoji tačno tako
+      s += ps;
     }
-    if (q.reStart.test(doc.nTitle)) s += 40;
+    if (q.near) {
+      var ns = phraseScore(doc, q.near);
+      s += ns || 40 / (1 + span(doc, q.terms));        // jedna do druge na vrh, zatim što bliže
+    }
+    if (q.reStart && q.reStart.test(doc.nTitle)) s += 40;
     return s;
   }
 
@@ -247,14 +270,14 @@
         out.push([start, end, i]);
       }
     });
-    if (q.phrase) {
-      q.phrase.reAll.lastIndex = 0;
-      while ((m = q.phrase.reAll.exec(ns))) {
+    q.phrases.concat(q.near ? [q.near] : []).forEach(function (ph) {
+      ph.reAll.lastIndex = 0;
+      while ((m = ph.reAll.exec(ns))) {
         var ps = m.index + (ALNUM.test(m[0][0]) ? 0 : 1), pe = m.index + m[0].length;
         while (pe < ns.length && ALNUM.test(ns[pe])) pe++;
         out.push([ps, pe, 'p']);
       }
-    }
+    });
     out.sort(function (a, b) { return a[0] - b[0] || b[1] - a[1]; });
     return out;
   }
@@ -390,9 +413,8 @@
   }
 
   function render() {
-    if (query.empty) { ui.status.textContent = ''; ui.list.innerHTML = ''; return; }
-    if (!data || !result) {
-      ui.status.textContent = failed ? T.failed : T.loading;
+    if (query.empty || !data || !result) {
+      ui.status.textContent = query.empty ? '' : (failed ? T.failed : T.loading);
       ui.list.innerHTML = '';
       return;
     }
@@ -414,7 +436,7 @@
     return '<li class="yc-hit">' +
       '<a class="yc-hit__link" href="' + escHtml(href) + '">' +
         '<div class="yc-hit__body">' +
-          '<p class="yc-hit__meta"><span>' + escHtml(LABEL[doc.section] || '') + '</span>' +
+          '<p class="yc-hit__meta"><span>' + escHtml(LABEL[doc.label] || '') + '</span>' +
             (doc.date ? '<span>' + escHtml(doc.date) + '</span>' : '') + '</p>' +
           '<h2 class="yc-hit__title">' + highlight(doc.title, query) + '</h2>' +
           '<p class="yc-hit__text">' + excerpt(doc, query) + '</p>' +

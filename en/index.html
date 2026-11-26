@@ -17,7 +17,9 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Youth Caucus">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="alternate" hreflang="sr" href="../index.html">
+<link rel="alternate" hreflang="sr" href="https://www.youthcaucus.rs/">
+<link rel="alternate" hreflang="en" href="https://www.youthcaucus.rs/en/">
+<link rel="alternate" hreflang="x-default" href="https://www.youthcaucus.rs/">
 <link rel="preload" href="../assets/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:'Oswald';font-style:normal;font-weight:300 600;font-display:swap;src:url(../assets/fonts/oswald-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
@@ -580,8 +582,407 @@
     .yc-quote__source { align-items: center; }
     .yc-quote__source-title { font-size: 1rem; }
   }
+  /* =========================================================
+     Sekcija: Projekti / Događaji / Blog / Preporuke
+     ========================================================= */
+  .yc-visually-hidden {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .yc-feed {
+    position: relative;
+    padding: clamp(6.5rem, 12vw, 11rem) 1.25rem;
+    background: linear-gradient(180deg, var(--yc-mist) 0%, var(--yc-white) 60%);
+  }
+
+  .yc-feed__container {
+    max-width: 70rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "tabs"
+      "panels";
+    row-gap: clamp(3.5rem, 6vw, 5.5rem);
+  }
+
+  /* --- tabovi: bez kutija, samo krupna tipografija; aktivni je pun teget, ostali prigušeni --- */
+  .yc-feed__head {
+    grid-area: tabs;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+  .yc-tabs {
+    position: relative;
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .yc-tabs::-webkit-scrollbar { display: none; }
+  .yc-tab {
+    appearance: none;
+    margin: 0;
+    padding: 4px 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--yc-navy);
+    font: 600 clamp(1.5rem, 2.4vw, 2.125rem)/1.1 Oswald, sans-serif;
+    letter-spacing: .01em;
+    text-transform: uppercase;
+    flex: none;
+    cursor: pointer;
+    opacity: .45;
+    transition: opacity .25s ease;
+  }
+  .yc-tab:hover { opacity: .75; }
+
+  /* aktivni tab kreće sa 85% (kao hover) i za 5 s se sleva nadesno puni do 100%, pa se prelazi na sledeći */
+  .yc-tab[aria-selected="true"] {
+    opacity: 1;
+    color: transparent;
+    background-image:
+      linear-gradient(var(--yc-navy), var(--yc-navy)),
+      linear-gradient(rgba(5, 33, 73, .85), rgba(5, 33, 73, .85));
+    background-size: 0% 100%, 100% 100%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: yc-tab-fill 5s linear forwards;
+  }
+  @keyframes yc-tab-fill {
+    to { background-size: 100% 100%, 100% 100%; }
+  }
+  /* staje dok je kursor ili fokus u sekciji, i dok sekcija nije na ekranu */
+  .yc-feed__container:hover .yc-tab[aria-selected="true"],
+  .yc-feed__container:focus-within .yc-tab[aria-selected="true"],
+  .yc-feed:not(.is-inview) .yc-tab[aria-selected="true"] { animation-play-state: paused; }
+  .yc-tab:focus-visible {
+    outline: 2px solid var(--yc-burgundy);
+    outline-offset: -2px;
+  }
+
+  /* link ka celoj kolekciji aktivnog taba */
+
+  /* --- paneli --- */
+  /* svi paneli u istoj ćeliji: visina = najviši panel, pa promena taba ne trza;
+     sadržaj je dole, da slike rastu nagore kao i u kartici */
+  .yc-feed__panels {
+    grid-area: panels;
+    min-width: 0;
+    display: grid;
+  }
+  .yc-panel {
+    grid-area: 1 / 1;
+    align-self: end;
+    min-width: 0;
+  }
+  .yc-panel[hidden] {
+    display: block;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .yc-panel:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 0.5rem; }
+  .yc-panel.is-entering { animation: yc-panel-in .5s ease both; }
+  @keyframes yc-panel-in {
+    from { opacity: 0; transform: translateY(0.875rem); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .yc-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  /* --- kartica: slika u prirodnom formatu, poravnata po donjoj ivici; naslovi počinju u istoj liniji ---
+     teget "pomereni blok" crtaju senke slike i tela, pa prati stvarnu visinu slike */
+  .yc-card {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+  .yc-card__link {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    color: inherit;
+    text-decoration: none;
+  }
+  .yc-card__link:focus-visible { outline: 2px solid var(--yc-burgundy); outline-offset: 3px; }
+
+  .yc-card__media {
+    align-self: end;
+    overflow: hidden;
+    background: var(--yc-mist);
+    box-shadow: 0 0 0 var(--yc-navy);
+    transition: box-shadow .35s ease;
+  }
+  .yc-card__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform .6s cubic-bezier(.22,.61,.36,1);
+  }
+  .yc-card:hover .yc-card__media img { transform: scale(1.04); }
+
+  .yc-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding: 2rem 2rem 2.25rem;
+    background: var(--yc-white);
+    box-shadow: 0 0 0 var(--yc-navy), 0 1.125rem 2.5rem -26px rgba(5, 33, 73, .5);
+    transition: box-shadow .35s ease;
+  }
+  .yc-card:hover .yc-card__media,
+  .yc-card:focus-within .yc-card__media { box-shadow: 0.75rem 0.75rem 0 var(--yc-navy); }
+  .yc-card:hover .yc-card__body,
+  .yc-card:focus-within .yc-card__body { box-shadow: 0.75rem 0.75rem 0 var(--yc-navy), 0 1.125rem 2.5rem -26px rgba(5, 33, 73, .5); }
+  .yc-card__title {
+    margin: 0;
+    font-size: 1.4375rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--yc-navy);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-card__media, .yc-card__body, .yc-card__media img, .yc-tab { transition: none; }
+    .yc-tab[aria-selected="true"] { animation: none; }   /* bez automatske smene */
+    .yc-panel.is-entering { animation: none; }
+  }
+
+  /* --- tablet --- */
+  @media (max-width: 960px) {
+    .yc-feed__container { row-gap: 3.5rem; }
+    .yc-grid { gap: 2rem; }
+    .yc-card__body { padding: 1.625rem 1.5rem 1.875rem; }
+    .yc-card__title { font-size: 1.25rem; }
+  }
+
+  /* --- telefon: kartice u horizontalnom nizu sa "virenjem" sledeće --- */
+  @media (max-width: 720px) {
+    .yc-feed__head { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .yc-tabs { max-width: 100%; }
+    .yc-grid {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: 78%;
+      gap: 1.25rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 1.25rem;
+      margin: 0 -20px;
+      padding: 4px 2rem 1.75rem 1.25rem;
+      scrollbar-width: none;
+    }
+    .yc-grid::-webkit-scrollbar { display: none; }
+    .yc-card { scroll-snap-align: start; }
+  }
+
+  @media (max-width: 480px) {
+    .yc-feed { padding-left: 1rem; padding-right: 1rem; }
+    .yc-tabs { column-gap: 1.5rem; }
+    .yc-tab { font-size: 1.375rem; }
+    .yc-grid {
+      grid-auto-columns: 84%;
+      scroll-padding-inline: 1rem;
+      margin: 0 -16px;
+      padding: 4px 1.75rem 1.75rem 1rem;
+    }
+  }
+
+  /* =========================================================
+     Footer
+     ========================================================= */
+  .yc-footer {
+    --yc-footer-fs: 1.375rem;          /* jedna veličina teksta za ceo footer */
+    position: relative;
+    overflow: hidden;
+    padding: clamp(4.8rem, 8.8vw, 8rem) 1.5rem 0;
+    color: var(--yc-white);
+    background:
+      radial-gradient(90% 120% at 100% 0%, rgba(122, 31, 61, .95) 0%, rgba(122, 31, 61, .5) 32%, rgba(122, 31, 61, 0) 70%),
+      radial-gradient(60% 80% at 100% 100%, rgba(150, 110, 150, .45) 0%, rgba(150, 110, 150, 0) 70%),
+      linear-gradient(100deg, #041a3b 0%, var(--yc-navy) 40%, #1d2b56 100%);
+  }
+
+  .yc-footer__inner {
+    position: relative;
+    max-width: 70rem;
+    margin: 0 auto;
+    container-type: inline-size;   /* natpis se meri prema širini sadržaja */
+  }
+
+  .yc-footer__top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "brand nav";
+    align-items: start;
+    column-gap: clamp(4rem, 8vw, 8rem);
+    row-gap: 3.6rem;
+    padding-bottom: clamp(4.4rem, 8vw, 6.8rem);
+  }
+
+  /* --- brend --- */
+  .yc-footer__brand { grid-area: brand; }
+  /* --- navigacija --- */
+  .yc-footer__nav {
+    grid-area: nav;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    column-gap: clamp(4rem, 8vw, 8rem);
+  }
+  .yc-footer__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.125rem;
+    line-height: 1.4;
+  }
+  .yc-footer__link {
+    color: var(--yc-white);
+    font-size: var(--yc-footer-fs);
+    font-weight: 400;
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-footer__link:hover,
+  .yc-footer__link:focus-visible { opacity: 1; }
+
+  /* --- kontakt --- */
+  /* kontakt kao krupna tipografija: email i Instagram su glavni sadržaj */
+  /* ista veličina i ritam redova kao linkovi desno, pa se redovi poravnaju */
+  .yc-footer__contact-title {
+    margin: 0 0 1.125rem;
+    font-size: var(--yc-footer-fs);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: .02em;
+    color: var(--yc-white);
+  }
+  .yc-contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.125rem;
+    font-size: var(--yc-footer-fs);
+    line-height: 1.4;
+  }
+
+  /* bazno prigušeno, na hover 100% */
+  .yc-contact__item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .45em;
+    color: var(--yc-white);
+    text-decoration: none;
+    opacity: .72;
+    transition: opacity .25s ease;
+  }
+  .yc-contact__item:hover,
+  .yc-contact__item:focus-visible { opacity: 1; }
+  .yc-contact__icon {
+    flex: none;
+    display: inline-flex;
+  }
+  /* obe ikonice u istom kvadratu visine velikog slova (.82em u Oswaldu),
+     na istoj osnovnoj liniji kao tekst, pa tekst u oba reda počinje na istom mestu */
+  .yc-contact__icon svg { display: block; width: .82em; height: .82em; overflow: visible; }
+
+  .yc-contact__value {
+    font-weight: 400;
+    overflow-wrap: anywhere;
+  }
+
+  .yc-footer a:focus-visible { outline: 2px solid var(--yc-white); outline-offset: 4px; }
+
+  /* --- donja traka --- */
+  .yc-footer__bottom {
+    padding: 2rem 0;
+  }
+  .yc-footer__copy {
+    margin: 0;
+    text-align: center;
+    font-size: 0.9375rem;
+    font-weight: 300;
+    letter-spacing: .02em;
+    color: rgba(255, 255, 255, .6);
+  }
+
+  /* --- veliki natpis u dnu, kao "1918" gore --- */
+  .yc-footer__wordmark {
+    display: block;
+    margin: clamp(1.6rem, 4vw, 3.6rem) 0 -0.2em;
+    font-size: clamp(2.5rem, 12vw, 10.5rem);   /* rezerva za starije pretraživače */
+    font-size: calc(100cqw / 6.085);        /* slova tačno od leve do desne margine */
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--yc-white);
+    opacity: .06;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yc-footer__link, .yc-contact__item { transition: none; }
+  }
+
+  @media (max-width: 900px) {
+    .yc-footer__top {
+      grid-template-columns: auto auto;
+      grid-template-areas: "brand nav";
+      justify-content: space-between;
+      column-gap: 4rem;
+      row-gap: 3.6rem;
+    }
+    .yc-footer__nav { column-gap: 4rem; }
+  }
+
+  @media (max-width: 560px) {
+    .yc-footer { padding: 4.4rem 1rem 0; }
+    .yc-footer__top {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "brand"
+        "nav";
+      row-gap: 3.2rem;
+      padding-bottom: 4rem;
+    }
+    .yc-footer__nav { grid-template-columns: repeat(2, 1fr); column-gap: 1.5rem; }
+    .yc-footer__bottom { padding: 1.6rem 0; }
+    .yc-footer { --yc-footer-fs: 1.25rem; }
 </style>
-<link rel="stylesheet" href="../assets/search/search.css?v=7">
+<link rel="stylesheet" href="../assets/search/search.css?v=12">
 </head>
 <body>
 
@@ -609,7 +1010,7 @@
           </button>
         </li>
         <li class="yc-nav__lang-item">
-          <a class="yc-lang" href="../index.html" hreflang="sr" lang="sr-Latn" aria-label="Srpski">
+          <a class="yc-lang" href="../" hreflang="sr" lang="sr-Latn" aria-label="Srpski">
             <img class="yc-lang__flag yc-lang__flag--en" src="../assets/images/en.png" width="30" height="20" alt="">
             <img class="yc-lang__flag yc-lang__flag--sr" src="../assets/images/sr.png" width="30" height="20" alt="">
           </a>
@@ -646,7 +1047,7 @@
     <div class="yc-hero-dark__inner">
       <div class="yc-hero-dark__text">
         <h1 class="yc-hero-dark__title">We encourage the youth of Serbia to engage in <span class="yc-hero-dark__accent">global collaboration, self-improvement, education, and dialogue.</span></h1>
-        <p class="yc-hero-dark__lead">We work to strengthen Serbian - American relations and enhance the role of young people in advancing them.</p>
+        <p class="yc-hero-dark__lead">We work to strengthen Serbian-American relations and enhance the role of young people in advancing them.</p>
         <div class="yc-hero-dark__actions">
           <a class="yc-hero-dark__btn" href="./projects/">Projects</a>
           <a class="yc-hero-dark__link" href="./about-us/">About Us</a>
@@ -691,7 +1092,7 @@
   </div>
 </section>
 
-<section class="yc-quote" aria-label="President Woodrow Wilsons telegram to Nikola Pašić">
+<section class="yc-quote" aria-label="President Woodrow Wilson's telegram to Nikola Pašić">
   <div class="yc-quote__year" aria-hidden="true">1918</div>
 
   <div class="yc-quote__container">
@@ -712,24 +1113,209 @@
         <span class="yc-quote__mark" aria-hidden="true">“</span>
         <p class="yc-quote__text">
           We know the deep waters of suffering through which Serbia has passed and our sympathies
-          not only, but our profound friendship and an eager desire to help, follows your courageous
-          people through every state of the present tragical course of the war. I am sure that
+          not only, but our profound friendship and an eager desire to help, follow your courageous
+          people through every stage of the present tragical course of the war. I am sure that
           justice to Serbia stands at the very top of any program of justice in the thoughts of
-          every thinking and patriotic man in the United States
+          every thinking and patriotic man in the United States.
         </p>
       </blockquote>
 
       <div class="yc-quote__cite">
         <cite class="yc-quote__source">
-          <span class="yc-quote__source-title">President Woodrow Wilsons telegram to Nikola Pašić</span>
-          <span class="yc-quote__source-date">July 31st, 1918</span>
+          <span class="yc-quote__source-title">President Woodrow Wilson's telegram to Nikola Pašić</span>
+          <span class="yc-quote__source-date">July 31, 1918</span>
         </cite>
       </div>
     </div>
 
   </div>
 </section>
+
+<!-- =========================================================
+     Projects / Events / Blog / Recommendations
+     ========================================================= -->
+<section class="yc-feed" aria-labelledby="yc-feed-title">
+  <h2 class="yc-visually-hidden" id="yc-feed-title">Latest from Youth Caucus</h2>
+
+  <div class="yc-feed__container yc-reveal">
+
+    <div class="yc-feed__head">
+    <div class="yc-tabs" role="tablist" aria-label="Content categories">
+      <button class="yc-tab" type="button" role="tab" id="yc-tab-projects" aria-controls="yc-panel-projects" aria-selected="true">Projects</button>
+      <button class="yc-tab" type="button" role="tab" id="yc-tab-events" aria-controls="yc-panel-events" aria-selected="false" tabindex="-1">Events</button>
+      <button class="yc-tab" type="button" role="tab" id="yc-tab-blog" aria-controls="yc-panel-blog" aria-selected="false" tabindex="-1">Blog</button>
+      <button class="yc-tab" type="button" role="tab" id="yc-tab-recommendations" aria-controls="yc-panel-recommendations" aria-selected="false" tabindex="-1">Recommendations</button>
+    </div>
+    </div>
+
+    <div class="yc-feed__panels">
+
+      <!-- Projects -->
+      <div class="yc-panel" role="tabpanel" id="yc-panel-projects" aria-labelledby="yc-tab-projects" tabindex="0">
+        <ul class="yc-grid">
+          <li class="yc-card">
+            <a class="yc-card__link" href="./projects/third-cycle-of-the-ethics-school-programme/">
+              <div class="yc-card__media"><img src="../projekti/treci-ciklus-programa-skole-etike/images/treci-ciklus-programa-skole-etike.webp" width="475" height="548" alt="" loading="lazy"></div>
+              <div class="yc-card__body"><h3 class="yc-card__title">Third Cycle of the Ethics School Programme</h3></div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="./projects/program-america-dream-build-achieve/">
+              <div class="yc-card__media"><img src="../projekti/program-america-dream-build-achieve/images/program-america-dream-build-achieve.webp" width="1287" height="1592" alt="" loading="lazy"></div>
+              <div class="yc-card__body"><h3 class="yc-card__title">Program America - Dream. Build. Achieve.</h3></div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="./projects/the-second-cycle-of-the-school-of-ethics-program/">
+              <div class="yc-card__media"><img src="../projekti/drugi-ciklus-programa-skole-etike/images/drugi-ciklus-programa-skole-etike.webp" width="1080" height="1080" alt="" loading="lazy"></div>
+              <div class="yc-card__body"><h3 class="yc-card__title">The Second Cycle of the School of Ethics Program</h3></div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Events -->
+      <div class="yc-panel" role="tabpanel" id="yc-panel-events" aria-labelledby="yc-tab-events" tabindex="0" hidden>
+        <ul class="yc-grid">
+          <li class="yc-card">
+            <a class="yc-card__link" href="./events/guest-appearance-on-newsmax-balkans-morning-show/">
+              <div class="yc-card__media"><img src="../dogadjaji/gostovanje-na-newsmax-balkans-jutarnjem-programu/images/1795188171770598.webp" width="2264" height="1290" alt="" loading="lazy"></div>
+              <div class="yc-card__body"><h3 class="yc-card__title">Guest appearance on Newsmax Balkans morning show</h3></div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="./events/visit-to-vega-it-company-headquarters/">
+              <div class="yc-card__media"><img src="../dogadjaji/poseta-sedistu-kompanije-vega-it/images/1795044530920506.webp" width="3024" height="4032" alt="" loading="lazy"></div>
+              <div class="yc-card__body"><h3 class="yc-card__title">Visit to Vega IT company headquarters</h3></div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="./events/meeting-with-the-managment-of-the-faculty-of-political-sciences-university-of-belgrade/">
+              <div class="yc-card__media"><img src="../dogadjaji/sastanak-sa-upravom-fakulteta-politickih-nauka-univerziteta-u-beogradu/images/6afdcc7a8b9488886022e499_badd0942.jpeg" width="2048" height="1536" alt="" loading="lazy"></div>
+              <div class="yc-card__body"><h3 class="yc-card__title">Meeting with the Management of the Faculty of Political Sciences, University of Belgrade</h3></div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Blog -->
+      <div class="yc-panel" role="tabpanel" id="yc-panel-blog" aria-labelledby="yc-tab-blog" tabindex="0" hidden>
+        <ul class="yc-grid">
+          <li class="yc-card">
+            <a class="yc-card__link" href="./blog/special-edition-of-diplomacy-commerce-marking-the-250th-anniversary-of-the-independence-of-the-united-states-of-america/">
+              <div class="yc-card__media"><img src="../blog/specijalno-izdanje-diplomacy-commerce-povodom-250-godina-nezavisnosti-sjedinjenih-americkih-drzava/images/specijalno-izdanje-diplomacy-commerce-povodom-250-godina-nezavisnosti-sjedinjenih-americkih-drzava.webp" width="995" height="1348" alt="" loading="lazy"></div>
+              <div class="yc-card__body"><h3 class="yc-card__title">Special edition of Diplomacy &amp; Commerce marking the 250th anniversary of the independence of the United States of America</h3></div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="./blog/what-the-launch-of-the-strategic-dialogue-means-for-young-people-in-serbia/">
+              <div class="yc-card__media"><img src="./blog/what-the-launch-of-the-strategic-dialogue-means-for-young-people-in-serbia/images/7069f565.jpeg" width="1080" height="1440" alt="" loading="lazy"></div>
+              <div class="yc-card__body"><h3 class="yc-card__title">What the Launch of the Strategic Dialogue Means for Young People in Serbia</h3></div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="./blog/250-years-of-united-states-of-america/">
+              <div class="yc-card__media"><img src="./blog/250-years-of-united-states-of-america/images/bf0e51f9.png" width="1024" height="1280" alt="" loading="lazy"></div>
+              <div class="yc-card__body"><h3 class="yc-card__title">250 years of United States of America</h3></div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Recommendations -->
+      <div class="yc-panel" role="tabpanel" id="yc-panel-recommendations" aria-labelledby="yc-tab-recommendations" tabindex="0" hidden>
+        <ul class="yc-grid">
+          <li class="yc-card">
+            <a class="yc-card__link" href="./caucus-recommendation/the-e-myth/">
+              <div class="yc-card__media"><img src="./caucus-recommendation/the-e-myth/images/the-e-myth.webp" width="750" height="1000" alt="" loading="lazy"></div>
+              <div class="yc-card__body"><h3 class="yc-card__title">The E-Myth</h3></div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="./caucus-recommendation/on-liberty-john-stuart-mill/">
+              <div class="yc-card__media"><img src="./caucus-recommendation/on-liberty-john-stuart-mill/images/on-liberty-john-stuart-mill.webp" width="750" height="1000" alt="" loading="lazy"></div>
+              <div class="yc-card__body"><h3 class="yc-card__title">On Liberty&nbsp;| John Stuart Mill</h3></div>
+            </a>
+          </li>
+          <li class="yc-card">
+            <a class="yc-card__link" href="./caucus-recommendation/no-rules-rules-reed-hastings-and-erin-meyer/">
+              <div class="yc-card__media"><img src="./caucus-recommendation/no-rules-rules-reed-hastings-and-erin-meyer/images/no-rules-rules-reed-hastings-and-erin-meyer.webp" width="750" height="1000" alt="" loading="lazy"></div>
+              <div class="yc-card__body"><h3 class="yc-card__title">No Rules Rules&nbsp;| Reed Hastings and Erin Meyer</h3></div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
 </main>
+
+<!-- =========================================================
+     Footer
+     ========================================================= -->
+<footer class="yc-footer">
+  <div class="yc-footer__inner">
+
+    <div class="yc-footer__top">
+      <div class="yc-footer__brand">
+        <div class="yc-footer__contact">
+          <p class="yc-footer__contact-title">Contact</p>
+          <ul class="yc-contact">
+            <li>
+              <a class="yc-contact__item" href="mailto:office@youthcaucus.rs">
+                <span class="yc-contact__icon" aria-hidden="true">
+                  <svg viewBox="2.2 2.2 19.6 19.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="5" width="18" height="14" rx="2"/>
+                    <path d="m3.8 6.4 8.2 6.3 8.2-6.3"/>
+                  </svg>
+                </span>
+                <span class="yc-contact__value">office@youthcaucus.rs</span>
+              </a>
+            </li>
+            <li>
+              <a class="yc-contact__item" href="https://www.instagram.com/youth_caucus" target="_blank" rel="noopener" aria-label="Instagram @youth_caucus">
+                <span class="yc-contact__icon" aria-hidden="true">
+                  <svg viewBox="2.2 2.2 19.6 19.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="5.2"/>
+                    <circle cx="12" cy="12" r="4.2"/>
+                    <circle cx="17.3" cy="6.7" r="1.05" fill="currentColor" stroke="none"/>
+                  </svg>
+                </span>
+                <span class="yc-contact__value">@youth_caucus</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <nav class="yc-footer__nav" aria-label="Footer navigation">
+        <div>
+          <ul class="yc-footer__list">
+            <li><a class="yc-footer__link" href="./" aria-current="page">Home</a></li>
+            <li><a class="yc-footer__link" href="./projects/">Projects</a></li>
+            <li><a class="yc-footer__link" href="./about-us/">About Us</a></li>
+            <li><a class="yc-footer__link" href="./senior-advisory-board/">Senior Advisory Board</a></li>
+          </ul>
+        </div>
+        <div>
+          <ul class="yc-footer__list">
+            <li><a class="yc-footer__link" href="./ethics-forum/">Ethics Forum</a></li>
+            <li><a class="yc-footer__link" href="./events/">Events</a></li>
+            <li><a class="yc-footer__link" href="./blog/">Blog</a></li>
+            <li><a class="yc-footer__link" href="./caucus-recommendation/">Caucus Recommendation</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="yc-footer__bottom">
+      <p class="yc-footer__copy">© 2026 Youth Caucus. All rights reserved.</p>
+    </div>
+
+    <div class="yc-footer__wordmark" aria-hidden="true">Youth Caucus</div>
+  </div>
+</footer>
 
 <script>
   (function () {
@@ -787,6 +1373,61 @@
     window.matchMedia('(min-width: 992px)').addEventListener('change', function (e) { if (e.matches) closeMenu(); });
   })();
 </script>
-<script src="../assets/search/search.js?v=7" defer></script>
+<script>
+  /* Tabs: Projects / Events / Blog / Recommendations */
+  (function () {
+    var tabs = [].slice.call(document.querySelectorAll('.yc-tab'));
+    var bar = document.querySelector('.yc-tabs');
+    var feed = document.querySelector('.yc-feed');
+
+    /* when the active tab fills with burgundy (5 s), move on to the next one */
+    bar.addEventListener('animationend', function (e) {
+      if (e.animationName !== 'yc-tab-fill') return;
+      var i = tabs.indexOf(e.target);
+      select(tabs[(i + 1) % tabs.length], false);
+    });
+
+    /* the fill runs only while the section is on screen */
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        feed.classList.toggle('is-inview', entries[0].isIntersecting);
+      }, { threshold: 0.35 }).observe(feed);
+    } else {
+      feed.classList.add('is-inview');
+    }
+
+    function select(tab, moveFocus) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        panel.hidden = !on;
+        if (on) {
+          panel.classList.remove('is-entering');
+          void panel.offsetWidth;            // restart the animation
+          panel.classList.add('is-entering');
+          panel.querySelector('.yc-grid').scrollLeft = 0;
+        }
+      });
+      /* bring the selected tab into view in the bar (phone) without scrolling the page */
+      bar.scrollLeft = Math.max(0, Math.min(bar.scrollLeft, tab.offsetLeft), tab.offsetLeft + tab.offsetWidth - bar.clientWidth);
+      if (moveFocus) tab.focus();
+    }
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { select(tab, false); });
+      tab.addEventListener('keydown', function (e) {
+        var next = null;
+        if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+        if (e.key === 'ArrowLeft')  next = tabs[(i - 1 + tabs.length) % tabs.length];
+        if (e.key === 'Home') next = tabs[0];
+        if (e.key === 'End')  next = tabs[tabs.length - 1];
+        if (next) { e.preventDefault(); select(next, true); }
+      });
+    });
+  })();
+</script>
+<script src="../assets/search/search.js?v=16" defer></script>
 </body>
 </html>
